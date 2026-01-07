@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30DayMapChallenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 2rem;
+            background-color: white;
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+            margin: 0 auto 2rem;
+        }
+
+        .nav-bar button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .nav-bar button:hover {
+            color: #2c3e50;
+            background-color: #f0f0f0;
+        }
+
+        .nav-bar button.active {
+            color: white;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .map-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .map-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-item h3 {
+            display: inline;
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .map-item p {
+            display: inline;
+            margin-left: 0.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .map-thumbnail {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            border: 1px solid #eee;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 80vw;
+            max-height: 90vh;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>30DayMapChallenge</h1>
+    </div>
+    <div class="nav-bar">
+        <button class="active" data-year="2025">2025</button>
+        <button data-year="2024">2024</button>
+        <button data-year="2023">2023</button>
+    </div>
+    <div class="container" id="map-container">
+        <!-- Les rectangles seront générés ici -->
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Carte en grand">
+        </div>
+    </div>
+
+    <script>
+        // Données des thèmes et des miniatures (exemple)
+        const themes = {
+            2025: [
+                { title: "Points", thumbnail: "https://i.postimg.cc/XJSMZ6vy/CONDES-pot-de-fleur.jpg" },
+                { title: "Lignes", thumbnail: "https://via.placeholder.com/300x200?text=Lignes" },
+                { title: "Polygones", thumbnail: "https://via.placeholder.com/300x200?text=Polygones" },
+                { title: "Hexagones", thumbnail: "https://via.placeholder.com/300x200?text=Hexagones" },
+                { title: "Raster", thumbnail: "https://via.placeholder.com/300x200?text=Raster" },
+                { title: "Réseau", thumbnail: "https://via.placeholder.com/300x200?text=Réseau" },
+                { title: "Mouvement", thumbnail: "https://via.placeholder.com/300x200?text=Mouvement" },
+                { title: "3D", thumbnail: "https://via.placeholder.com/300x200?text=3D" },
+                { title: "Noir et blanc", thumbnail: "https://via.placeholder.com/300x200?text=Noir+et+blanc" },
+                { title: "Couleurs", thumbnail: "https://via.placeholder.com/300x200?text=Couleurs" },
+                { title: "Cartogramme", thumbnail: "https://via.placeholder.com/300x200?text=Cartogramme" },
+                { title: "Chaleur", thumbnail: "https://via.placeholder.com/300x200?text=Chaleur" },
+                { title: "Topographie", thumbnail: "https://via.placeholder.com/300x200?text=Topographie" },
+                { title: "OpenStreetMap", thumbnail: "https://via.placeholder.com/300x200?text=OpenStreetMap" },
+                { title: "Satellite", thumbnail: "https://via.placeholder.com/300x200?text=Satellite" },
+                { title: "Historique", thumbnail: "https://via.placeholder.com/300x200?text=Historique" },
+                { title: "Futur", thumbnail: "https://via.placeholder.com/300x200?text=Futur" },
+                { title: "Nourriture", thumbnail: "https://via.placeholder.com/300x200?text=Nourriture" },
+                { title: "Eau", thumbnail: "https://via.placeholder.com/300x200?text=Eau" },
+                { title: "Art", thumbnail: "https://via.placeholder.com/300x200?text=Art" },
+                { title: "Musique", thumbnail: "https://via.placeholder.com/300x200?text=Musique" },
+                { title: "Globe", thumbnail: "https://via.placeholder.com/300x200?text=Globe" },
+                { title: "Minimaliste", thumbnail: "https://via.placeholder.com/300x200?text=Minimaliste" },
+                { title: "Densité", thumbnail: "https://via.placeholder.com/300x200?text=Densité" },
+                { title: "Accessibilité", thumbnail: "https://via.placeholder.com/300x200?text=Accessibilité" },
+                { title: "Météo", thumbnail: "https://via.placeholder.com/300x200?text=Météo" },
+                { title: "Végétation", thumbnail: "https://via.placeholder.com/300x200?text=Végétation" },
+                { title: "Transport", thumbnail: "https://via.placeholder.com/300x200?text=Transport" },
+                { title: "Économie", thumbnail: "https://via.placeholder.com/300x200?text=Économie" },
+                { title: "Libre", thumbnail: "https://via.placeholder.com/300x200?text=Libre" }
+            ],
+            2024: [
+                { title: "Points", thumbnail: "https://via.placeholder.com/300x200?text=Points" },
+                { title: "Lignes", thumbnail: "https://via.placeholder.com/300x200?text=Lignes" },
+                { title: "Polygones", thumbnail: "https://via.placeholder.com/300x200?text=Polygones" },
+                { title: "Hexagones", thumbnail: "https://via.placeholder.com/300x200?text=Hexagones" },
+                { title: "Raster", thumbnail: "https://via.placeholder.com/300x200?text=Raster" },
+                { title: "Réseau", thumbnail: "https://via.placeholder.com/300x200?text=Réseau" },
+                { title: "Mouvement", thumbnail: "https://via.placeholder.com/300x200?text=Mouvement" },
+                { title: "3D", thumbnail: "https://via.placeholder.com/300x200?text=3D" },
+                { title: "Noir et blanc", thumbnail: "https://via.placeholder.com/300x200?text=Noir+et+blanc" },
+                { title: "Couleurs", thumbnail: "https://via.placeholder.com/300x200?text=Couleurs" },
+                { title: "Cartogramme", thumbnail: "https://via.placeholder.com/300x200?text=Cartogramme" },
+                { title: "Chaleur", thumbnail: "https://i.postimg.cc/XJSMZ6vy/CONDES-pot-de-fleur.jpg" },
+                { title: "Topographie", thumbnail: "https://via.placeholder.com/300x200?text=Topographie" },
+                { title: "OpenStreetMap", thumbnail: "https://via.placeholder.com/300x200?text=OpenStreetMap" },
+                { title: "Satellite", thumbnail: "https://via.placeholder.com/300x200?text=Satellite" },
+                { title: "Historique", thumbnail: "https://via.placeholder.com/300x200?text=Historique" },
+                { title: "Futur", thumbnail: "https://via.placeholder.com/300x200?text=Futur" },
+                { title: "Nourriture", thumbnail: "https://via.placeholder.com/300x200?text=Nourriture" },
+                { title: "Eau", thumbnail: "https://via.placeholder.com/300x200?text=Eau" },
+                { title: "Art", thumbnail: "https://via.placeholder.com/300x200?text=Art" },
+                { title: "Musique", thumbnail: "https://via.placeholder.com/300x200?text=Musique" },
+                { title: "Globe", thumbnail: "https://via.placeholder.com/300x200?text=Globe" },
+                { title: "Minimaliste", thumbnail: "https://via.placeholder.com/300x200?text=Minimaliste" },
+                { title: "Densité", thumbnail: "https://via.placeholder.com/300x200?text=Densité" },
+                { title: "Accessibilité", thumbnail: "https://via.placeholder.com/300x200?text=Accessibilité" },
+                { title: "Météo", thumbnail: "https://via.placeholder.com/300x200?text=Météo" },
+                { title: "Végétation", thumbnail: "https://via.placeholder.com/300x200?text=Végétation" },
+                { title: "Transport", thumbnail: "https://via.placeholder.com/300x200?text=Transport" },
+                { title: "Économie", thumbnail: "https://via.placeholder.com/300x200?text=Économie" },
+                { title: "Libre", thumbnail: "https://via.placeholder.com/300x200?text=Libre" }
+            ],
+            2023: [
+                { title: "Points", thumbnail: "https://via.placeholder.com/300x200?text=Points" },
+                { title: "Lignes", thumbnail: "https://via.placeholder.com/300x200?text=Lignes" },
+                { title: "Polygones", thumbnail: "https://via.placeholder.com/300x200?text=Polygones" },
+                { title: "Hexagones", thumbnail: "https://via.placeholder.com/300x200?text=Hexagones" },
+                { title: "Raster", thumbnail: "https://via.placeholder.com/300x200?text=Raster" },
+                { title: "Réseau", thumbnail: "https://via.placeholder.com/300x200?text=Réseau" },
+                { title: "Mouvement", thumbnail: "https://via.placeholder.com/300x200?text=Mouvement" },
+                { title: "3D", thumbnail: "https://via.placeholder.com/300x200?text=3D" },
+                { title: "Noir et blanc", thumbnail: "https://via.placeholder.com/300x200?text=Noir+et+blanc" },
+                { title: "Couleurs", thumbnail: "https://via.placeholder.com/300x200?text=Couleurs" },
+                { title: "Cartogramme", thumbnail: "https://via.placeholder.com/300x200?text=Cartogramme" },
+                { title: "Chaleur", thumbnail: "https://via.placeholder.com/300x200?text=Chaleur" },
+                { title: "Topographie", thumbnail: "https://via.placeholder.com/300x200?text=Topographie" },
+                { title: "OpenStreetMap", thumbnail: "https://via.placeholder.com/300x200?text=OpenStreetMap" },
+                { title: "Satellite", thumbnail: "https://via.placeholder.com/300x200?text=Satellite" },
+                { title: "Historique", thumbnail: "https://via.placeholder.com/300x200?text=Historique" },
+                { title: "Futur", thumbnail: "https://via.placeholder.com/300x200?text=Futur" },
+                { title: "Nourriture", thumbnail: "https://via.placeholder.com/300x200?text=Nourriture" },
+                { title: "Eau", thumbnail: "https://i.postimg.cc/XJSMZ6vy/CONDES-pot-de-fleur.jpg" },
+                { title: "Art", thumbnail: "https://via.placeholder.com/300x200?text=Art" },
+                { title: "Musique", thumbnail: "https://via.placeholder.com/300x200?text=Musique" },
+                { title: "Globe", thumbnail: "https://via.placeholder.com/300x200?text=Globe" },
+                { title: "Minimaliste", thumbnail: "https://via.placeholder.com/300x200?text=Minimaliste" },
+                { title: "Densité", thumbnail: "https://via.placeholder.com/300x200?text=Densité" },
+                { title: "Accessibilité", thumbnail: "https://via.placeholder.com/300x200?text=Accessibilité" },
+                { title: "Météo", thumbnail: "https://via.placeholder.com/300x200?text=Météo" },
+                { title: "Végétation", thumbnail: "https://via.placeholder.com/300x200?text=Végétation" },
+                { title: "Transport", thumbnail: "https://via.placeholder.com/300x200?text=Transport" },
+                { title: "Économie", thumbnail: "https://via.placeholder.com/300x200?text=Économie" },
+                { title: "Libre", thumbnail: "https://via.placeholder.com/300x200?text=Libre" }
+            ]
+        };
+
+        // Générer les rectangles avec miniatures
+        function generateMapItems(year) {
+            const container = document.getElementById('map-container');
+            container.innerHTML = '';
+            themes[year].forEach((item, index) => {
+                const mapItem = document.createElement('div');
+                mapItem.className = 'map-item';
+                mapItem.innerHTML = `
+                    <h3>${index + 1}.</h3>
+                    <p>${item.title}</p>
+                    <img class="map-thumbnail" src="${item.thumbnail}" alt="${item.title}">
+                `;
+                mapItem.addEventListener('click', () => openModal(item.thumbnail));
+                container.appendChild(mapItem);
+            });
+        }
+
+        // Ouvrir la modal avec la carte en grand
+        function openModal(imageUrl) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-image');
+            modal.style.display = 'flex';
+            modalImg.src = imageUrl;
+            modalImg.onclick = () => window.open(imageUrl, '_blank');
+        }
+
+        // Fermer la modal
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        // Fermer la modal en cliquant à côté
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('modal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Changer d'année
+        document.querySelectorAll('.nav-bar button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.nav-bar button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+                const year = button.getAttribute('data-year');
+                generateMapItems(year);
+            });
+        });
+
+        // Générer par défaut pour 2025
+        generateMapItems('2025');
+    </script>
+</body>
+</html>
