@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cartographies – Julien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #05070f;
+      --panel: #0b1020;
+      --border: rgba(255,255,255,0.08);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #0b1020, #05070f 70%);
+      color: var(--text);
+    }
+
+    header {
+      max-width: 1200px;
+      margin: auto;
+      padding: 4.5rem 2rem 3rem;
+    }
+
+    header h1 {
+      margin: 0 0 1rem;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    header p {
+      max-width: 700px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Galerie */
+    .gallery {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 2rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2.2rem;
+    }
+
+    .item {
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+
+    .item:hover {
+      transform: translateY(-6px);
+    }
+
+    .thumb {
+      width: 100%;
+      height: auto; /* ratio naturel */
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .item h3 {
+      margin: .7rem 0 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    /* Popup */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,7,15,.9);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 10;
+    }
+
+    .popup {
+      max-width: 1100px;
+      width: 100%;
+      background: linear-gradient(180deg, #05070f, #05070f);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      animation: fadeUp .25s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .popup-header {
+      padding: 1.6rem 2rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .popup-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .popup-header span {
+      color: var(--muted);
+    }
+
+    .close {
+      font-size: 2.6rem;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    .close:hover { color: white; }
+
+    .popup-body {
+      padding: 0 2rem 2.2rem;
+    }
+
+    .popup-body img {
+      width: 100%;
+      height: auto;
+      max-height: 70vh; /* limite pour cartes verticales */
+      object-fit: contain;
+      border-radius: 14px;
+      margin: 1.2rem 0 1.4rem;
+      border: 1px solid var(--border);
+    }
+
+    .popup-body p {
+      max-width: 900px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .open-btn {
+      padding: .6rem 1.3rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      background: rgba(56,189,248,.15);
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid rgba(56,189,248,.35);
+      transition: background .2s ease;
+    }
+
+    .open-btn:hover {
+      background: rgba(56,189,248,.25);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Cartographies</h1>
+  <p>Travaux cartographiques réalisés sous QGIS : composition, analyse spatiale et choix graphiques orientés lisibilité.</p>
+</header>
+
+<section class="gallery" id="gallery"></section>
+
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <div>
+        <h2 id="p-title"></h2>
+        <span id="p-date"></span>
+      </div>
+      <span class="close" onclick="closePopup()">×</span>
+    </div>
+    <div class="popup-body">
+      <p id="p-description"></p>
+      <img id="p-image" src="" alt="">
+      <div class="popup-actions">
+        <a id="p-link" class="open-btn" target="_blank">Ouvrir la carte en grand</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © Julien — Portfolio cartographique
+</footer>
+
+<script>
+  /*
+    👉 AJOUTER UNE CARTE = AJOUTER UN OBJET ICI
+  */
+  const maps = [
+    {
+      title: "Cathédrale de Langres",
+      date: "2024",
+      thumb: "https://i.postimg.cc/Sxxmq4XS/LANGRES-cathedrale-5.jpg",
+      image: "https://i.postimg.cc/Sxxmq4XS/LANGRES-cathedrale-5.jpg",
+      description: "Carte verticale réalisée sous QGIS. Travail sur la composition, l'équilibre visuel et la hiérarchisation de l'information dans un format contraint.",
+      link: "https://i.postimg.cc/Sxxmq4XS/LANGRES-cathedrale-5.jpg"
+    },
+    {
+      title: "Cathédrale de Langres – Vue générale",
+      date: "2024",
+      thumb: "https://i.postimg.cc/90Bj5gCw/LANGRES-cathedrale-1.jpg",
+      image: "https://i.postimg.cc/90Bj5gCw/LANGRES-cathedrale-1.jpg",
+      description: "Carte horizontale mettant l'accent sur le contexte spatial et la lecture à moyenne échelle.",
+      link: "https://i.postimg.cc/90Bj5gCw/LANGRES-cathedrale-1.jpg"
+    }
+  ];
+
+  const gallery = document.getElementById('gallery');
+  const overlay = document.getElementById('overlay');
+
+  const pTitle = document.getElementById('p-title');
+  const pDate = document.getElementById('p-date');
+  const pImage = document.getElementById('p-image');
+  const pDescription = document.getElementById('p-description');
+  const pLink = document.getElementById('p-link');
+
+  maps.forEach((m, i) => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <img class="thumb" src="${m.thumb}" alt="">
+      <h3>${m.title}</h3>
+    `;
+    div.onclick = () => openPopup(i);
+    gallery.appendChild(div);
+  });
+
+  function openPopup(i) {
+    const m = maps[i];
+    pTitle.textContent = m.title;
+    pDate.textContent = m.date;
+    pImage.src = m.image;
+    pDescription.textContent = m.description;
+    pLink.href = m.link;
+    overlay.style.display = 'flex';
+  }
+
+  function closePopup() {
+    overlay.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
