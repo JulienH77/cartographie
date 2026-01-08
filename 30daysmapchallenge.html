@@ -109,14 +109,16 @@
             font-size: 0.9rem;
         }
 
-        .map-thumbnail {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 0.5rem;
-            border: 1px solid #eee;
-        }
+.map-thumbnail {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    border: 1px solid #eee;
+    background-color: #f0f0f0;
+}
+
 
         .modal {
             display: none;
@@ -285,11 +287,17 @@
             themes[year].forEach((item, index) => {
                 const mapItem = document.createElement('div');
                 mapItem.className = 'map-item';
-                mapItem.innerHTML = `
-                    <h3>${index + 1}.</h3>
-                    <p>${item.title}</p>
-                    <img class="map-thumbnail" src="${item.thumbnail}" alt="${item.title}">
-                `;
+mapItem.innerHTML = `
+    <h3>${index + 1}.</h3>
+    <p>${item.title}</p>
+    <img 
+        class="map-thumbnail" 
+        src="${item.thumbnail}" 
+        alt="${item.title}"
+        loading="lazy"
+    >
+`;
+
                 mapItem.addEventListener('click', () => openModal(item.thumbnail));
                 container.appendChild(mapItem);
             });
