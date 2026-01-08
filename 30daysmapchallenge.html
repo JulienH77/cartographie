@@ -131,21 +131,21 @@
             align-items: center;
         }
 
-        .modal-content {
-            max-width: 80vw;
-            max-height: 90vh;
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+		.modal-content {
+			max-width: 90vw;
+			max-height: 90vh;
+			padding: 1rem;
+		}
 
-        .modal img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            cursor: pointer;
-        }
+
+		.modal img {
+			max-width: 100%;
+			max-height: 90vh;
+			width: auto;
+			height: auto;
+			object-fit: contain;
+			display: block;
+		}
 
         .close {
             position: absolute;
@@ -296,18 +296,22 @@
         }
 
         // Ouvrir la modal avec la carte en grand
-        function openModal(imageUrl) {
-            const modal = document.getElementById('modal');
-            const modalImg = document.getElementById('modal-image');
-            modal.style.display = 'flex';
-            modalImg.src = imageUrl;
-            modalImg.onclick = () => window.open(imageUrl, '_blank');
-        }
+		function openModal(imageUrl) {
+			const modal = document.getElementById('modal');
+			const modalImg = document.getElementById('modal-image');
+			modal.style.display = 'flex';
+			modalImg.src = imageUrl;
+			document.body.style.overflow = 'hidden';
+			modalImg.onclick = () => window.open(imageUrl, '_blank');
+		}
+
 
         // Fermer la modal
-        document.querySelector('.close').addEventListener('click', () => {
-            document.getElementById('modal').style.display = 'none';
-        });
+		document.querySelector('.close').addEventListener('click', () => {
+			document.getElementById('modal').style.display = 'none';
+			document.body.style.overflow = '';
+		});
+
 
         // Fermer la modal en cliquant à côté
         window.addEventListener('click', (e) => {
