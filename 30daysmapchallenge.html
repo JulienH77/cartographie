@@ -308,16 +308,16 @@ mapItem.innerHTML = `
 			const modalImg = document.getElementById('modal-image');
 			modal.style.display = 'flex';
 			modalImg.src = imageUrl;
-			document.body.style.overflow = 'hidden';
+			/*document.body.style.overflow = 'hidden';*/
 			modalImg.onclick = () => window.open(imageUrl, '_blank');
 		}
 
 
         // Fermer la modal
-		document.querySelector('.close').addEventListener('click', () => {
+		/*document.querySelector('.close').addEventListener('click', () => {
 			document.getElementById('modal').style.display = 'none';
 			document.body.style.overflow = '';
-		});
+		});*/
 
 
         // Fermer la modal en cliquant à côté
