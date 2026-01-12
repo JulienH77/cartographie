@@ -24,25 +24,48 @@ body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
-  line-height:1.75;
+  /*line-height:1.75;*/
 }
+/* NAV */
+        .site-header {
+            background: #111;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-header{
-  text-align:center;
-  padding:4rem 1.5rem 3rem;
-}
-
-header h1{
-  font-size:2.6rem;
-  font-weight:700;
-  margin-bottom:0.5rem;
-}
-
-header p{
-  max-width:850px;
-  margin:auto;
-  color:var(--muted);
-}
+        .site-title {
+            font-weight: 600;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 0.95em;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            border-bottom: 2px solid white;
+        }
 
 main{
   max-width:950px;
@@ -53,215 +76,176 @@ main{
   gap:3.5rem;
 }
 
-section{
-  background:var(--card);
+/* FOOTER */
+.site-footer {
+	text-align: center;
+	padding: 20px;
+	font-size: 0.8em;
+	color: #777;
+}
+		
+.btn-primary,
+.btn-secondary{
+  padding:0.75rem 1.4rem;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:white;
+}
+
+.btn-primary:hover{
+  opacity:0.9;
+}
+
+.btn-secondary{
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:2.5rem;
-  box-shadow:0 15px 30px rgba(0,0,0,0.05);
-}
-
-section h2{
-  margin-top:0;
-  font-size:1.6rem;
-}
-
-section h2 a{
   color:var(--text);
-  text-decoration:underline;
-  text-decoration-color:var(--accent);
-  text-underline-offset:5px;
+  background:white;
 }
 
-section p{
-  color:var(--muted);
-  margin-bottom:1rem;
+.btn-secondary:hover{
+  background:#f1f5f9;
 }
 
-.gallery img{
-  width:100%;
-  margin-top:1.5rem;
-  border-radius:12px;
-  cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease;
+/* ABOUT */
+.about{
+  background:var(--card);
+  padding:3rem;
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin-top: 25px;
 }
 
-.gallery img:hover{
-  transform:scale(1.01);
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
+.about h2{
+  font-size:1.6rem;
+  margin-bottom:1.5rem;
 }
 
-.version{
-  margin-top:1.5rem;
-  font-weight:600;
+.about p{
+  margin-bottom:1.2rem;
+  color:#374151;
 }
 
-code{
-  display:block;
-  background:#111827;
-  color:#e5e7eb;
-  padding:1rem;
-  border-radius:10px;
-  overflow-x:auto;
-  font-size:.85rem;
-  margin:1.2rem 0;
+.signature{
+  margin-top:2rem;
+  font-style:italic;
 }
 
-/* LIGHTBOX */
-#lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
+/* GRID */
+.sections-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
 }
 
-#lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:12px;
-}
-
-footer{
-  text-align:center;
+.section-card{
+  background:var(--card);
   padding:2rem;
-  font-size:.85rem;
-  color:var(--muted);
+  border-radius:16px;
+  border:1px solid var(--border);
+  text-decoration:none;
+  color:var(--text);
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.section-card h3{
+  margin-bottom:0.5rem;
+}
+
+.section-card p{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+.section-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.06);
+}
+
 </style>
 </head>
 
 <body>
-
-<header>
-<h1>Productions cartographiques — QGIS</h1>
-<p>
-Toutes les cartes présentées ci-dessous ont été réalisées sous QGIS (3.34), uniquement par curiosité
-et par envie d’expérimenter.  
-Aucune retouche n’a été effectuée sur un logiciel externe.  
-<br><br>
-Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.
-</p>
-</header>
+	<header class="site-header">
+	    <nav class="nav">
+	        <div class="nav-left">
+	            <span class="site-title">Cartes QGIS</span>
+	        </div>
+	        <ul class="nav-links">
+	            <li><a href="index.html">Accueil</a></li>
+	            <li><a href="qgismaps.html" class="active">Cartes QGIS</a></li>
+	            <li><a href="wonderdraftmaps.html">Carte Wonderdraft</a></li>
+				<li><a href="30daymapchallenge.html">30 Day Map Challenge</a></li>
+	        </ul>
+	    </nav>
+	</header>
 
 <main>
 
-<section>
-<h2><a href="#">La zone de visibilité de la tour Eiffel</a></h2>
-<p>
-Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin
-<em>Visibility Analysis</em>.
-</p>
-<p>
-J’ai d’abord délimité le contour du sujet à l’aide de la couche des bâtiments de la BDTOPO,
-puis généré une grille de points avec un espacement d’environ 3 mètres.
-Un second calcul m’a permis de définir le rayon d’observation et l’altitude de visualisation
-(1,60 m, correspondant à la hauteur moyenne d’une personne).
-Une fois les calculs terminés, je me suis concentré sur l’habillage de la carte.
-Et oui… le phare de la tour Eiffel est malheureusement loupé.
-</p>
-<div class="gallery">
-<img src="maps/VISIBILITY_ANALYSIS_Tour_effeil_3000m.png" alt="Zone de visibilité tour Eiffel">
-</div>
+<section class="about">
+  <h2>MES CARTOGRAPHIES</h2>
+
+  <p>
+    Passionné par la géomatique, j’ai créé ce site pour partager les cartes
+    que je réalise pendant mon temps libre. Pour moi, la cartographie est
+    bien plus qu’un outil technique : c’est un terrain d’exploration,
+    un moyen de raconter des histoires, de représenter le monde sous
+    différents angles.
+  </p>
+
+  <p>
+    Ce portfolio est à la fois un carnet de bord et un laboratoire :
+    j’y expérimente différents styles, je teste des rendus, des approches
+    visuelles et techniques, parfois classiques, parfois plus audacieuses.
+    Je n’ai pas envie de me limiter à un seul style ou à une seule façon
+    de faire. Ce qui me plaît, c’est justement d’essayer, d’apprendre
+    et d’évoluer en permanence.
+  </p>
+
+  <p>
+    Carte réaliste, stylisée, minimaliste ou artistique : chaque projet
+    est une occasion d’aller un peu plus loin dans ma compréhension de
+    la carte comme objet graphique et informatif.
+  </p>
+
+  <p class="signature">
+    Bonne visite,<br>
+    <strong>Julien</strong>
+  </p>
 </section>
 
-<section>
-<h2><a href="#">La France et ses régions en origami</a></h2>
-<p>
-Cette carte a été réalisée exclusivement avec les outils natifs de QGIS.
-</p>
-<p>
-À partir des régions en format GeoJSON, je les ai d’abord simplifiées, puis séparées en
-12 couches distinctes. J’ai supprimé les trous et les îles dans les géométries avant
-d’extraire les sommets de chaque région.
-J’ai ensuite appliqué une triangulation de Delaunay, région par région.
-Certains triangles ont dû être supprimés manuellement car ils ne respectaient pas la
-forme réelle des régions. Le travail s’est terminé par la symbologie.
-</p>
-<div class="gallery">
-<img src="maps/FRANCE_origami.png" alt="France origami">
-</div>
+<section class="sections-grid">
+  <a href="qgismaps.html" class="section-card">
+    <h3>Cartes QGIS</h3>
+    <p>Analyses spatiales, cartes thématiques et rendus cartographiques.</p>
+  </a>
+
+  <a href="wonderdraftmaps.html" class="section-card">
+    <h3>Cartes illustrées</h3>
+    <p>Cartes stylisées, fantasy ou narratives réalisées avec Wonderdraft.</p>
+  </a>
+
+  <a href="30daymapchallenge.html" class="section-card">
+    <h3>30 Day Map Challenge</h3>
+    <p>Explorations cartographiques quotidiennes autour de thèmes imposés.</p>
+  </a>
 </section>
 
-<section>
-<h2><a href="#">Les bancs de Chaumont</a></h2>
-<p>
-Cette carte a été produite avec les outils de base de QGIS et un habillage issu des données
-de la BDTOPO.
-</p>
-<p>
-Le plus long a été la collecte de l’information : de nombreuses heures passées sur Google
-Street View à repérer les bancs rue par rue, complétées par des relevés sur le terrain
-dans les zones non couvertes.  
-Les deux versions présentées ne sont pas totalement à jour… et honnêtement, je n’ai
-pas eu le courage de refaire toutes les rues.
-</p>
 
-<div class="version">Version 1</div>
-<div class="gallery">
-<img src="img/bancs_v1.jpg" alt="Bancs Chaumont v1">
-</div>
-
-<div class="version">Version 2</div>
-<div class="gallery">
-<img src="img/bancs_v2.jpg" alt="Bancs Chaumont v2">
-</div>
-</section>
-
-<section>
-<h2><a href="#">Le trajet de mon vol vers la Chine</a></h2>
-<p>
-Cette carte a été réalisée avec les outils de base de QGIS et deux plugins.
-</p>
-<p>
-J’ai utilisé le plugin <em>Globe Builder</em> afin de produire une projection en globe.
-Les trajectoires ont été relevées sur Flightradar24, puis retracées manuellement dans QGIS
-sous forme de segments horaires, avec pour chacun une heure de départ et une heure d’arrivée.
-</p>
-<p>
-Pour attribuer des horaires précis aux points générés le long de la trajectoire,
-j’ai créé deux champs calculés :
-</p>
-
-<code>
-TIMSTAMP_S : epoch("start_date") + ( "distance" / maximum("distance") ) * (epoch("end_date") - epoch("start_date"))
-TIMSTAMP_T : format_date(datetime_from_epoch("timstamp_s"), 'yyyy-MM-dd HH:mm:ss')
-</code>
-
-<p>
-L’animation temporelle a ensuite été réalisée avec le plugin TimeManager,
-puis les images ont été assemblées pour produire le GIF final.
-</p>
-
-<div class="gallery">
-<img src="img/vol_chine.gif" alt="Vol vers la Chine">
-</div>
-</section>
-
-<!-- Le reste suit exactement le même principe -->
-<!-- Tu peux dupliquer les sections, le style est prêt -->
 
 </main>
 
-<footer>
-© 2026 — Portfolio cartographique QGIS
-</footer>
+	<footer class="site-footer">
+	    Réalisé par moi-même – pour mon propre plaisir
+	</footer>
 
 <div id="lightbox" onclick="this.style.display='none'">
   <img src="" alt="">
 </div>
-
-<script>
-document.querySelectorAll('.gallery img').forEach(img=>{
-  img.addEventListener('click',()=>{
-    const lb=document.getElementById('lightbox');
-    lb.style.display='flex';
-    lb.querySelector('img').src=img.src;
-  });
-});
-</script>
 
 </body>
 </html>
