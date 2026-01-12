@@ -167,6 +167,20 @@ code{
   border-radius:12px;
 }
 
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+}
+
+.video-container iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
         /* FOOTER */
         .site-footer {
             text-align: center;
@@ -174,6 +188,7 @@ code{
             font-size: 0.8em;
             color: #777;
         }
+
 </style>
 </head>
 
@@ -358,18 +373,15 @@ Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des cham
 <p>J'ai retracé à la main les trajets sur les routes pour visualiser où nous sommes passé. Pour ce qui est des horaires, J'ai juste mis l'heure de départ et l'heure d'arrivée. Ensuite j'ai utilisé la fonction native de QGIS pour tracer des points tous les X km sur les lignes et j'y ai mis l'image du type de transport dessus et j'ai ajouté deux champs calculé. Ce sont les mêmes que pour cette carte ci : Mon voyage vers la chine.</p>
 <p>J'ai par la suite fait un atlas pour imprimer chaque image que j'ai fusionné pour faire ce fichier mp4 avec Shutter encoder.</p>
 <p>Voici une vidéo test à refaire car pas mal de problème d'images dans la vidéo au mauvais endroit.</p>
-<div class="gallery">
-<div class="gallery">
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/M7x3jNXXkRw"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen>
-</iframe>
-</div></div>
+<div class="video-container">
+  <iframe
+    src="https://www.youtube.com/embed/M7x3jNXXkRw"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
 </section>
 
 
