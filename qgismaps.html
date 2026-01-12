@@ -122,15 +122,18 @@ section p{
 }
 
 .gallery img{
-  width:100%;
+  width:70%;
   margin-top:1.5rem;
   border-radius:12px;
   cursor:pointer;
   transition:transform .2s ease, box-shadow .2s ease;
+  filter: blur(0px) contrast(1);
+  transition: filter 0.2s ease, transform 0.2s ease;
 }
 
 .gallery img:hover{
-  transform:scale(1.01);
+  filter: blur(0);
+  transform: scale(1.01);
   box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
@@ -188,7 +191,6 @@ code{
             font-size: 0.8em;
             color: #777;
         }
-
 </style>
 </head>
 
@@ -384,7 +386,7 @@ Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des cham
 <p>Ensuite j'ai affiché en gris les bâtiments encore debout n'ayant pas de date de création dans les données et en rouge ceux en contenant une. J'ai mis le plugin TimeManager en marche avec le champ des données des bâtiments et j'ai lancé l'enregistrement que j'ai transformé en GIF. Les dates du GIF vont de 1450 à 2020 mais dans les données elles varient de 1300 à 2018.</p>
 <div class="gallery">
 <img
-  src="maps/QGIS/thumbs/THUMBS__CHAUMONT_date_batiments.gif"
+  src="maps/QGIS/CHAUMONT_date_batiments.gif"
   data-full="maps/QGIS/CHAUMONT_date_batiments.gif"
   alt="Date des bâtiments de chaumont animé"
   loading="lazy">
@@ -579,7 +581,7 @@ make_line(<br>
 <div id="lightbox">
   <img src="" alt="">
 </div>
-	
+
 <script>
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = lightbox.querySelector('img');
