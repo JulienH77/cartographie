@@ -215,7 +215,11 @@ Cette carte a été produite sur Wonderdraft.
 Je voulais essayé de faire une île avec en découvrant le logiciel.
 </p>
 <div class="gallery">
-<img src="maps/wonderdraft/premiere_carte.png" alt="Ma première carte">
+<img
+  src="maps/wonderdraft/THUMBS__premiere_carte.png"
+  data-full="maps/wonderdraft/premiere_carte.png"
+  alt="Ma première carte"
+  loading="lazy">
 </div>
 </section>
 
@@ -228,7 +232,11 @@ Cette carte a été produite sur Wonderdraft.
 Je voulais faire une carte de mon département avec un style ancien (ça rend BEAUCOUP mieux en papier).
 </p>
 <div class="gallery">
-<img src="maps/wonderdraft/Old_style_Haute-Marne.png" alt="Haute-Marne avec un style ancien">
+<img
+  src="maps/wonderdraft/THUMBS__Old_style_Haute-Marne.png"
+  data-full="maps/wonderdraft/Old_style_Haute-Marne.png"
+  alt="Haute-Marne avec un style ancien"
+  loading="lazy">
 </div>
 </section>
 
@@ -249,9 +257,9 @@ Je voulais faire une carte de mon département avec un style ancien (ça rend BE
 <script>
 document.querySelectorAll('.gallery img').forEach(img=>{
   img.addEventListener('click',()=>{
-    const lb=document.getElementById('lightbox');
-    lb.style.display='flex';
-    lb.querySelector('img').src=img.src;
+    const lb = document.getElementById('lightbox');
+    lb.style.display = 'flex';
+    lb.querySelector('img').src = img.dataset.full;
   });
 });
 </script>
