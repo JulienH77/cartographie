@@ -91,7 +91,6 @@ main{
   max-width:1200px;
   margin:auto;
   padding:0 1.5rem 4rem;
-
   column-count: 2;
   column-gap: 20px;
 }
@@ -134,7 +133,8 @@ section p{
 
 .gallery img{
   width:100%;
-  margin-top:1.5rem;
+  aspect-ratio: 4 / 3; /* ou 16 / 9 selon tes cartes */
+  object-fit: cover;  margin-top:1.5rem;
   border-radius:12px;
   cursor:pointer;
   transition:transform .2s ease, box-shadow .2s ease;
