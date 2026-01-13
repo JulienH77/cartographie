@@ -101,8 +101,6 @@ main{
   }
 }
 
-
-
 section{
   background:var(--card);
   border:1px solid var(--border);
@@ -111,7 +109,7 @@ section{
   box-shadow:0 15px 30px rgba(0,0,0,0.05);
   padding:2rem;
   break-inside: avoid;
-  margin-bottom: 20px; /* espace vertical entre sections */
+  margin-bottom: 40px;
 }
 
 section h2{
@@ -133,8 +131,8 @@ section p{
 
 .gallery img{
   width:100%;
-  aspect-ratio: 4 / 3; /* ou 16 / 9 selon tes cartes */
-  object-fit: cover;  margin-top:1.5rem;
+  object-fit: cover;
+  margin-top:1.5rem;
   border-radius:12px;
   cursor:pointer;
   transition:transform .2s ease, box-shadow .2s ease;
@@ -462,8 +460,8 @@ make_line(<br>
   <span style="margin-left:35px;"></span>make_point(x_max($geometry), y(centroid($geometry)))<br>
 )
 </code>
-<p>J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : substr("name", @row_number, 1)</p>
-<p>Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : - (x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</p>
+<p>J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : </p><code style="font-size: 0.9em">substr("name", @row_number, 1)</code>
+<p>Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : </p></p><code style="font-size: 0.9em">-(x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</code>
 <p>Puis vient le code pour la taille des caractères où j'ai récupéré la longueur de la ligne faite avec le générateur de géométrie tracé avant (le résultat est en mètres à l'échelle) :</p> <code style="font-size: 0.9em">clamp(50000,"longueur" * 33, 90000)</code>
 <p>J'ai eu du mal pour le choix des couleurs (que je n'apprécie toujours pas trop) mais voici le résultat final avec un planisphère et deux cartes en globe.</p>
 <div class="version">Version 1</div>
