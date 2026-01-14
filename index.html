@@ -173,13 +173,13 @@ main{
 	<header class="site-header">
 	    <nav class="nav">
 	        <div class="nav-left">
-	            <span class="site-title">Accueil</span>
+	            <span data-i18n="nav_accueil" class="site-title">Accueil</span>
 	        </div>
 	        <ul class="nav-links">
-	            <li><a href="index.html" class="active">Accueil</a></li>
-	            <li><a href="qgismaps.html">Cartes QGIS</a></li>
-	            <li><a href="wonderdraftmaps.html">Carte Wonderdraft</a></li>
-				<li><a href="30daymapchallenge.html">30 Day Map Challenge</a></li>
+	            <li><a data-i18n="nav_accueil" href="index.html" class="active">Accueil</a></li>
+	            <li><a data-i18n="nav_qgis" href="qgismaps.html">Cartes QGIS</a></li>
+	            <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html">Cartes Wonderdraft</a></li>
+		    <li><a data-i18n="nav_30dmc" href="30daymapchallenge.html">30 Day Map Challenge</a></li>
 	        </ul>
 	    </nav>
 	</header>
@@ -187,9 +187,9 @@ main{
 <main>
 
 <section class="about">
-  <h2>MES CARTOGRAPHIES</h2>
+  <h2 data-i18n="title">MES CARTOGRAPHIES</h2>
 
-  <p>
+  <p data-i18n="texte1">
     Passionné par la géomatique, j’ai créé ce site pour partager les cartes
     que je réalise pendant mon temps libre. Pour moi, la cartographie est
     bien plus qu’un outil technique : c’est un terrain d’exploration,
@@ -197,7 +197,7 @@ main{
     différents angles.
   </p>
 
-  <p>
+  <p data-i18n="texte2">
     Ce portfolio est à la fois un carnet de bord et un laboratoire :
     j’y expérimente différents styles, je teste des rendus, des approches
     visuelles et techniques, parfois classiques, parfois plus audacieuses.
@@ -206,7 +206,7 @@ main{
     et d’évoluer en permanence.
   </p>
 
-  <p>
+  <p data-i18n="texte3">
     Carte réaliste, stylisée, minimaliste ou artistique : chaque projet
     est une occasion d’aller un peu plus loin dans ma compréhension de
     la carte comme objet graphique et informatif.
@@ -220,18 +220,18 @@ main{
 
 <section class="sections-grid">
   <a href="qgismaps.html" class="section-card">
-    <h3>Cartes QGIS</h3>
-    <p>Analyses spatiales, cartes thématiques et rendus cartographiques.</p>
+    <h3 data-i18n="mini_qgis">Cartes QGIS</h3>
+    <p data-i18n="mini_qgis_desc">Analyses spatiales, cartes thématiques et rendus cartographiques.</p>
   </a>
 
   <a href="wonderdraftmaps.html" class="section-card">
-    <h3>Cartes illustrées</h3>
-    <p>Cartes stylisées, fantasy ou narratives réalisées avec Wonderdraft.</p>
+    <h3 data-i18n="mini_wonderdraft">Cartes illustrées</h3>
+    <p data-i18n="mini_wonderdraft_desc">Cartes stylisées, fantasy ou narratives réalisées avec Wonderdraft.</p>
   </a>
 
   <a href="30daymapchallenge.html" class="section-card">
-    <h3>30 Day Map Challenge</h3>
-    <p>Explorations cartographiques quotidiennes autour de thèmes imposés.</p>
+    <h3 data-i18n="mini_30dmc">30 Day Map Challenge</h3>
+    <p data-i18n="mini_30dmc_desc">Explorations cartographiques quotidiennes autour de thèmes imposés.</p>
   </a>
 </section>
 
@@ -239,7 +239,7 @@ main{
 
 </main>
 
-	<footer class="site-footer">
+	<footer  data-i18n="footer" class="site-footer">
 	    Réalisé par moi-même – pour mon propre plaisir
 	</footer>
 
@@ -247,5 +247,6 @@ main{
   <img src="" alt="">
 </div>
 
+	<script src="langues/index_cartographie.js"></script>
 </body>
 </html>
