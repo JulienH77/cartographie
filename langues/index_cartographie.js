@@ -1,5 +1,7 @@
 const translations = {
 			fr: {
+				tab_title:"Productions cartographiques — QGIS",
+				
 				nav_accueil: "Accueil",
 				nav_qgis: "Cartes QGIS",
 				nav_wonderdraft: "Cartes Wonderdraft",
@@ -24,6 +26,8 @@ const translations = {
 			},
 
 			en: {
+				tab_title:"Map productions — QGIS",
+				
 				nav_accueil: "Home",
 				nav_qgis: "QGIS Maps",
 				nav_wonderdraft: "Wonderdraft Maps",
@@ -48,6 +52,8 @@ const translations = {
 			},
 
 			zh: {
+				tab_title:"地圖製作 — QGIS",
+				
 				nav_accueil: "歡迎",
 				nav_qgis: "QGIS地圖",
 				nav_wonderdraft: "Wonderdraft卡牌",
