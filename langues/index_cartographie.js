@@ -1,6 +1,6 @@
 const translations = {
 			fr: {
-				tab_title:"Productions cartographiques — QGIS",
+				tab_title:"Productions cartographiques",
 				
 				nav_accueil: "Accueil",
 				nav_qgis: "Cartes QGIS",
@@ -26,7 +26,7 @@ const translations = {
 			},
 
 			en: {
-				tab_title:"Map productions — QGIS",
+				tab_title:"Map productions",
 				
 				nav_accueil: "Home",
 				nav_qgis: "QGIS Maps",
@@ -52,7 +52,7 @@ const translations = {
 			},
 
 			zh: {
-				tab_title:"地圖製作 — QGIS",
+				tab_title:"地圖製作",
 				
 				nav_accueil: "歡迎",
 				nav_qgis: "QGIS地圖",
@@ -78,14 +78,33 @@ const translations = {
 			}
 		};
 
-		const userLang = navigator.language.slice(0, 2);
-		const lang = translations[userLang] ? userLang : "fr";
+// vérifie si l'utilisateur a déjà choisi une langue
+const savedLang = localStorage.getItem("lang");
 
-		document.documentElement.lang = lang;
+// récupère la langue du navigateur
+const browserLang = navigator.language.slice(0, 2);
 
-		document.querySelectorAll("[data-i18n]").forEach(el => {
-			const key = el.dataset.i18n;
-			if (translations[lang][key]) {
-				el.innerHTML = translations[lang][key];
-			}
-		});
+// décide quelle langue utiliser au chargement
+const lang = savedLang || (translations[browserLang] ? browserLang : "fr");
+
+function applyTranslations(lang) {
+  document.documentElement.lang = lang;
+  document.title = translations[lang].tab_title;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+}
+
+function setLang(newLang) {
+  if (!translations[newLang]) return; // sécurité
+  localStorage.setItem("lang", newLang); // mémorise
+  applyTranslations(newLang);           // applique
+  langBtn.textContent = newLang.toUpperCase(); // change texte du bouton
+}
+
+applyTranslations(lang);   // traduit la page au chargement
+langBtn.textContent = lang.toUpperCase(); // affiche la bonne langue dans le bouton
