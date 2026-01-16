@@ -293,6 +293,6 @@ const translations = {
 		document.querySelectorAll("[data-i18n]").forEach(el => {
 			const key = el.dataset.i18n;
 			if (translations[lang][key]) {
-				el.textContent = translations[lang][key];
+				el.innerHTML = translations[lang][key];
 			}
 		});
