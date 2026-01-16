@@ -285,14 +285,30 @@ const translations = {
 			}
 		};
 
-		const userLang = navigator.language.slice(0, 2);
-		const lang = translations[userLang] ? userLang : "fr";
+const userLang = navigator.language.slice(0, 2);
+const lang = translations[userLang] ? userLang : "fr";
 
-		document.documentElement.lang = lang;
+function applyTranslations(lang) {
+  document.documentElement.lang = lang;
+  document.title = translations[lang].tab_title;
 
-		document.querySelectorAll("[data-i18n]").forEach(el => {
-			const key = el.dataset.i18n;
-			if (translations[lang][key]) {
-				el.innerHTML = translations[lang][key];
-			}
-		});
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+}
+
+applyTranslations(lang);
+
+
+/*function setLang(lang) {
+  if (!translations[lang]) return;
+  localStorage.setItem('lang', lang);
+  applyTranslations(lang);
+}*/
+
+/*applyTranslations("fr");*/
+/*applyTranslations("en");*/
+/*applyTranslations("zh");*/
