@@ -1,0 +1,61 @@
+main{
+  max-width:950px;
+  margin:auto;
+  padding:0 1.5rem 4rem;
+  display:flex;
+  flex-direction:column;
+  gap:3.5rem;
+}
+
+.about{
+  background:var(--card);
+  padding:3rem;
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin-top: 25px;
+}
+
+.about h2{
+  font-size:1.6rem;
+  margin-bottom:1.5rem;
+}
+
+.about p{
+  margin-bottom:1.2rem;
+  color:#374151;
+}
+
+.signature{
+  margin-top:2rem;
+  font-style:italic;
+}
+
+.sections-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
+}
+
+.section-card{
+  background:var(--card);
+  padding:2rem;
+  border-radius:16px;
+  border:1px solid var(--border);
+  text-decoration:none;
+  color:var(--text);
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-card h3{
+  margin-bottom:0.5rem;
+}
+
+.section-card p{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+.section-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.06);
+}
