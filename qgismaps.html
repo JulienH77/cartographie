@@ -27,12 +27,16 @@ body{
   color:var(--text);
   /*line-height:1.75;*/
 }
+
+
 /* NAV */
         .site-header {
             background: #111;
             position: sticky;
             top: 0;
             z-index: 1000;
+			position: relative;
+			background: #000;
         }
         .nav {
             max-width: 1200px;
@@ -68,8 +72,105 @@ body{
             border-bottom: 2px solid white;
         }
 
+		.lang-switch {
+		  position: fixed;
+		  bottom: 20px;
+		  right: 20px;
+		  z-index: 1000;
+		}
 
 
+		#lang-btn {
+		  width: 48px;
+		  height: 48px;
+		  border-radius: 50%;
+		  background: #000;
+		  color: #fff;
+		  border: none;
+		  font-weight: 600;
+		  cursor: pointer;
+		  transition: 
+			  background 0.25s ease,
+			  color 0.25s ease,
+			  border-radius 0.25s ease;
+		  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+		  font-size:1.1rem;
+		}
+
+
+		@media (max-width: 768px) {
+		  .lang-switch {
+			position: absolute;
+			top: 50%;
+			right: 16px;
+			bottom: auto;
+			transform: translateY(-50%);
+		  }
+		  #lang-btn {
+			background: #fff;
+			color: #000;
+			box-shadow: none;
+			border: 1px solid rgba(0,0,0,0.15);
+		  }
+		  #lang-btn {
+			border: 1px solid rgba(0,0,0,0.15);
+		  }
+		  #lang-list {
+			top: 48px;
+			bottom: auto;
+			background: #fff;
+			transform: translateY(-10px);
+			transition: opacity 0.2s ease, transform 0.2s ease;
+
+		  }
+		  #lang-list li {
+			color: #000;
+		  }
+		  #lang-list li:hover {
+			background: #f0f0f0;
+		  }
+		}
+
+		.lang-switch.open #lang-btn {
+		  border-radius: 12px;
+		}
+		.lang-switch.open #lang-btn {
+		  border-radius: 8px;
+		}
+
+		#lang-list {
+		  position: absolute;
+		  right: 0;
+		  bottom: 56px;
+		  background: #000;
+		  list-style: none;
+		  padding: 8px 0;
+		  margin: 0;
+		  border-radius: 12px;
+		  opacity: 0;
+		  pointer-events: none;
+		  transform: translateY(10px);
+		  transition: opacity 0.25s ease, transform 0.25s ease;
+		}
+
+		.lang-switch.open #lang-list {
+		  opacity: 1;
+		  pointer-events: auto;
+		  transform: translateY(0);
+		}
+
+		#lang-list li {
+		  padding: 8px 16px;
+		  max-width: 48px;
+		  color: #fff;
+		  cursor: pointer;
+		}
+		#lang-btn:hover {
+		  transform: scale(1.05);
+		}
+		#lang-list li:hover {
+		  background: #222;
+		}
 
 #intro{
   text-align:center;
@@ -198,69 +299,6 @@ code{
 	font-size: 0.8em;
 	color: #777;
 }
-
-
-
-
-.site-header {
-  position: relative;
-  background: #000;
-}
-
-.lang-switch {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
-
-
-#lang-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: white;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.lang-switch.open #lang-btn {
-  border-radius: 8px;
-}
-
-#lang-list {
-  position: absolute;
-  right: 0;
-  top: 48px;
-  list-style: none;
-  padding: 6px 0;
-  margin: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.15);
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
-  transition: all 0.25s ease;
-}
-
-.lang-switch.open #lang-list {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-#lang-list li {
-  padding: 8px 14px;
-  cursor: pointer;
-}
-
-#lang-list li:hover {
-  background: #f0f0f0;
-}
-
 </style>
 </head>
 
