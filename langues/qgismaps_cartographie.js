@@ -285,8 +285,14 @@ const translations = {
 			}
 		};
 
-const userLang = navigator.language.slice(0, 2);
-const lang = translations[userLang] ? userLang : "fr";
+// vérifie si l'utilisateur a déjà choisi une langue
+const savedLang = localStorage.getItem("lang");
+
+// récupère la langue du navigateur
+const browserLang = navigator.language.slice(0, 2);
+
+// décide quelle langue utiliser au chargement
+const lang = savedLang || (translations[browserLang] ? browserLang : "fr");
 
 function applyTranslations(lang) {
   document.documentElement.lang = lang;
@@ -300,15 +306,12 @@ function applyTranslations(lang) {
   });
 }
 
-applyTranslations(lang);
+function setLang(newLang) {
+  if (!translations[newLang]) return; // sécurité
+  localStorage.setItem("lang", newLang); // mémorise
+  applyTranslations(newLang);           // applique
+  langBtn.textContent = newLang.toUpperCase(); // change texte du bouton
+}
 
-
-/*function setLang(lang) {
-  if (!translations[lang]) return;
-  localStorage.setItem('lang', lang);
-  applyTranslations(lang);
-}*/
-
-/*applyTranslations("fr");*/
-/*applyTranslations("en");*/
-/*applyTranslations("zh");*/
+applyTranslations(lang);   // traduit la page au chargement
+langBtn.textContent = lang.toUpperCase(); // affiche la bonne langue dans le bouton
