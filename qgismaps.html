@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title data-i18n="tab_title">Productions cartographiques — QGIS</title>
+<title>Productions cartographiques — QGIS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -129,9 +129,9 @@ section p{
   margin-top:1.5rem;
   border-radius:12px;
   cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease;
+  transition:transform .2s ease, box-shadow .2s ease, filter 0.2s ease;
   filter: blur(0px) contrast(1);
-  transition: filter 0.2s ease, transform 0.2s ease;
+
 }
 
 .gallery img:hover{
@@ -334,13 +334,12 @@ J'ai ensuite utilisé la fonction pour ajouter des points le long d'un ligne tou
 Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des champs calculés :<br>
 <span style="font-size: 0.8em;">Je commence par créer le champ timstamp_s (en décimal) et ensuite je crée le champ timstamp_t (en texte)</span>
 </p>
-
-<code style="font-size: 0.9em">
-<ul>
-<li>TIMSTAMP_S : epoch("start_date") + ( "distance" / maximum("distance") ) * (epoch("end_date") - epoch("start_date"))</li>
-<li>TIMSTAMP_T : format_date(datetime_from_epoch("timstamp_s"), 'yyyy-MM-dd HH:mm:ss')</li>
-</ul>
+<pre>
+<code>
+TIMSTAMP_S : epoch("start_date") + ( "distance" / maximum("distance") ) * (epoch("end_date") - epoch("start_date"))</li>
+TIMSTAMP_T : format_date(datetime_from_epoch("timstamp_s"), 'yyyy-MM-dd HH:mm:ss')</li>
 </code>
+</pre>
 
 <p data-i18n="sect5_desc3">J'ai ensuite lancé le plugin TimeManager et fait défiler l'animation temporelle. Je n'ai plus eu qu'a fusionner les images capturées par le plugin pour faire ce GIF.</p>
 
@@ -437,24 +436,35 @@ Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des cham
 <p data-i18n="sect11_desc2">J'ai retracé à la main tous les trajets sur les routes et j'ai placé aussi toutes les villes. J'ai cherché pour avoir les délimitations des territoires de l'époque mais malheureusement je n'ai rien trouvé d'exploitable.</p>
 <p data-i18n="sect11_desc3">Le plus complexe a été d'ajouter les noms des pays sur leur longueurs, avec une taille différentes et orientés vers le nord. Il y a quelques déformation en Afrique et en Asie du Sud-Est mais cela rend bien et j'en suis content.</p>
 <p data-i18n="sect11_desc4">Pour ce faire j'ai du tracer une ligne en générateur de géométrie qui est segmenté pour s'orienter : </p>
-<code style="font-size: 0.9em">
-make_line(<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry), y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.1, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.2, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.3, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.4, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.5, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.6, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.7, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.8, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.9, y(centroid($geometry))),<br>
-  <span style="margin-left:35px;"></span>make_point(x_max($geometry), y(centroid($geometry)))<br>
+<pre>
+<code>
+make_line(
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry), y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.1, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.2, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.3, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.4, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.5, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.6, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.7, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.8, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.9, y(centroid($geometry))),
+  <span style="margin-left:35px;"></span>make_point(x_max($geometry), y(centroid($geometry)))
 )
 </code>
-<p data-i18n="sect11_desc5">J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : </p><code style="font-size: 0.9em">substr("name", @row_number, 1)</code>
-<p data-i18n="sect11_desc6">Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : </p><code style="font-size: 0.9em">-(x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</code>
-<p data-i18n="sect11_desc7">Puis vient le code pour la taille des caractères où j'ai récupéré la longueur de la ligne faite avec le générateur de géométrie tracé avant (le résultat est en mètres à l'échelle) :</p> <code style="font-size: 0.9em">clamp(50000,"longueur" * 33, 90000)</code>
+</pre>
+<p data-i18n="sect11_desc5">J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : </p>
+<pre>
+<code>substr("name", @row_number, 1)</code>
+</pre>
+<p data-i18n="sect11_desc6">Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : </p>
+<pre>
+<code>-(x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</code>
+</pre>
+<p data-i18n="sect11_desc7">Puis vient le code pour la taille des caractères où j'ai récupéré la longueur de la ligne faite avec le générateur de géométrie tracé avant (le résultat est en mètres à l'échelle) :</p>
+<pre>
+<code>clamp(50000,"longueur" * 33, 90000)</code>
+</pre>
 <p data-i18n="sect11_desc8">J'ai eu du mal pour le choix des couleurs (que je n'apprécie toujours pas trop) mais voici le résultat final avec un planisphère et deux cartes en globe.</p>
 <div data-i18n="v1" class="version">Version 1</div>
 <div class="gallery">
@@ -575,11 +585,14 @@ make_line(<br>
 
 </main>
 
-	<footer data-i18n="footer" class="site-footer">
-	    Réalisé par moi-même – pour mon propre plaisir
-	</footer>
+<footer data-i18n="footer" class="site-footer">
+	Réalisé par moi-même – pour mon propre plaisir
+</footer>
 
-<div id="lightbox">
+<div id="lightbox"
+	 role="dialog"
+	 aria-modal="true"
+	 aria-hidden="true">
   <img src="" alt="">
 </div>
 
@@ -587,27 +600,26 @@ make_line(<br>
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = lightbox.querySelector('img');
 
-
-/*document.querySelectorAll('.gallery img').forEach(img=>{
-	img.addEventListener('click',()=>{
-		const lb=document.getElementById('lightbox');
-		lb.style.display='flex';
-		lb.querySelector('img').src=img.src;
-	});
-});*/
 document.querySelectorAll('.gallery img').forEach(img => {
   img.addEventListener('click', () => {
     lightbox.style.display = 'flex';
     lightboxImg.src = img.dataset.full;
+	/*if (!img.dataset.full) return;*/
+	lightbox.setAttribute('aria-hidden', 'false');
+
   });
 });
 
 // fermeture + nettoyage
 lightbox.addEventListener('click', () => {
   lightbox.style.display = 'none';
-  lightboxImg.src = ''; // <-- LE POINT CLÉ
+  lightboxImg.src = '';
+  lightbox.setAttribute('aria-hidden', 'true');
+
 });
 </script>
+
 <script src="langues/qgismaps_cartographie.js"></script>
+
 </body>
 </html>
