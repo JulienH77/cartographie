@@ -50,6 +50,7 @@ section img:hover{
   display: flex;
   flex-direction: column;
   gap: 40px;
+  width: 30%;
 }
 
 .version{
@@ -95,4 +96,5 @@ code{
   height: 100%;
   left: 0;
   top: 0;
+
 }
