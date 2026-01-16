@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>30DayMapChallenge</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="style/style_general.css" rel="stylesheet">
 
     <style>
 
@@ -131,30 +132,30 @@
             color: white;
             font-size: 2rem;
             cursor: pointer;
-        }
-		
-        /* FOOTER */
-        .site-footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8em;
-            color: #777;
-        }		
+        }	
     </style>
 </head>
 <body>
 	<header class="site-header">
 	    <nav class="nav">
 	        <div class="nav-left">
-	            <span class="site-title">30 Day Map Challenge</span>
+	            <span data-i18n="nav_wonderdraft" class="site-title">Cartes Wonderdraft</span>
 	        </div>
 	        <ul class="nav-links">
-	            <li><a href="index.html">Accueil</a></li>
-	            <li><a href="qgismaps.html">Cartes QGIS</a></li>
-	            <li><a href="wonderdraftmaps.html">Carte Wonderdraft</a></li>
-				<li><a href="30daymapchallenge.html" class="active">30 Day Map Challenge</a></li>
+	            <li><a data-i18n="nav_accueil" href="index.html">Accueil</a></li>
+	            <li><a data-i18n="nav_qgis" href="qgismaps.html">Cartes QGIS</a></li>
+	            <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html" class="active">Cartes Wonderdraft</a></li>
+				<li><a data-i18n="nav_30dmc" href="30daymapchallenge.html">30 Day Map Challenge</a></li>
 	        </ul>
-	    </nav>
+		</nav>
+		<div class="lang-switch">
+			<button id="lang-btn">FR</button>
+			<ul id="lang-list">
+				<li data-lang="fr">FR</li>
+				<li data-lang="en">EN</li>
+				<li data-lang="zh">ZH</li>
+			</ul>
+		</div>
 	</header>
 
 	<main>
@@ -174,11 +175,34 @@
         </div>
     </div>
 	</main>
-	<footer class="site-footer">
-	    Réalisé par moi-même – pour mon propre plaisir
-	</footer>
 
-    <script>
+	<footer data-i18n="footer" class="site-footer"></footer>
+
+
+<!-- OUVRIR / FERMER LE BOUTON DE LANGUE -->
+<script>
+const langSwitch = document.querySelector('.lang-switch');
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.addEventListener('click', () => {
+  langSwitch.classList.toggle('open');
+});
+
+document.querySelectorAll('#lang-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const selectedLang = item.dataset.lang;
+
+    setLang(selectedLang);
+    langSwitch.classList.remove('open');
+  });
+});
+</script>
+
+<!-- CHANGEMENT DE LANGUE -->
+<script src="langues/30dmc_cartographie.js"></script>
+
+
+<script>
         // Données des thèmes et des miniatures (exemple)
         const themes = {
             2025: [
