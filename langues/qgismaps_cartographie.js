@@ -105,7 +105,7 @@ const translations = {
 				title: "Map productions using QGIS",
 				title_desc: "All the maps shown below were created using QGIS (3.34), purely out of curiosity and a desire to experiment. No editing was done using external software.<br><br>To view the maps in high quality, simply click on them.",
 				
-				sect1_title: "THE VISIBILITY ZONE OF NOTRE-DAME DE PARIS",
+				sect1_title: "THE VISIBILITY ZONE OF<br>NOTRE-DAME DE PARIS",
 				sect1_prod: "This map was produced using a DSM (Digital Surface Model) and the <em>Visibility Analysis</em> plugin.",
 				sect1_desc: "This map is a test. I wanted to try the plugin, but my computer struggled to keep up if the study area was too far away. So I limited it to 500 meters.",
 				
