@@ -92,14 +92,6 @@ main{
   max-width:1200px;
   margin:auto;
   padding:0 1.5rem 4rem;
-  column-count: 2;
-  column-gap: 20px;
-}
-
-@media (max-width: 900px){
-  main{
-    column-count: 1;
-  }
 }
 
 section{
@@ -108,8 +100,6 @@ section{
   border-radius:16px;
   box-shadow:0 15px 30px rgba(0,0,0,0.05);
   padding:0 2rem 2rem 2rem;
-  break-inside: avoid;
-  margin-bottom: 40px;
 }
 
 section h2{
@@ -123,7 +113,21 @@ section p{
   margin-bottom:1rem;
 }
 
-.gallery img{
+.gallery {
+  display: flex;
+  gap: 20px;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 30%;
+}
+
+
+section img{
   width:100%;
   object-fit: cover;
   margin-top:1.5rem;
@@ -134,7 +138,7 @@ section p{
 
 }
 
-.gallery img:hover{
+section img:hover{
   filter: blur(0);
   transform: scale(1.01);
   box-shadow:0 10px 30px rgba(0,0,0,.15);
@@ -149,11 +153,11 @@ code{
   display:block;
   background:#111827;
   color:#e5e7eb;
-  padding:1rem;
+  padding:0.7rem;
   border-radius:10px;
   overflow-x:auto;
   font-size:.85rem;
-  margin:1.2rem 0;
+  margin: -20px 0;
 }
 
 /* LIGHTBOX */
@@ -187,13 +191,76 @@ code{
   top: 0;
 }
 
-        /* FOOTER */
-        .site-footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8em;
-            color: #777;
-        }
+/* FOOTER */
+.site-footer {
+	text-align: center;
+	padding: 20px;
+	font-size: 0.8em;
+	color: #777;
+}
+
+
+
+
+.site-header {
+  position: relative;
+  background: #000;
+}
+
+.lang-switch {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+
+#lang-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lang-switch.open #lang-btn {
+  border-radius: 8px;
+}
+
+#lang-list {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.lang-switch.open #lang-list {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#lang-list li {
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+#lang-list li:hover {
+  background: #f0f0f0;
+}
+
 </style>
 </head>
 
@@ -209,7 +276,15 @@ code{
 	            <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html">Cartes Wonderdraft</a></li>
 				<li><a data-i18n="nav_30dmc" href="30daymapchallenge.html">30 Day Map Challenge</a></li>
 	        </ul>
-	    </nav>
+		</nav>
+		<div class="lang-switch">
+			<button id="lang-btn">FR</button>
+			<ul id="lang-list">
+				<li data-lang="fr">FR</li>
+				<li data-lang="en">EN</li>
+				<li data-lang="zh">ZH</li>
+			</ul>
+		</div>
 	</header>
 <div id="intro">
 	<h1 data-i18n="title">Productions cartographiques sur QGIS</h1>
@@ -221,367 +296,425 @@ code{
 	Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.
 	</p>
 </div>
-<main>
 
 
 
 
-<section>
-<h2 data-i18n="sect1_title">LA ZONE DE VISIBILITÉ<br>DE NOTRE-DAME DE PARIS</h2>
-<p data-i18n="sect1_prod">
-Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin
-<em>Visibility Analysis</em>.
-</p>
-<p data-i18n="sect1_desc">
-Cette carte est un test. Je voulais essayé le plugin mais mon ordinateur avait du mal a suivre si la zone d'étude était trop éloignée. Je me suis donc contenté de 500 mètres.
-</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__PARIS_Notre_dame_de_Paris_500m.png"
-  data-full="maps/QGIS/PARIS_Notre_dame_de_Paris_500m.png"
-  alt="Zone de visibilité de Notre-Dame de Paris sur 500m"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect2_title">LA ZONE DE VISIBILITÉ DE LA TOUR EFFEIL</h2>
-<p data-i18n="sect2_prod">
-Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin
-<em>Visibility Analysis</em>.
-</p>
-<p data-i18n="sect2_desc">
-J’ai d’abord délimité le contour du sujet à l’aide de la couche des bâtiments de la BDTOPO,
-puis généré une grille de points avec un espacement d’environ 3 mètres.
-Un second calcul m’a permis de définir le rayon d’observation et l’altitude de visualisation
-(1,60 m, correspondant à la hauteur moyenne d’une personne).
-Une fois les calculs terminés, je me suis concentré sur l’habillage de la carte.
-Et oui… le phare de la tour Eiffel est malheureusement loupé.
-</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__PARIS_Tour_Effeil_3000m.png"
-  data-full="maps/QGIS/PARIS_Tour_Effeil_3000m.png"
-  alt="Zone de visibilité tour Eiffel sur 3km"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect3_title">LA FRANCE ET SES RÉGIONS EN ORIGAMI</h2>
-<p data-i18n="sect3_prod">Cette carte a été réalisée exclusivement avec les outils natifs de QGIS.</p>
-<p data-i18n="sect3_desc">
-À partir des régions en format GeoJSON, je les ai d’abord simplifiées, puis séparées en
-12 couches distinctes. J’ai supprimé les trous et les îles dans les géométries avant
-d’extraire les sommets de chaque région.
-J’ai ensuite appliqué une triangulation de Delaunay, région par région.
-Certains triangles ont dû être supprimés manuellement car ils ne respectaient pas la
-forme réelle des régions. Le travail s’est terminé par la symbologie.
-</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__FRANCE_origami.png"
-  data-full="maps/QGIS/FRANCE_origami.png"
-  alt="France origami"
-  loading="lazy">
-</div>
-</section>
+
+<main class="gallery">
+<div class="col">
+	<section>
+	<h2 data-i18n="sect1_title">LA ZONE DE VISIBILITÉ<br>DE NOTRE-DAME DE PARIS</h2>
+	<p data-i18n="sect1_prod">
+	Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin
+	<em>Visibility Analysis</em>.
+	</p>
+	<p data-i18n="sect1_desc">
+	Cette carte est un test. Je voulais essayé le plugin mais mon ordinateur avait du mal a suivre si la zone d'étude était trop éloignée. Je me suis donc contenté de 500 mètres.
+	</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__PARIS_Notre_dame_de_Paris_500m.png"
+	  data-full="maps/QGIS/PARIS_Notre_dame_de_Paris_500m.png"
+	  alt="Zone de visibilité de Notre-Dame de Paris sur 500m"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect4_title">LES BANCS DE CHAUMONT</h2>
-<p data-i18n="sect4_prod">Cette carte a été produite avec les outils de base de QGIS et un habillage issu des données de la BDTOPO.</p>
-<p data-i18n="sect4_desc">
-Le plus long a été la collecte de l’information : de nombreuses heures passées sur Google
-Street View à repérer les bancs rue par rue, complétées par des relevés sur le terrain
-dans les zones non couvertes.  
-Les deux versions présentées ne sont pas totalement à jour… et honnêtement, je n’ai
-pas eu le courage de refaire toutes les rues.
-</p>
-
-<div data-i18n="v1" class="version">Version 1</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V1.png"
-  data-full="maps/QGIS/CHAUMONT_bancs_V1.png"
-  alt="Bancs Chaumont v1"
-  loading="lazy">
-</div>
-
-<div data-i18n="v2" class="version">Version 2</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V2.png"
-  data-full="maps/QGIS/CHAUMONT_bancs_V2.png"
-  alt="Bancs Chaumont v2"
-  loading="lazy">
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect2_title">LA ZONE DE VISIBILITÉ DE LA TOUR EFFEIL</h2>
+	<p data-i18n="sect2_prod">
+	Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin
+	<em>Visibility Analysis</em>.
+	</p>
+	<p data-i18n="sect2_desc">
+	J’ai d’abord délimité le contour du sujet à l’aide de la couche des bâtiments de la BDTOPO,
+	puis généré une grille de points avec un espacement d’environ 3 mètres.
+	Un second calcul m’a permis de définir le rayon d’observation et l’altitude de visualisation
+	(1,60 m, correspondant à la hauteur moyenne d’une personne).
+	Une fois les calculs terminés, je me suis concentré sur l’habillage de la carte.
+	Et oui… le phare de la tour Eiffel est malheureusement loupé.
+	</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__PARIS_Tour_Effeil_3000m.png"
+	  data-full="maps/QGIS/PARIS_Tour_Effeil_3000m.png"
+	  alt="Zone de visibilité tour Eiffel sur 3km"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect5_title">LE TRAJET DE MON VOL VERS LA CHINE</h2>
-<p data-i18n="sect5_prod">Cette carte a été réalisée avec les outils de base de QGIS et deux plugins.</p>
-<p data-i18n="sect5_desc1">
-J’ai utilisé le plugin <em>Globe Builder</em> afin de produire une projection en globe.
-Les trajectoires ont été relevées sur Flightradar24, puis retracées manuellement dans QGIS
-sous forme de segments horaires, avec pour chacun une heure de départ et une heure d’arrivée.
-</p>
-<p data-i18n="sect5_desc2">
-J'ai ensuite utilisé la fonction pour ajouter des points le long d'un ligne tous les X mètres mais je ne sais plus combien j'ai pu mettre.<br><br> 
-Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des champs calculés :<br>
-<span style="font-size: 0.8em;">Je commence par créer le champ timstamp_s (en décimal) et ensuite je crée le champ timstamp_t (en texte)</span>
-</p>
-<pre>
-<code>
-TIMSTAMP_S : epoch("start_date") + ( "distance" / maximum("distance") ) * (epoch("end_date") - epoch("start_date"))</li>
-TIMSTAMP_T : format_date(datetime_from_epoch("timstamp_s"), 'yyyy-MM-dd HH:mm:ss')</li>
-</code>
-</pre>
-
-<p data-i18n="sect5_desc3">J'ai ensuite lancé le plugin TimeManager et fait défiler l'animation temporelle. Je n'ai plus eu qu'a fusionner les images capturées par le plugin pour faire ce GIF.</p>
-
-<div class="gallery">
-<img
-  src="img/vol_chine.gif"
-  data-full="img/vol_chine.gif"
-  alt="Vol vers la Chine animé (58Mo LMAO)"
-  loading="lazy">
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect3_title">LA FRANCE ET SES RÉGIONS EN ORIGAMI</h2>
+	<p data-i18n="sect3_prod">Cette carte a été réalisée exclusivement avec les outils natifs de QGIS.</p>
+	<p data-i18n="sect3_desc">
+	À partir des régions en format GeoJSON, je les ai d’abord simplifiées, puis séparées en
+	12 couches distinctes. J’ai supprimé les trous et les îles dans les géométries avant
+	d’extraire les sommets de chaque région.
+	J’ai ensuite appliqué une triangulation de Delaunay, région par région.
+	Certains triangles ont dû être supprimés manuellement car ils ne respectaient pas la
+	forme réelle des régions. Le travail s’est terminé par la symbologie.
+	</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__FRANCE_origami.png"
+	  data-full="maps/QGIS/FRANCE_origami.png"
+	  alt="France origami"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect6_title">MON VOYAGE EN CHINE</h2>
-<p data-i18n="sect6_prod">Cette carte a été produite avec les outils de base de QGIS.</p>
-<p data-i18n="sect6_desc">Rien de plus facile, j'ai du chercher le fond de carte adapté et j'ai placé à la main les points et lignes. Plus qu'à faire l'habillage de la carte.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__CHINE_mon_voyage_2025.png"
-  data-full="maps/QGIS/CHINE_mon_voyage_2025.png"
-  alt="Mon voyage en Chine"
-  loading="lazy">
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect4_title">LES BANCS DE CHAUMONT</h2>
+	<p data-i18n="sect4_prod">Cette carte a été produite avec les outils de base de QGIS et un habillage issu des données de la BDTOPO.</p>
+	<p data-i18n="sect4_desc">
+	Le plus long a été la collecte de l’information : de nombreuses heures passées sur Google
+	Street View à repérer les bancs rue par rue, complétées par des relevés sur le terrain
+	dans les zones non couvertes.  
+	Les deux versions présentées ne sont pas totalement à jour… et honnêtement, je n’ai
+	pas eu le courage de refaire toutes les rues.
+	</p>
+
+	<div data-i18n="v1" class="version">Version 1</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V1.png"
+	  data-full="maps/QGIS/CHAUMONT_bancs_V1.png"
+	  alt="Bancs Chaumont v1"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="v2" class="version">Version 2</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V2.png"
+	  data-full="maps/QGIS/CHAUMONT_bancs_V2.png"
+	  alt="Bancs Chaumont v2"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect7_title">LES ROUTES EN DIRECTION DE CHAUMONT</h2>
-<p data-i18n="sect7_prod">Cette carte a été produite avec les outils de base de QGIS.</p>
-<p data-i18n="sect7_desc">Je me suis encore une fois "baladé" sur Google StreetView à la recherche des panneaux de directions (hors autoroute) indiquant Chaumont le plus loin. Le visuel de la carte n'est vraiment pas bon mais je me suis dépêché sur la fin car je commençais à en avoir marre.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__FRANCE_panneaux_direction_Chaumont.jpeg"
-  data-full="maps/QGIS/FRANCE_panneaux_direction_Chaumont.jpeg"
-  alt="Rayonnement de Chaumont en France"
-  loading="lazy">
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect5_title">LE TRAJET DE MON VOL VERS LA CHINE</h2>
+	<p data-i18n="sect5_prod">Cette carte a été réalisée avec les outils de base de QGIS et deux plugins.</p>
+	<p data-i18n="sect5_desc1">
+	J’ai utilisé le plugin <em>Globe Builder</em> afin de produire une projection en globe.
+	Les trajectoires ont été relevées sur Flightradar24, puis retracées manuellement dans QGIS
+	sous forme de segments horaires, avec pour chacun une heure de départ et une heure d’arrivée.
+	</p>
+	<p data-i18n="sect5_desc2">
+	J'ai ensuite utilisé la fonction pour ajouter des points le long d'un ligne tous les X mètres mais je ne sais plus combien j'ai pu mettre.<br><br> 
+	Pour pouvoir ensuite donner des horaires précis aux points j'ai créer des champs calculés :<br>
+	<span style="font-size: 0.8em;">Je commence par créer le champ timstamp_s (en décimal) et ensuite je crée le champ timstamp_t (en texte)</span>
+	</p>
+	<pre>
+	<code>
+	TIMSTAMP_S : epoch("start_date") + ( "distance" / maximum("distance") ) * (epoch("end_date") - epoch("start_date"))</li>
+	TIMSTAMP_T : format_date(datetime_from_epoch("timstamp_s"), 'yyyy-MM-dd HH:mm:ss')</li>
+	</code>
+	</pre>
+
+	<p data-i18n="sect5_desc3">J'ai ensuite lancé le plugin TimeManager et fait défiler l'animation temporelle. Je n'ai plus eu qu'a fusionner les images capturées par le plugin pour faire ce GIF.</p>
+
+	<div class="gallery">
+	<img
+	  src="img/vol_chine.gif"
+	  data-full="img/vol_chine.gif"
+	  alt="Vol vers la Chine animé (58Mo LMAO)"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect8_title">DATE DE CRÉATION DES BÂTIMENTS ENCORE EXISTANT A CHAUMONT</h2>
-<p data-i18n="sect8_prod">Cette carte a été produite via les données de la BDTOPO et deux plugins, TimeManager et OpenTopography DEM Downloader.</p>
-<p data-i18n="sect8_desc1">J'ai ajouté dans QGIS les données de OpenTopography DEM Downloader pour le dénivelé du terrain et j'y ai ajouté les données de la BDTOPO.</p>
-<p data-i18n="sect8_desc2">Ensuite j'ai affiché en gris les bâtiments encore debout n'ayant pas de date de création dans les données et en rouge ceux en contenant une. J'ai mis le plugin TimeManager en marche avec le champ des données des bâtiments et j'ai lancé l'enregistrement que j'ai transformé en GIF. Les dates du GIF vont de 1450 à 2020 mais dans les données elles varient de 1300 à 2018.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/CHAUMONT_date_batiments.gif"
-  data-full="maps/QGIS/CHAUMONT_date_batiments.gif"
-  alt="Date des bâtiments de chaumont animé"
-  loading="lazy">
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect6_title">MON VOYAGE EN CHINE</h2>
+	<p data-i18n="sect6_prod">Cette carte a été produite avec les outils de base de QGIS.</p>
+	<p data-i18n="sect6_desc">Rien de plus facile, j'ai du chercher le fond de carte adapté et j'ai placé à la main les points et lignes. Plus qu'à faire l'habillage de la carte.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__CHINE_mon_voyage_2025.png"
+	  data-full="maps/QGIS/CHINE_mon_voyage_2025.png"
+	  alt="Mon voyage en Chine"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect9_title">VISUALISATION 3D DE LA HAUTE-MARNE</h2>
-<p data-i18n="sect9_prod">Cette carte a été produite via les données du MNT de l'IGN.</p>
-<p data-i18n="sect9_desc">J'ai segmenté tous les 50m (je crois) le raster pour ensuite les vectoriser et y ajouter les couleurs. J'ai placé par dessus le relief en semi transparent et je trouve ce rendu juste magnifique.</p>
-
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__HAUTE-MARNE_topographie.jpg"
-  data-full="maps/QGIS/HAUTE-MARNE_topographie.jpg"
-  alt="Altitude de la Haute-Marne"
-  loading="lazy">
-</div>
-</section>
-
-
-<section>
-<h2 data-i18n="sect10_title">TEST DE CARTE DE DÉPLACEMENT</h2>
-<p data-i18n="sect10_prod">Cette carte a été produite avec ma mémoire, GoogleMaps et Flightradar24.</p>
-<p data-i18n="sect10_desc1">J'ai retracé à la main les trajets sur les routes pour visualiser où nous sommes passé. Pour ce qui est des horaires, J'ai juste mis l'heure de départ et l'heure d'arrivée. Ensuite j'ai utilisé la fonction native de QGIS pour tracer des points tous les X km sur les lignes et j'y ai mis l'image du type de transport dessus et j'ai ajouté deux champs calculé. Ce sont les mêmes que pour cette carte ci : Mon voyage vers la chine.</p>
-<p data-i18n="sect10_desc2">J'ai par la suite fait un atlas pour imprimer chaque image que j'ai fusionné pour faire ce fichier mp4 avec Shutter encoder.</p>
-<p data-i18n="sect10_desc3">Voici une vidéo test à refaire car pas mal de problème d'images dans la vidéo au mauvais endroit.</p>
-<div class="video-container">
-  <iframe
-    src="https://www.youtube.com/embed/M7x3jNXXkRw"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
-</div>
-</section>
+	<section>
+	<h2 data-i18n="sect7_title">LES ROUTES EN DIRECTION DE CHAUMONT</h2>
+	<p data-i18n="sect7_prod">Cette carte a été produite avec les outils de base de QGIS.</p>
+	<p data-i18n="sect7_desc">Je me suis encore une fois "baladé" sur Google StreetView à la recherche des panneaux de directions (hors autoroute) indiquant Chaumont le plus loin. Le visuel de la carte n'est vraiment pas bon mais je me suis dépêché sur la fin car je commençais à en avoir marre.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__FRANCE_panneaux_direction_Chaumont.jpeg"
+	  data-full="maps/QGIS/FRANCE_panneaux_direction_Chaumont.jpeg"
+	  alt="Rayonnement de Chaumont en France"
+	  loading="lazy">
+	</div>
+	</section>
 
 
-<section>
-<h2 data-i18n="sect11_title">CARTE DE LA ROUTE DE LA SOIE</h2>
-<p data-i18n="sect11_prod">Cette carte a été produite avec wikipédia et quelques données sur internet.</p>
-<p data-i18n="sect11_desc1">J'ai toujours voulu la faire et je me suis lancé, je n'ai que les routes du 1er/2ème siècle et du 8ème (en plus de celle de Marco Polo) mais c'est déjà un beau bordel.</p>
-<p data-i18n="sect11_desc2">J'ai retracé à la main tous les trajets sur les routes et j'ai placé aussi toutes les villes. J'ai cherché pour avoir les délimitations des territoires de l'époque mais malheureusement je n'ai rien trouvé d'exploitable.</p>
-<p data-i18n="sect11_desc3">Le plus complexe a été d'ajouter les noms des pays sur leur longueurs, avec une taille différentes et orientés vers le nord. Il y a quelques déformation en Afrique et en Asie du Sud-Est mais cela rend bien et j'en suis content.</p>
-<p data-i18n="sect11_desc4">Pour ce faire j'ai du tracer une ligne en générateur de géométrie qui est segmenté pour s'orienter : </p>
-<pre>
-<code>
-make_line(
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry), y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.1, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.2, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.3, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.4, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.5, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.6, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.7, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.8, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.9, y(centroid($geometry))),
-  <span style="margin-left:35px;"></span>make_point(x_max($geometry), y(centroid($geometry)))
-)
-</code>
-</pre>
-<p data-i18n="sect11_desc5">J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : </p>
-<pre>
-<code>substr("name", @row_number, 1)</code>
-</pre>
-<p data-i18n="sect11_desc6">Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : </p>
-<pre>
-<code>-(x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</code>
-</pre>
-<p data-i18n="sect11_desc7">Puis vient le code pour la taille des caractères où j'ai récupéré la longueur de la ligne faite avec le générateur de géométrie tracé avant (le résultat est en mètres à l'échelle) :</p>
-<pre>
-<code>clamp(50000,"longueur" * 33, 90000)</code>
-</pre>
-<p data-i18n="sect11_desc8">J'ai eu du mal pour le choix des couleurs (que je n'apprécie toujours pas trop) mais voici le résultat final avec un planisphère et deux cartes en globe.</p>
-<div data-i18n="v1" class="version">Version 1</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V1.jpeg"
-  data-full="maps/QGIS/MONDE_route_soie_V1.jpeg"
-  alt="La route de la soie V1"
-  loading="lazy">
+	<section>
+	<h2 data-i18n="sect8_title">DATE DE CRÉATION DES BÂTIMENTS ENCORE EXISTANT A CHAUMONT</h2>
+	<p data-i18n="sect8_prod">Cette carte a été produite via les données de la BDTOPO et deux plugins, TimeManager et OpenTopography DEM Downloader.</p>
+	<p data-i18n="sect8_desc1">J'ai ajouté dans QGIS les données de OpenTopography DEM Downloader pour le dénivelé du terrain et j'y ai ajouté les données de la BDTOPO.</p>
+	<p data-i18n="sect8_desc2">Ensuite j'ai affiché en gris les bâtiments encore debout n'ayant pas de date de création dans les données et en rouge ceux en contenant une. J'ai mis le plugin TimeManager en marche avec le champ des données des bâtiments et j'ai lancé l'enregistrement que j'ai transformé en GIF. Les dates du GIF vont de 1450 à 2020 mais dans les données elles varient de 1300 à 2018.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/CHAUMONT_date_batiments.gif"
+	  data-full="maps/QGIS/CHAUMONT_date_batiments.gif"
+	  alt="Date des bâtiments de chaumont animé"
+	  loading="lazy">
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect9_title">VISUALISATION 3D DE LA HAUTE-MARNE</h2>
+	<p data-i18n="sect9_prod">Cette carte a été produite via les données du MNT de l'IGN.</p>
+	<p data-i18n="sect9_desc">J'ai segmenté tous les 50m (je crois) le raster pour ensuite les vectoriser et y ajouter les couleurs. J'ai placé par dessus le relief en semi transparent et je trouve ce rendu juste magnifique.</p>
+
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__HAUTE-MARNE_topographie.jpg"
+	  data-full="maps/QGIS/HAUTE-MARNE_topographie.jpg"
+	  alt="Altitude de la Haute-Marne"
+	  loading="lazy">
+	</div>
+	</section>
 </div>
 
-<div data-i18n="v2" class="version">Version 2</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V2.jpeg"
-  data-full="maps/QGIS/MONDE_route_soie_V2.jpeg"
-  alt="La route de la soie V2"
-  loading="lazy">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col">
+	<section>
+	<h2 data-i18n="sect10_title">TEST DE CARTE DE DÉPLACEMENT</h2>
+	<p data-i18n="sect10_prod">Cette carte a été produite avec ma mémoire, GoogleMaps et Flightradar24.</p>
+	<p data-i18n="sect10_desc1">J'ai retracé à la main les trajets sur les routes pour visualiser où nous sommes passé. Pour ce qui est des horaires, J'ai juste mis l'heure de départ et l'heure d'arrivée. Ensuite j'ai utilisé la fonction native de QGIS pour tracer des points tous les X km sur les lignes et j'y ai mis l'image du type de transport dessus et j'ai ajouté deux champs calculé. Ce sont les mêmes que pour cette carte ci : Mon voyage vers la chine.</p>
+	<p data-i18n="sect10_desc2">J'ai par la suite fait un atlas pour imprimer chaque image que j'ai fusionné pour faire ce fichier mp4 avec Shutter encoder.</p>
+	<p data-i18n="sect10_desc3">Voici une vidéo test à refaire car pas mal de problème d'images dans la vidéo au mauvais endroit.</p>
+	<div class="video-container">
+	  <iframe
+		src="https://www.youtube.com/embed/M7x3jNXXkRw"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen>
+	  </iframe>
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect11_title">CARTE DE LA ROUTE DE LA SOIE</h2>
+	<p data-i18n="sect11_prod">Cette carte a été produite avec wikipédia et quelques données sur internet.</p>
+	<p data-i18n="sect11_desc1">J'ai toujours voulu la faire et je me suis lancé, je n'ai que les routes du 1er/2ème siècle et du 8ème (en plus de celle de Marco Polo) mais c'est déjà un beau bordel.</p>
+	<p data-i18n="sect11_desc2">J'ai retracé à la main tous les trajets sur les routes et j'ai placé aussi toutes les villes. J'ai cherché pour avoir les délimitations des territoires de l'époque mais malheureusement je n'ai rien trouvé d'exploitable.</p>
+	<p data-i18n="sect11_desc3">Le plus complexe a été d'ajouter les noms des pays sur leur longueurs, avec une taille différentes et orientés vers le nord. Il y a quelques déformation en Afrique et en Asie du Sud-Est mais cela rend bien et j'en suis content.</p>
+	<p data-i18n="sect11_desc4">Pour ce faire j'ai du tracer une ligne en générateur de géométrie qui est segmenté pour s'orienter : </p>
+	<pre>
+	<code>
+	make_line(
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry), y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.1, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.2, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.3, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.4, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.5, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.6, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.7, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.8, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_min($geometry) + (x_max($geometry) - x_min($geometry)) * 0.9, y(centroid($geometry))),
+	  <span style="margin-left:35px;"></span>make_point(x_max($geometry), y(centroid($geometry)))
+	)
+	</code>
+	</pre>
+	<p data-i18n="sect11_desc5">J'ai ensuite tracé des points sur la géométrie en laissant de la place avant et après. Sur cette couche de points j'ai ajouté un champ avec les lettres pour les afficher en symbole et non en étiquette car il fallait que les noms des pays restent sous la thématique de la carte comme un fond de carte : </p>
+	<pre>
+	<code>substr("name", @row_number, 1)</code>
+	</pre>
+	<p data-i18n="sect11_desc6">Ensuite pour l'inclinaison de ceux-ci j'ai mis ce code ci : </p>
+	<pre>
+	<code>-(x(transform($geometry, layer_property(@layer, 'crs'), 'EPSG:4326')) - 76)</code>
+	</pre>
+	<p data-i18n="sect11_desc7">Puis vient le code pour la taille des caractères où j'ai récupéré la longueur de la ligne faite avec le générateur de géométrie tracé avant (le résultat est en mètres à l'échelle) :</p>
+	<pre>
+	<code>clamp(50000,"longueur" * 33, 90000)</code>
+	</pre>
+	<p data-i18n="sect11_desc8">J'ai eu du mal pour le choix des couleurs (que je n'apprécie toujours pas trop) mais voici le résultat final avec un planisphère et deux cartes en globe.</p>
+	<div data-i18n="v1" class="version">Version 1</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V1.jpeg"
+	  data-full="maps/QGIS/MONDE_route_soie_V1.jpeg"
+	  alt="La route de la soie V1"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="v2" class="version">Version 2</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V2.jpeg"
+	  data-full="maps/QGIS/MONDE_route_soie_V2.jpeg"
+	  alt="La route de la soie V2"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="v3" class="version">Version 3</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V3.jpeg"
+	  data-full="maps/QGIS/MONDE_route_soie_V3.jpeg"
+	  alt="La route de la soie V3"
+	  loading="lazy">
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect12_title">CARTE DE BORDEAUX</h2>
+	<p data-i18n="sect12_prod">Cette carte ont été produite via les données de la BDTOPO de l'IGN.</p>
+	<p data-i18n="sect12_desc">J'ai voulu faire un rendu plutôt joli en cercle avec un code qui n'affichait que les données de chaque couche à X mètres de distance au lieu de faire un vulgaire masque blanc..... Je trouve quand même le rendu très joli avec ces chemin de fer/tram en orange et les routes principales en bleu.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__BORDEAUX.jpg"
+	  data-full="maps/QGIS/BORDEAUX.jpg"
+	  alt="Bordeaux"
+	  loading="lazy">
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect13_title">CARTES DE L'AUSTRALIE</h2>
+	<p data-i18n="sect13_prod">Ces cartes ont été produite via les données de l'opendata de l'Australie.</p>
+	<p data-i18n="sect13_desc1">J'ai voulu voir comment été produite les données, comment été divisé le pays (départements, villes etc) (et j'étais perdu au début ahah...) et j'ai voulu découvrir le pays via ses données.</p>
+	<p data-i18n="sect13_desc2">Voici donc plusieurs cartes faites à la va vite :</p>
+	<div data-i18n="sect13_carte1" class="version">Sur l'élévation du pays (bien délimité et non flou)</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_elevation.jpeg"
+	  data-full="maps/QGIS/AUSTRALIE_elevation.jpeg"
+	  alt="Elevation de l'Australie"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="sect13_carte2" class="version">Sur les routes principales</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_major_roads.jpeg"
+	  data-full="maps/QGIS/AUSTRALIE_major_roads.jpeg"
+	  alt="Les routes principales de l'Australie"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="sect13_carte3" class="version">Sur les chemins de fer</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_train.jpeg"
+	  data-full="maps/QGIS/AUSTRALIE_train.jpeg"
+	  alt="Les chemins de fer de l'Australie"
+	  loading="lazy">
+	</div>
+
+	<div data-i18n="sect13_carte4" class="version">Sur la densité de population</div>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_population_surface.jpeg"
+	  data-full="maps/QGIS/AUSTRALIE_population_surface.jpeg"
+	  alt="La densité de population de l'Australie"
+	  loading="lazy">
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect14_title">LA ZONE DE VISIBILITÉ<br>DU MONT-BLANC À 300KM</h2>
+	<p data-i18n="sect14_prod">Cette carte a été produite avec la BDATLI de l'IGN et le plugin Visibility Analysis.</p>
+	<p data-i18n="sect14_desc">Le plus long a été d'insérer les vingtaines de fichiers par département. Ensuite je les ai fusionné puis j'ai lancé le plugin Visibility Analysis sur un rayon de 300km. J'avais la flemme de faire plus, on verra peut-être plus tard.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__FRANCE_Mont_Blanc_300km.png"
+	  data-full="maps/QGIS/FRANCE_Mont_Blanc_300km.png"
+	  alt="La visibilité du Mont-Blanc sur 300km"
+	  loading="lazy">
+	</div>
+	</section>
+
+
+	<section>
+	<h2 data-i18n="sect15_title">LES VIGNOBLES AOP DE FRANCE</h2>
+	<p data-i18n="sect15_prod">Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.</p>
+	<p data-i18n="sect15_desc">Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs "liège" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct. Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme. J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.</p>
+	<div class="gallery">
+	<img
+	  src="maps/QGIS/thumbs/THUMBS__FRANCE_vignobles_AOP.jpeg"
+	  data-full="maps/QGIS/FRANCE_vignobles_AOP.jpeg"
+	  alt="Les vignobles AOP de France"
+	  loading="lazy">
+	</div>
+	</section>
 </div>
 
-<div data-i18n="v3" class="version">Version 3</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V3.jpeg"
-  data-full="maps/QGIS/MONDE_route_soie_V3.jpeg"
-  alt="La route de la soie V3"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect12_title">CARTE DE BORDEAUX</h2>
-<p data-i18n="sect12_prod">Cette carte ont été produite via les données de la BDTOPO de l'IGN.</p>
-<p data-i18n="sect12_desc">J'ai voulu faire un rendu plutôt joli en cercle avec un code qui n'affichait que les données de chaque couche à X mètres de distance au lieu de faire un vulgaire masque blanc..... Je trouve quand même le rendu très joli avec ces chemin de fer/tram en orange et les routes principales en bleu.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__BORDEAUX.jpg"
-  data-full="maps/QGIS/BORDEAUX.jpg"
-  alt="Bordeaux"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect13_title">CARTES DE L'AUSTRALIE</h2>
-<p data-i18n="sect13_prod">Ces cartes ont été produite via les données de l'opendata de l'Australie.</p>
-<p data-i18n="sect13_desc1">J'ai voulu voir comment été produite les données, comment été divisé le pays (départements, villes etc) (et j'étais perdu au début ahah...) et j'ai voulu découvrir le pays via ses données.</p>
-<p data-i18n="sect13_desc2">Voici donc plusieurs cartes faites à la va vite :</p>
-<div data-i18n="sect13_carte1" class="version">Sur l'élévation du pays (bien délimité et non flou)</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_elevation.jpeg"
-  data-full="maps/QGIS/AUSTRALIE_elevation.jpeg"
-  alt="Elevation de l'Australie"
-  loading="lazy">
-</div>
-
-<div data-i18n="sect13_carte2" class="version">Sur les routes principales</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_major_roads.jpeg"
-  data-full="maps/QGIS/AUSTRALIE_major_roads.jpeg"
-  alt="Les routes principales de l'Australie"
-  loading="lazy">
-</div>
-
-<div data-i18n="sect13_carte3" class="version">Sur les chemins de fer</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_train.jpeg"
-  data-full="maps/QGIS/AUSTRALIE_train.jpeg"
-  alt="Les chemins de fer de l'Australie"
-  loading="lazy">
-</div>
-
-<div data-i18n="sect13_carte4" class="version">Sur la densité de population</div>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__AUSTRALIE_population_surface.jpeg"
-  data-full="maps/QGIS/AUSTRALIE_population_surface.jpeg"
-  alt="La densité de population de l'Australie"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect14_title">LA ZONE DE VISIBILITÉ<br>DU MONT-BLANC À 300KM</h2>
-<p data-i18n="sect14_prod">Cette carte a été produite avec la BDATLI de l'IGN et le plugin Visibility Analysis.</p>
-<p data-i18n="sect14_desc">Le plus long a été d'insérer les vingtaines de fichiers par département. Ensuite je les ai fusionné puis j'ai lancé le plugin Visibility Analysis sur un rayon de 300km. J'avais la flemme de faire plus, on verra peut-être plus tard.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__FRANCE_Mont_Blanc_300km.png"
-  data-full="maps/QGIS/FRANCE_Mont_Blanc_300km.png"
-  alt="La visibilité du Mont-Blanc sur 300km"
-  loading="lazy">
-</div>
-</section>
 
 
-<section>
-<h2 data-i18n="sect15_title">LES VIGNOBLES AOP DE FRANCE</h2>
-<p data-i18n="sect15_prod">Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.</p>
-<p data-i18n="sect15_desc">Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs "liège" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct. Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme. J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.</p>
-<div class="gallery">
-<img
-  src="maps/QGIS/thumbs/THUMBS__FRANCE_vignobles_AOP.jpeg"
-  data-full="maps/QGIS/FRANCE_vignobles_AOP.jpeg"
-  alt="Les vignobles AOP de France"
-  loading="lazy">
- <!--<img src="maps/QGIS/FRANCE_vignobles_AOP.jpeg" alt="Les vignobles AOP de France">-->
-</div>
-</section>
 
-<!-- Le reste suit exactement le même principe -->
-<!-- Tu peux dupliquer les sections, le style est prêt -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </main>
 
@@ -596,6 +729,8 @@ make_line(
   <img src="" alt="">
 </div>
 
+
+<!-- AFFICHAGE DES CARTES EN GRAND AU CLIC -->
 <script>
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = lightbox.querySelector('img');
@@ -619,7 +754,30 @@ lightbox.addEventListener('click', () => {
 });
 </script>
 
+
+<!-- OUVRIR / FERMER LE BOUTON DE LANGUE -->
+<script>
+const langSwitch = document.querySelector('.lang-switch');
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.addEventListener('click', () => {
+  langSwitch.classList.toggle('open');
+});
+
+document.querySelectorAll('#lang-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const selectedLang = item.dataset.lang;
+
+    setLang(selectedLang);
+    langSwitch.classList.remove('open');
+  });
+});
+</script>
+
+
+<!-- CHANGEMENT DE LANGUE -->
 <script src="langues/qgismaps_cartographie.js"></script>
+
 
 </body>
 </html>
