@@ -29,10 +29,10 @@ const translations = {
 				nav_wonderdraft: "Wonderdraft Maps",
 				nav_30dmc: "30 Day Map Challenge",
 
-				intro_title: "MAP PRODUCTIONS USING WONDERDRAFT",
+				intro_title: "Map productions using Wonderdraft",
 				intro_desc: "All the maps shown below were created using Wonderdraft, purely out of curiosity and a desire to experiment. No editing was done using external software.<br><br>To view the maps in high quality, simply click on them.",
 
-				sect1_title: "My first map on Wonderdraft",
+				sect1_title: "MY FIRST MAP ON WONDERDRAFT",
 				sect1_prod: "This map was created using Wonderdraft.",
 				sect1_desc: "I wanted to try making an island while exploring the software.",
 
@@ -51,10 +51,10 @@ const translations = {
 				nav_wonderdraft: "Wonderdraft卡牌",
 				nav_30dmc: "30 天地圖挑戰",
 
-				intro_title: "使用 WONDERDRAFT 製作地圖",
+				intro_title: "使用 Wonderdraft 製作地圖",
 				intro_desc: "以下所有地圖均使用 Wonderdraft 製作，純粹出於好奇和實驗目的。未使用任何外部軟體進行編輯。 <br><br>要查看高清地圖，只需點擊即可。",
 
-				sect1_title: "我在 Wonderdraft 上的第一張地圖",
+				sect1_title: "我在 WONDERDRAFT 上的第一張地圖",
 				sect1_prod: "此地圖使用 Wonderdraft 製作。",
 				sect1_desc: "我想在探索軟體的過程中嘗試創建一個島嶼。",
 
