@@ -85,7 +85,7 @@ const translations = {
 				
 				sect15_title: "LES VIGNOBLES AOP DE FRANCE",
 				sect15_prod: "Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.",
-				sect15_desc: "Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs \"liège\" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct. Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme. J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.",
+				sect15_desc: "Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs \"liège\" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct.<br><br>Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme.<br><br>J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.",
 
 				v1: "Version 1",
 				v2: "Version 2",
@@ -180,7 +180,7 @@ const translations = {
 				
 				sect15_title: "PDO VINEYARDS OF FRANCE",
 				sect15_prod: "This map was produced using data from INAO, Wikipedia and IGN's BDTOPO.",
-				sect15_desc: "I went through a lot of different styles and colors (simplified shapes, \"cork\" colors, etc.), but I settled on this one because I didn't want to stress about it anymore and I think it looks pretty good. The most challenging part of this map was manually filtering the INAO CSV file with its 1.2 million lines. This means that I only have the PDO data on the map, not the PGI data (which would, for example, increase the size of Lorraine), purely out of laziness. I had some ideas for decorating the map, but I abandoned them due to lack of time, as I had to print it before leaving for Australia.",
+				sect15_desc: "I went through a lot of different styles and colors (simplified shapes, \"cork\" colors, etc.), but I settled on this one because I didn't want to stress about it anymore and I think it looks pretty good.<br><br>The most challenging part of this map was manually filtering the INAO CSV file with its 1.2 million lines. This means that I only have the PDO data on the map, not the PGI data (which would, for example, increase the size of Lorraine), purely out of laziness.<br><br>I had some ideas for decorating the map, but I abandoned them due to lack of time, as I had to print it before leaving for Australia.",
 
 				v1: "Version 1",
 				v2: "Version 2",
@@ -275,8 +275,8 @@ const translations = {
 				
 				sect15_title: "法國受保護原產地名稱 (PDO) 葡萄園",
 				sect15_prod: "本地圖使用了 INAO、維基百科和 IGN 的 BDTOPO 的數據製作而成。",
-				sect15_desc: "我嘗試了很多不同的風格和顏色（例如簡化的形狀、「軟木塞」色等等），但最終還是選擇了這個，因為我不想再為此煩惱了，而且我覺得它看起來還不錯。這張地圖最難的部分是手動篩選INAO的CSV文件，那可是有120萬行資料呢。這意味著地圖上只有PDO數據，沒有PGI數據（例如，PGI數據會擴大洛林地區的面積），純粹是因為我懶。我本來有一些裝飾地圖的想法，但因為時間不夠，只好放棄了，因為我必須在去澳洲之前把它印出來。",
-
+				sect15_desc: "我嘗試了很多不同的風格和顏色（例如簡化的形狀、「軟木塞」色等等），但最終還是選擇了這個，因為我不想再為此煩惱了，而且我覺得它看起來還不錯。<br><br>這張地圖最難的部分是手動篩選INAO的CSV文件，那可是有120萬行資料呢。這意味著地圖上只有PDO數據，沒有PGI數據（例如，PGI數據會擴大洛林地區的面積），純粹是因為我懶。<br><br>我本來有一些裝飾地圖的想法，但因為時間不夠，只好放棄了，因為我必須在去澳洲之前把它印出來。",
+				
 				v1: "版本 1",
 				v2: "版本 2",
 				v3: "版本 3",
