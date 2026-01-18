@@ -6,167 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#f6f7f9;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --accent:#2563eb;
-  --border:#e5e7eb;
-}
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Inter,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  /*line-height:1.75;*/
-}
-/* NAV */
-        .site-header {
-            background: #111;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav {
-            max-width: 1200px;
-            margin: auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .site-title {
-            font-weight: 600;
-            color: white;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-        .nav-links a {
-            color: #bbb;
-            text-decoration: none;
-            font-size: 0.95em;
-        }
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: white;
-            border-bottom: 2px solid white;
-        }
-
-main{
-  max-width:950px;
-  margin:auto;
-  padding:0 1.5rem 4rem;
-  display:flex;
-  flex-direction:column;
-  gap:3.5rem;
-}
-
-/* FOOTER */
-.site-footer {
-	text-align: center;
-	padding: 20px;
-	font-size: 0.8em;
-	color: #777;
-}
-		
-.btn-primary,
-.btn-secondary{
-  padding:0.75rem 1.4rem;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:500;
-}
-
-.btn-primary{
-  background:var(--accent);
-  color:white;
-}
-
-.btn-primary:hover{
-  opacity:0.9;
-}
-
-.btn-secondary{
-  border:1px solid var(--border);
-  color:var(--text);
-  background:white;
-}
-
-.btn-secondary:hover{
-  background:#f1f5f9;
-}
-
-/* ABOUT */
-.about{
-  background:var(--card);
-  padding:3rem;
-  border-radius:16px;
-  border:1px solid var(--border);
-  margin-top: 25px;
-}
-
-.about h2{
-  font-size:1.6rem;
-  margin-bottom:1.5rem;
-}
-
-.about p{
-  margin-bottom:1.2rem;
-  color:#374151;
-}
-
-.signature{
-  margin-top:2rem;
-  font-style:italic;
-}
-
-/* GRID */
-.sections-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:1.5rem;
-}
-
-.section-card{
-  background:var(--card);
-  padding:2rem;
-  border-radius:16px;
-  border:1px solid var(--border);
-  text-decoration:none;
-  color:var(--text);
-  transition:transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.section-card h3{
-  margin-bottom:0.5rem;
-}
-
-.section-card p{
-  color:var(--muted);
-  font-size:0.95rem;
-}
-
-.section-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.06);
-}
-
-</style>
 <link href="style/style_general.css" rel="stylesheet">
 <link href="style/style_index.css" rel="stylesheet">
 </head>
@@ -175,20 +14,14 @@ main{
 	<header class="site-header">
 	    <nav class="nav">
 	        <div class="nav-left">
-	            <span data-i18n="nav_accueil" class="site-title">Accueil</span>
 	            <span data-i18n="nav_accueil" class="site-title"></span>
 	        </div>
 	        <ul class="nav-links">
-	            <li><a data-i18n="nav_accueil" href="index.html" class="active">Accueil</a></li>
-	            <li><a data-i18n="nav_qgis" href="qgismaps.html">Cartes QGIS</a></li>
-	            <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html">Cartes Wonderdraft</a></li>
-		    <li><a data-i18n="nav_30dmc" href="30daymapchallenge.html">30 Day Map Challenge</a></li>
 	            <li><a data-i18n="nav_accueil" href="index.html" class="active"></a></li>
 	            <li><a data-i18n="nav_qgis" href="qgismaps.html"></a></li>
 	            <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html"></a></li>
 				<li><a data-i18n="nav_30dmc" href="30daymapchallenge.html"></a></li>
 	        </ul>
-	    </nav>
 		</nav>
 		<div class="lang-switch">
 			<button id="lang-btn">FR</button>
@@ -201,102 +34,54 @@ main{
 	</header>
 
 <main>
-
-<section class="about">
-  <h2 data-i18n="title">MES CARTOGRAPHIES</h2>
-
-  <p data-i18n="texte1">
-    Passionné par la géomatique, j’ai créé ce site pour partager les cartes
-    que je réalise pendant mon temps libre. Pour moi, la cartographie est
-    bien plus qu’un outil technique : c’est un terrain d’exploration,
-    un moyen de raconter des histoires, de représenter le monde sous
-    différents angles.
-  </p>
-
-  <p data-i18n="texte2">
-    Ce portfolio est à la fois un carnet de bord et un laboratoire :
-    j’y expérimente différents styles, je teste des rendus, des approches
-    visuelles et techniques, parfois classiques, parfois plus audacieuses.
-    Je n’ai pas envie de me limiter à un seul style ou à une seule façon
-    de faire. Ce qui me plaît, c’est justement d’essayer, d’apprendre
-    et d’évoluer en permanence.
-  </p>
-
-  <p data-i18n="texte3">
-    Carte réaliste, stylisée, minimaliste ou artistique : chaque projet
-    est une occasion d’aller un peu plus loin dans ma compréhension de
-    la carte comme objet graphique et informatif.
-  </p>
-
-  <p class="signature">
-    Bonne visite,<br>
-    <strong>Julien</strong>
-  </p>
-	<h2 data-i18n="title"></h2>
-	<p data-i18n="texte1"></p>
-	<p data-i18n="texte2"></p>
-	<p data-i18n="texte3"></p>
-	<p class="signature"></p>
-</section>
-
-<section class="sections-grid">
-  <a href="qgismaps.html" class="section-card">
-    <h3 data-i18n="mini_qgis">Cartes QGIS</h3>
-    <p data-i18n="mini_qgis_desc">Analyses spatiales, cartes thématiques et rendus cartographiques.</p>
-  </a>
-
-  <a href="wonderdraftmaps.html" class="section-card">
-    <h3 data-i18n="mini_wonderdraft">Cartes illustrées</h3>
-    <p data-i18n="mini_wonderdraft_desc">Cartes stylisées, fantasy ou narratives réalisées avec Wonderdraft.</p>
-  </a>
-
-  <a href="30daymapchallenge.html" class="section-card">
-    <h3 data-i18n="mini_30dmc">30 Day Map Challenge</h3>
-    <p data-i18n="mini_30dmc_desc">Explorations cartographiques quotidiennes autour de thèmes imposés.</p>
-  </a>
-	<a href="qgismaps.html" class="section-card">
-		<h3 data-i18n="mini_qgis"></h3>
-		<p data-i18n="mini_qgis_desc"></p>
-	</a>
-
-	<a href="wonderdraftmaps.html" class="section-card">
-		<h3 data-i18n="mini_wonderdraft"></h3>
-		<p data-i18n="mini_wonderdraft_desc"></p>
-	</a>
-
-	<a href="30daymapchallenge.html" class="section-card">
-		<h3 data-i18n="mini_30dmc"></h3>
-		<p data-i18n="mini_30dmc_desc"></p>
-	</a>
-</section>
+	<section class="about">
+	  	<h2 data-i18n="title">MES CARTOGRAPHIES</h2>
+		<h2 data-i18n="title"></h2>
+		<p data-i18n="texte1"></p>
+		<p data-i18n="texte2"></p>
+		<p data-i18n="texte3"></p>
+		<p class="signature"></p>
+	</section>
+	
+	<section class="sections-grid">
+		<a href="qgismaps.html" class="section-card">
+			<h3 data-i18n="mini_qgis"></h3>
+			<p data-i18n="mini_qgis_desc"></p>
+		</a>
+		<a href="wonderdraftmaps.html" class="section-card">
+			<h3 data-i18n="mini_wonderdraft"></h3>
+			<p data-i18n="mini_wonderdraft_desc"></p>
+		</a>
+		<a href="30daymapchallenge.html" class="section-card">
+			<h3 data-i18n="mini_30dmc"></h3>
+			<p data-i18n="mini_30dmc_desc"></p>
+		</a>
+	</section>
 </main>
 
 <footer  data-i18n="footer" class="site-footer"></footer>
 
-	<!-- OUVRIR / FERMER LE BOUTON DE LANGUE -->
-	<script>
-	const langSwitch = document.querySelector('.lang-switch');
-	const langBtn = document.getElementById('lang-btn');
+<!-- OUVRIR / FERMER LE BOUTON DE LANGUE -->
+<script>
+const langSwitch = document.querySelector('.lang-switch');
+const langBtn = document.getElementById('lang-btn');
 
-</main>
-	langBtn.addEventListener('click', () => {
-	  langSwitch.classList.toggle('open');
-	});
+langBtn.addEventListener('click', () => {
+  langSwitch.classList.toggle('open');
+});
 
-	<footer  data-i18n="footer" class="site-footer">
-	    Réalisé par moi-même – pour mon propre plaisir
-	</footer>
-	document.querySelectorAll('#lang-list li').forEach(item => {
-	  item.addEventListener('click', () => {
-		const selectedLang = item.dataset.lang;
+document.querySelectorAll('#lang-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const selectedLang = item.dataset.lang;
 
-<div id="lightbox" onclick="this.style.display='none'">
-  <img src="" alt="">
-</div>
-		setLang(selectedLang);
-		langSwitch.classList.remove('open');
-	  });
-	});
-	</script>
+    setLang(selectedLang);
+    langSwitch.classList.remove('open');
+  });
+});
+</script>
 
-	<script src="langues/index_cartographie.js"></script>
+<!-- CHANGEMENT DE LANGUE -->
+<script src="langues/index_cartographie.js"></script>
+
+</body>
+</html>
