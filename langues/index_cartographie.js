@@ -176,7 +176,540 @@ const translations = {
 			see_project: "檢視項目 →",
 			play: "播放 →",
 			footer: "© 2025 Julien Houziaux — 僅供娛樂",
-		}
+		},
+		cn: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		ar: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		hi: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		es: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		ja: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		de: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		id: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		it: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		mi: {
+			tab_title:"",
+			page_title: "",
+			name: "",
+			subtitle: "",
+
+			nav_album: "",
+			nav_trip: "",
+			nav_cartography: "",
+			nav_photogrammetry: "",
+			nav_guessr: "",
+			nav_dataviz2024: "",
+			nav_dataviz2025: "",
+
+			badge_phare: "",
+			badge_heart: "",		
+
+			nav_accueil: "",
+			nav_qgis: "",
+			nav_wonderdraft: "",
+			nav_30dmc: "",
+
+			title: "",
+
+			texte1: "",
+			texte2: "",
+			texte3: "",
+			project_album_title: "",
+			album_desc: "",
+
+			project_trip_title: "",
+			trip_desc: "",
+				
+			project_cartography_title: "",
+			cartography_desc: "",
+			
+			project_photogra_title: "",
+			photogra_desc: "",
+
+			mini_qgis: "",
+			mini_qgis_desc: "",
+			project_guessr_title: "",
+			guessr_desc: "",
+
+			mini_wonderdraft: "",
+			mini_wonderdraft_desc: "",
+			project_dataviz24_title: "",
+			dataviz24_desc: "",
+
+			mini_30dmc: "",
+			mini_30dmc_desc: "",
+			project_dataviz25_title: "",
+			dataviz25_desc: "",
+
+			footer: "",
+			see_project: "",
+			play: "",
+			footer: "",
+		},
+		
+		
 	};
 
 // vérifie si l'utilisateur a déjà choisi une langue
