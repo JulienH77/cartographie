@@ -282,7 +282,863 @@ const translations = {
 				v3: "版本 3",
 				
 				footer: "我自己做的——純粹為了自娛自樂",
+			},
+
+			cn: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			ar: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			hi: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			es: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			ja: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			de: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			id: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			it: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
+			},
+
+			mi: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				title: "",
+				title_desc: "",
+				
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+				
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				sect3_title: "",
+				sect3_prod: "",
+				sect3_desc: "",
+				
+				sect4_title: "",
+				sect4_prod: "",
+				sect4_desc: "",
+				
+				sect5_title: "",
+				sect5_prod: "",
+				sect5_desc1: "",
+				sect5_desc2:"",
+				sect5_desc3:"",
+				
+				sect6_title: "",
+				sect6_prod: "",
+				sect6_desc: "",
+				
+				sect7_title: "",
+				sect7_prod: "",
+				sect7_desc: "",
+				
+				sect8_title: "",
+				sect8_prod: "",
+				sect8_desc1: "",
+				sect8_desc2: "",
+				
+				sect9_title: "",
+				sect9_prod: "",
+				sect9_desc: "",
+				
+				sect10_title: "",
+				sect10_prod: "",
+				sect10_desc1: "",
+				sect10_desc2: "",
+				sect10_desc3: "",
+				
+				sect11_title: "",
+				sect11_prod: "",
+				sect11_desc1: "",
+				sect11_desc2: "",
+				sect11_desc3: "",
+				sect11_desc4: "",
+				sect11_desc5: "",
+				sect11_desc6: "",
+				sect11_desc7: "",
+				sect11_desc8: "",
+				
+				sect12_title: "",
+				sect12_prod: "",
+				sect12_desc: "",
+				
+				sect13_title: "",
+				sect13_prod: "",
+				sect13_desc1: "",
+				sect13_desc2: "",
+				sect13_carte1: "",
+				sect13_carte2: "",
+				sect13_carte3: "",
+				sect13_carte4: "",
+				
+				sect14_title: "",
+				sect14_prod: "",
+				sect14_desc: "",
+				
+				sect15_title: "",
+				sect15_prod: "",
+				sect15_desc: "",
+				
+				v1: "",
+				v2: "",
+				v3: "",
+				
+				footer: "",
 			}
+			
 		};
 
 // vérifie si l'utilisateur a déjà choisi une langue
