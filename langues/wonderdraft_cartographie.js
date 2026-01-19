@@ -63,6 +63,195 @@ const translations = {
 				sect2_desc: "我想用老式風格繪製我們部門的地圖（在紙上看起來好得多）。",
 				
 				footer: "我自己做的——純粹為了自娛自樂",
+			},
+			cn: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			ar: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			hi: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			es: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			ja: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			de: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			id: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			it: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
+			},
+			mi: {
+				tab_title:"",
+				
+				nav_accueil: "",
+				nav_qgis: "",
+				nav_wonderdraft: "",
+				nav_30dmc: "",
+
+				intro_title: "",
+				intro_desc: "",
+
+				sect1_title: "",
+				sect1_prod: "",
+				sect1_desc: "",
+
+				sect2_title: "",
+				sect2_prod: "",
+				sect2_desc: "",
+				
+				footer: "",
 			}
 		};
 
