@@ -740,5 +740,7 @@ function setLang(newLang) {
   langBtn.textContent = newLang.toUpperCase(); // change texte du bouton
 }
 
-applyTranslations(lang);   // traduit la page au chargement
+/*applyTranslations(lang);*/   // traduit la page au chargement
+applyTranslations('fr');   // traduit la page au chargement
+
 langBtn.textContent = lang.toUpperCase(); // affiche la bonne langue dans le bouton
