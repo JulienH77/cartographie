@@ -87,7 +87,7 @@ const translations = {
 				sect15_prod: "Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.",
 				sect15_desc: "Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs \"liège\" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct.<br><br>Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme.<br><br>J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.",
 
-				sect16_title: "LA HAUTE-MARNE ET SONT ÉLÉVATION",
+				sect16_title: "LA HAUTE-MARNE ET SON ÉLÉVATION",
 				sect16_prod: "Cette carte a été produite via les données de la BDALTI etde la BDTOPO de l'IGN.",
 				sect16_desc: "Je me suis rappelé que j'adore ce style et que je souhaitais essayer de le faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ce style sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
 
