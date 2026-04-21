@@ -87,6 +87,10 @@ const translations = {
 				sect15_prod: "Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.",
 				sect15_desc: "Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs \"liège\" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct.<br><br>Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme.<br><br>J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.",
 
+				sect16_title: "LA HAUTE-MARNE ET SONT ÉLÉVATION",
+				sect16_prod: "Cette carte a été produite via les données de la BDALTI etde la BDTOPO de l'IGN.",
+				sect16_desc: "Je me suis rappelé que j'adore ce style et que je souhaitais essayer de le faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ce style sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
+
 				v1: "Version 1",
 				v2: "Version 2",
 				v3: "Version 3",
@@ -181,6 +185,10 @@ const translations = {
 				sect15_title: "PDO VINEYARDS OF FRANCE",
 				sect15_prod: "This map was produced using data from INAO, Wikipedia and IGN's BDTOPO.",
 				sect15_desc: "I went through a lot of different styles and colors (simplified shapes, \"cork\" colors, etc.), but I settled on this one because I didn't want to stress about it anymore and I think it looks pretty good.<br><br>The most challenging part of this map was manually filtering the INAO CSV file with its 1.2 million lines. This means that I only have the PDO data on the map, not the PGI data (which would, for example, increase the size of Lorraine), purely out of laziness.<br><br>I had some ideas for decorating the map, but I abandoned them due to lack of time, as I had to print it before leaving for Australia.",
+
+				sect16_title: "THE HAUTE-MARNE AND ITS ELEVATION",
+				sect16_prod: "This map was produced using data from the BDALTI and BDTOPO databases of the IGN (French National Geographic Institute).",
+				sect16_desc: "I remembered that I love this style and wanted to try it. Unfortunately, I didn't code anything myself; I found this style on the QGIS website where someone posted some code for the predefined geometry generator.",
 
 				v1: "Version 1",
 				v2: "Version 2",
