@@ -90,7 +90,9 @@ const translations = {
 				sect16_title: "LA HAUTE-MARNE ET SON ÉLÉVATION",
 				sect16_prod: "Cette carte a été produite via les données de la BDALTI et de la BDTOPO de l'IGN.",
 				sect16_desc: "Je me suis rappelé que j'adore ce style et que je souhaitais essayer de le faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ce style sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
-
+				sect16_carte1: "Style Joy-Division",
+				sect16_carte2: "Style Violin-Elevation ",
+				
 				v1: "Version 1",
 				v2: "Version 2",
 				v3: "Version 3",
@@ -189,7 +191,9 @@ const translations = {
 				sect16_title: "THE HAUTE-MARNE AND ITS ELEVATION",
 				sect16_prod: "This map was produced using data from the BDALTI and BDTOPO databases of the IGN (French National Geographic Institute).",
 				sect16_desc: "I remembered that I love this style and wanted to try it. Unfortunately, I didn't code anything myself; I found this style on the QGIS website where someone posted some code for the predefined geometry generator.",
-
+				sect16_carte1: "Joy-Division style",
+				sect16_carte2: "Violin-Elevation style ",
+					
 				v1: "Version 1",
 				v2: "Version 2",
 				v3: "Version 3",
