@@ -8,7 +8,7 @@ const translations = {
 				nav_30dmc: "30 Day Map Challenge",
 
 				title: "Productions cartographiques sur QGIS",
-				title_desc: "Toutes les cartes présentées ci-dessous ont été réalisées sous QGIS (3.34), uniquement par curiosité et par envie d’expérimenter. Aucune retouche n’a été effectuée sur un logiciel externe.<br><br>Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.",
+				title_desc: "Toutes les cartes présentées ci-dessous ont été réalisées sous QGIS (3.34 et 3.40), uniquement par curiosité et par envie d’expérimenter. Aucune retouche n’a été effectuée sur un logiciel externe.<br><br>Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.",
 				
 				sect1_title: "LA ZONE DE VISIBILITÉ<br>DE NOTRE-DAME DE PARIS",
 				sect1_prod: "Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin <em>Visibility Analysis</em>",
@@ -89,9 +89,13 @@ const translations = {
 
 				sect16_title: "LA HAUTE-MARNE ET SON ÉLÉVATION",
 				sect16_prod: "Cette carte a été produite via les données de la BDALTI et de la BDTOPO de l'IGN.",
-				sect16_desc: "Je me suis rappelé que j'adore ce style et que je souhaitais essayer de le faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ce style sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
+				sect16_desc: "Je me suis rappelé que j'adore ces styles et que je souhaitais essayer de les faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ces styles sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
 				sect16_carte1: "Style Joy-Division",
 				sect16_carte2: "Style Violin-Elevation ",
+				
+				sect17_title: "CARTOGRAMME DE LA POPULATION EN HAUTE-MARNE",
+				sect17_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN et de l'extension <em>Cartogram</em>.",
+				sect17_desc: "Très simpliste d'utilisation, j'ai juste eu à importer la couche des communes, lancer l'extension Cartogram et choisir le champ cible qui est la population.",
 				
 				v1: "Version 1",
 				v2: "Version 2",
@@ -190,10 +194,15 @@ const translations = {
 
 				sect16_title: "THE HAUTE-MARNE AND ITS ELEVATION",
 				sect16_prod: "This map was produced using data from the BDALTI and BDTOPO databases of the IGN (French National Geographic Institute).",
-				sect16_desc: "I remembered that I love this style and wanted to try it. Unfortunately, I didn't code anything myself; I found this style on the QGIS website where someone posted some code for the predefined geometry generator.",
+				sect16_desc: "I remembered that I love these styles and wanted to try creating them. Unfortunately, I didn't code anything myself; I found these styles on the QGIS website where someone had posted some code for the pre-defined geometry generator.",
 				sect16_carte1: "Joy-Division style",
 				sect16_carte2: "Violin-Elevation style ",
-					
+
+				
+				sect17_title: "Population Map of Haute-Marne",
+				sect17_prod: "This map was produced using data from the IGN's BDTOPO database and the <em>Cartogram</em> extension.",
+				sect17_desc: "Very simple to use; I just had to import the municipalities layer, launch the Cartogram extension, and select the target field, which is population.",
+				
 				v1: "Version 1",
 				v2: "Version 2",
 				v3: "Version 3",
