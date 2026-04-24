@@ -12,39 +12,43 @@
 
 <style>
 .agamograph-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
     width: 100%;
-    max-width: 900px; /* À ajuster selon la largeur de ton site */
-    margin: 20px auto;
+    max-width: 900px;
+    margin: auto;
 }
-.ag-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 80%;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #333;
-}
-.ag-controls input[type="range"] {
-    flex-grow: 1;
-    cursor: pointer;
-}
-.agamograph-view {
-    display: flex;
+#scene {
+    perspective: 1200px;
     width: 100%;
-    aspect-ratio: 4 / 3; /* Ajuste ce ratio selon les dimensions réelles de ton image */
+    height: 500px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    background-color: #f0f0f0;
 }
-.ag-band {
+#object {
+    display: flex;
     height: 100%;
-    /* La transition rend le mouvement fluide, mais peut être retirée si ça ralentit sur les vieux téléphones */
-    transition: flex 0.05s linear; 
+    transform-style: preserve-3d;
+}
+.band {
+    position: relative;
+    width: 35px; /* ajuste selon ton image */
+    height: 100%;
+    transform-style: preserve-3d;
+}
+/* Faces */
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 1300% 100%; /* 13 bandes */
+    backface-visibility: hidden;
+}
+/* Carte A */
+.face.a {
+    transform: rotateY(-45deg);
+}
+/* Carte B */
+.face.b {
+    transform: rotateY(45deg);
 }
 </style>
 
@@ -240,58 +244,61 @@
     <p data-i18n="sect18_prod"></p>
     <p data-i18n="sect18_desc"></p>
     
-    <div class="agamograph-container">
-        <div class="ag-controls">
-            <span>Nature</span>
-            <input type="range" id="ag-slider" min="-100" max="100" value="0">
-            <span>Anthropique</span>
-        </div>
-        
-        <div id="agamograph-view" class="agamograph-view"></div>
-    </div>
+	<div class="agamograph-container">
+	    <input type="range" id="slider" min="-90" max="90" value="0">
+	
+	    <div id="scene">
+	        <div id="object"></div>
+	    </div>
+	</div>
 </section>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("agamograph-view");
-    const slider = document.getElementById("ag-slider");
-    // --- PARAMÈTRES ---
-    // Mets ici le bon chemin vers l'image complète (celle avec les 26 bandes)
-    const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg"; 
-    const numBands = 26; // 13 bandes nature + 13 bandes anthropiques
-    // 1. Génération des bandes
-    for (let i = 0; i < numBands; i++) {
-        let band = document.createElement("div");
-        band.classList.add("ag-band");
-        // Alterne entre Nature (paire) et Anthropique (impaire)
-        band.classList.add(i % 2 === 0 ? "band-nature" : "band-anthro");
+const object = document.getElementById("object");
+const slider = document.getElementById("slider");
 
-        // Application de l'image de fond
-        band.style.backgroundImage = `url('${imageUrl}')`;
-        // La taille du fond doit être 26 fois plus large que la bande
-        band.style.backgroundSize = `${numBands * 100}% 100%`;
-        // Décalage du fond pour afficher exactement la bonne tranche
-        band.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% center`;
-        // Position initiale : toutes les bandes ont la même largeur
-        band.style.flex = "1"; 
-        container.appendChild(band);
+const numBands = 26;
+const bandsPerImage = 13;
+
+const imgA = "maps/QGIS/mapA.jpg";
+const imgB = "maps/QGIS/mapB.jpg";
+
+// création des bandes
+for (let i = 0; i < numBands; i++) {
+
+    const band = document.createElement("div");
+    band.className = "band";
+
+    const faceA = document.createElement("div");
+    const faceB = document.createElement("div");
+
+    faceA.className = "face a";
+    faceB.className = "face b";
+
+    // index dans chaque image (0 → 12)
+    const index = Math.floor(i / 2);
+
+    // POSITION IMAGE A
+    faceA.style.backgroundImage = `url(${imgA})`;
+    faceA.style.backgroundPosition = `${(index / (bandsPerImage - 1)) * 100}% center`;
+
+    // POSITION IMAGE B
+    faceB.style.backgroundImage = `url(${imgB})`;
+    faceB.style.backgroundPosition = `${(index / (bandsPerImage - 1)) * 100}% center`;
+
+    // alternance
+    if (i % 2 === 0) {
+        band.appendChild(faceA);
+    } else {
+        band.appendChild(faceB);
     }
-    const bandsNature = document.querySelectorAll(".band-nature");
-    const bandsAnthro = document.querySelectorAll(".band-anthro");
-    // 2. Animation lors du mouvement du slider
-    slider.addEventListener("input", (e) => {
-        let val = parseInt(e.target.value); // Valeur de -100 à 100
 
-        // Calcul de la déformation élastique (Flexbox)
-        // val = -100 -> On maximise Nature, on cache Anthropique
-        // val = 0    -> On équilibre les deux (vue de face)
-        // val = 100  -> On maximise Anthropique, on cache Nature
-        let flexNature = 100 - val;
-        let flexAnthro = 100 + val;
+    object.appendChild(band);
+}
 
-        // On applique les largeurs (0.1 minimum pour éviter que l'image ne disparaisse totalement)
-        bandsNature.forEach(b => b.style.flex = Math.max(flexNature, 0.1));
-        bandsAnthro.forEach(b => b.style.flex = Math.max(flexAnthro, 0.1));
-    });
+// rotation globale
+slider.addEventListener("input", (e) => {
+    const angle = e.target.value;
+    object.style.transform = `rotateY(${angle}deg)`;
 });
 </script>
 </div>
