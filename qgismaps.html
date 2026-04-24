@@ -262,16 +262,15 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < numBands; i++) {
         let band = document.createElement("div");
         band.classList.add("ag-band");
-    
         // Alterne entre Nature (paire) et Anthropique (impaire)
         band.classList.add(i % 2 === 0 ? "band-nature" : "band-anthro");
+
         // Application de l'image de fond
         band.style.backgroundImage = `url('${imageUrl}')`;
         // La taille du fond doit être 26 fois plus large que la bande
         band.style.backgroundSize = `${numBands * 100}% 100%`;
         // Décalage du fond pour afficher exactement la bonne tranche
         band.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% center`;
-    
         // Position initiale : toutes les bandes ont la même largeur
         band.style.flex = "1"; 
         container.appendChild(band);
@@ -281,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Animation lors du mouvement du slider
     slider.addEventListener("input", (e) => {
         let val = parseInt(e.target.value); // Valeur de -100 à 100
+
         // Calcul de la déformation élastique (Flexbox)
         // val = -100 -> On maximise Nature, on cache Anthropique
         // val = 0    -> On équilibre les deux (vue de face)
@@ -294,7 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
 </div>
 
 
