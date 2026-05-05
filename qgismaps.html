@@ -11,49 +11,37 @@
 <link href="style/style_mapssites.css" rel="stylesheet">
 
 <style>
-.agamograph-3d-container {
+.ag3d-wrapper {
     width: 100%;
     max-width: 900px;
     margin: 40px auto;
     perspective: 1200px;
+    overflow: hidden;
 }
 
-#scene {
-    width: 100%;
+#ag3d {
+    display: flex;
     height: 500px;
-    position: relative;
-}
-
-#agamograph-3d {
-    width: 100%;
-    height: 100%;
-    position: absolute;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
 }
 
 .band {
-    position: absolute;
-    top: 0;
+    flex: 1;
     height: 100%;
-    width: 30px;
-    transform-style: preserve-3d;
-}
-
-.face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
     background-size: 2600% 100%;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    will-change: transform;
 }
 
-.face.nature {
-    transform: rotateY(0deg) translateZ(15px);
+/* orientation en zigzag */
+.band.left {
+    transform: rotateY(-45deg);
 }
 
-.face.anthro {
-    transform: rotateY(120deg) translateZ(15px);
+.band.right {
+    transform: rotateY(45deg);
 }
 </style>
 
@@ -246,55 +234,45 @@
 <section>
 <h2>AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
 
-<div class="agamograph-3d-container">
-    <div id="scene">
-        <div id="agamograph-3d"></div>
-    </div>
+<div class="ag3d-wrapper">
+    <div id="ag3d"></div>
 </div>
 </section>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    const container = document.getElementById("agamograph-3d");
+    const container = document.getElementById("ag3d");
 
     const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg";
     const numBands = 26;
-    const bandWidth = 100 / numBands;
 
-    // --- CREATION DES BANDES 3D ---
     for (let i = 0; i < numBands; i++) {
 
         let band = document.createElement("div");
-        band.className = "band";
+        band.classList.add("band");
 
-        band.style.left = `${i * bandWidth}%`;
+        // alternance gauche / droite
+        if (i % 2 === 0) {
+            band.classList.add("left");
+        } else {
+            band.classList.add("right");
+        }
 
-        // FACE NATURE
-        let face1 = document.createElement("div");
-        face1.className = "face nature";
-        face1.style.backgroundImage = `url(${imageUrl})`;
-        face1.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% 0`;
+        // image
+        band.style.backgroundImage = `url(${imageUrl})`;
 
-        // FACE ANTHRO (décalée)
-        let face2 = document.createElement("div");
-        face2.className = "face anthro";
-        face2.style.backgroundImage = `url(${imageUrl})`;
-        face2.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% 0`;
-
-        band.appendChild(face1);
-        band.appendChild(face2);
+        // IMPORTANT : découpe exacte
+        band.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% center`;
 
         container.appendChild(band);
     }
 
-    // --- ROTATION SOURIS ---
+    // ROTATION INTERACTIVE
     let isDragging = false;
     let startX = 0;
-    let currentRotation = 0;
+    let rotation = 0;
 
-    const scene = document.getElementById("scene");
-
-    scene.addEventListener("mousedown", (e) => {
+    container.addEventListener("mousedown", (e) => {
         isDragging = true;
         startX = e.clientX;
     });
@@ -305,23 +283,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isDragging) return;
 
         let delta = e.clientX - startX;
-        currentRotation += delta * 0.2;
+        rotation += delta * 0.3;
 
-        container.style.transform = `rotateY(${currentRotation}deg)`;
+        container.style.transform = `rotateY(${rotation}deg)`;
 
         startX = e.clientX;
     });
 
-    // --- SUPPORT MOBILE ---
-    scene.addEventListener("touchstart", (e) => {
+    // mobile
+    container.addEventListener("touchstart", (e) => {
         startX = e.touches[0].clientX;
     });
 
-    scene.addEventListener("touchmove", (e) => {
+    container.addEventListener("touchmove", (e) => {
         let delta = e.touches[0].clientX - startX;
-        currentRotation += delta * 0.2;
+        rotation += delta * 0.3;
 
-        container.style.transform = `rotateY(${currentRotation}deg)`;
+        container.style.transform = `rotateY(${rotation}deg)`;
 
         startX = e.touches[0].clientX;
     });
