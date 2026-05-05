@@ -11,40 +11,49 @@
 <link href="style/style_mapssites.css" rel="stylesheet">
 
 <style>
-.agamograph-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+.agamograph-3d-container {
     width: 100%;
-    max-width: 900px; /* À ajuster selon la largeur de ton site */
-    margin: 20px auto;
+    max-width: 900px;
+    margin: 40px auto;
+    perspective: 1200px;
 }
-.ag-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 80%;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #333;
-}
-.ag-controls input[type="range"] {
-    flex-grow: 1;
-    cursor: pointer;
-}
-.agamograph-view {
-    display: flex;
+
+#scene {
     width: 100%;
-    aspect-ratio: 4 / 3; /* Ajuste ce ratio selon les dimensions réelles de ton image */
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    background-color: #f0f0f0;
+    height: 500px;
+    position: relative;
 }
-.ag-band {
+
+#agamograph-3d {
+    width: 100%;
     height: 100%;
-    /* La transition rend le mouvement fluide, mais peut être retirée si ça ralentit sur les vieux téléphones */
-    transition: flex 0.05s linear; 
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+}
+
+.band {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 30px;
+    transform-style: preserve-3d;
+}
+
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-size: 2600% 100%;
+}
+
+.face.nature {
+    transform: rotateY(0deg) translateZ(15px);
+}
+
+.face.anthro {
+    transform: rotateY(120deg) translateZ(15px);
 }
 </style>
 
@@ -234,61 +243,89 @@
 	</div>
 	</section>
 
-
 <section>
-    <h2 data-i18n="sect18_title">AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
-    <p data-i18n="sect18_prod"></p>
-    <p data-i18n="sect18_desc"></p>
-    
-    <div class="agamograph-container">
-        <div class="ag-controls">
-            <span>Nature</span>
-            <input type="range" id="ag-slider" min="-100" max="100" value="0">
-            <span>Anthropique</span>
-        </div>
-        
-        <div id="agamograph-view" class="agamograph-view"></div>
+<h2>AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
+
+<div class="agamograph-3d-container">
+    <div id="scene">
+        <div id="agamograph-3d"></div>
     </div>
+</div>
 </section>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("agamograph-view");
-    const slider = document.getElementById("ag-slider");
-    // --- PARAMÈTRES ---
-    // Mets ici le bon chemin vers l'image complète (celle avec les 26 bandes)
-    const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg"; 
-    const numBands = 26; // 13 bandes nature + 13 bandes anthropiques
-    // 1. Génération des bandes
+
+    const container = document.getElementById("agamograph-3d");
+
+    const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg";
+    const numBands = 26;
+    const bandWidth = 100 / numBands;
+
+    // --- CREATION DES BANDES 3D ---
     for (let i = 0; i < numBands; i++) {
+
         let band = document.createElement("div");
-        band.classList.add("ag-band");
-        // Alterne entre Nature (paire) et Anthropique (impaire)
-        band.classList.add(i % 2 === 0 ? "band-nature" : "band-anthro");
-        // Application de l'image de fond
-        band.style.backgroundImage = `url('${imageUrl}')`;
-        // La taille du fond doit être 26 fois plus large que la bande
-        band.style.backgroundSize = `${numBands * 100}% 100%`;
-        // Décalage du fond pour afficher exactement la bonne tranche
-        band.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% center`;
-        // Position initiale : toutes les bandes ont la même largeur
-        band.style.flex = "1"; 
+        band.className = "band";
+
+        band.style.left = `${i * bandWidth}%`;
+
+        // FACE NATURE
+        let face1 = document.createElement("div");
+        face1.className = "face nature";
+        face1.style.backgroundImage = `url(${imageUrl})`;
+        face1.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% 0`;
+
+        // FACE ANTHRO (décalée)
+        let face2 = document.createElement("div");
+        face2.className = "face anthro";
+        face2.style.backgroundImage = `url(${imageUrl})`;
+        face2.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% 0`;
+
+        band.appendChild(face1);
+        band.appendChild(face2);
+
         container.appendChild(band);
     }
-    const bandsNature = document.querySelectorAll(".band-nature");
-    const bandsAnthro = document.querySelectorAll(".band-anthro");
-    // 2. Animation lors du mouvement du slider
-    slider.addEventListener("input", (e) => {
-        let val = parseInt(e.target.value); // Valeur de -100 à 100
-        // Calcul de la déformation élastique (Flexbox)
-        // val = -100 -> On maximise Nature, on cache Anthropique
-        // val = 0    -> On équilibre les deux (vue de face)
-        // val = 100  -> On maximise Anthropique, on cache Nature
-        let flexNature = 100 - val;
-        let flexAnthro = 100 + val;
-        // On applique les largeurs (0.1 minimum pour éviter que l'image ne disparaisse totalement)
-        bandsNature.forEach(b => b.style.flex = Math.max(flexNature, 0.1));
-        bandsAnthro.forEach(b => b.style.flex = Math.max(flexAnthro, 0.1));
+
+    // --- ROTATION SOURIS ---
+    let isDragging = false;
+    let startX = 0;
+    let currentRotation = 0;
+
+    const scene = document.getElementById("scene");
+
+    scene.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
     });
+
+    window.addEventListener("mouseup", () => isDragging = false);
+
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        let delta = e.clientX - startX;
+        currentRotation += delta * 0.2;
+
+        container.style.transform = `rotateY(${currentRotation}deg)`;
+
+        startX = e.clientX;
+    });
+
+    // --- SUPPORT MOBILE ---
+    scene.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    scene.addEventListener("touchmove", (e) => {
+        let delta = e.touches[0].clientX - startX;
+        currentRotation += delta * 0.2;
+
+        container.style.transform = `rotateY(${currentRotation}deg)`;
+
+        startX = e.touches[0].clientX;
+    });
+
 });
 </script>
 
