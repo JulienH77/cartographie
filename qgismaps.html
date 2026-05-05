@@ -11,12 +11,26 @@
 <link href="style/style_mapssites.css" rel="stylesheet">
 
 <style>
+.controls {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.controls button {
+    padding: 8px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 5px;
+}
+
 .ag3d-wrapper {
     width: 100%;
     max-width: 900px;
-    margin: 40px auto;
-    perspective: 1200px;
-    overflow: hidden;
+    margin: auto;
+    perspective: 1400px;
 }
 
 #ag3d {
@@ -24,25 +38,20 @@
     height: 500px;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
+    transition: transform 0.6s ease;
 }
 
 .band {
-    flex: 1;
+    width: 20px; /* sera écrasé visuellement par la perspective */
     height: 100%;
-    background-size: 2600% 100%;
     background-repeat: no-repeat;
+    background-size: 14881px 100%;
     transform-origin: center;
-    will-change: transform;
 }
 
-/* orientation en zigzag */
-.band.left {
-    transform: rotateY(-45deg);
-}
-
-.band.right {
-    transform: rotateY(45deg);
-}
+/* zigzag réel */
+.band.left  { transform: rotateY(-60deg); }
+.band.right { transform: rotateY(60deg); }
 </style>
 
 	
@@ -234,6 +243,12 @@
 <section>
 <h2>AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
 
+<div class="controls">
+    <button id="left">← Nature</button>
+    <button id="center">Face</button>
+    <button id="right">Anthropique →</button>
+</div>
+
 <div class="ag3d-wrapper">
     <div id="ag3d"></div>
 </div>
@@ -244,42 +259,57 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("ag3d");
 
     const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg";
-    const numBands = 26;
 
-    for (let i = 0; i < numBands; i++) {
+    const totalBands = 28;
+    const bandWidth = 531;
+
+    // 👉 on enlève les 2 bandes blanches
+    const start = 1;
+    const end = totalBands - 1;
+
+    for (let i = start; i < end; i++) {
 
         let band = document.createElement("div");
         band.classList.add("band");
 
-        // alternance gauche / droite
-        if (i % 2 === 0) {
-            band.classList.add("left");
-        } else {
-            band.classList.add("right");
-        }
+        // alternance zigzag
+        band.classList.add(i % 2 === 0 ? "left" : "right");
 
-        // image
         band.style.backgroundImage = `url(${imageUrl})`;
 
-        // IMPORTANT : découpe exacte
-        band.style.backgroundPosition = `${(i / (numBands - 1)) * 100}% center`;
+        // 🔥 POSITION PIXEL PARFAITE
+        const x = i * bandWidth;
+        band.style.backgroundPosition = `-${x}px 0px`;
 
         container.appendChild(band);
     }
 
-    // ROTATION INTERACTIVE
+    // --- BOUTONS ---
+    document.getElementById("left").onclick = () => {
+        container.style.transform = "rotateY(-60deg)";
+    };
+
+    document.getElementById("center").onclick = () => {
+        container.style.transform = "rotateY(0deg)";
+    };
+
+    document.getElementById("right").onclick = () => {
+        container.style.transform = "rotateY(60deg)";
+    };
+
+    // --- DRAG ---
     let isDragging = false;
     let startX = 0;
     let rotation = 0;
 
-    container.addEventListener("mousedown", (e) => {
+    container.addEventListener("mousedown", e => {
         isDragging = true;
         startX = e.clientX;
     });
 
     window.addEventListener("mouseup", () => isDragging = false);
 
-    window.addEventListener("mousemove", (e) => {
+    window.addEventListener("mousemove", e => {
         if (!isDragging) return;
 
         let delta = e.clientX - startX;
@@ -288,20 +318,6 @@ document.addEventListener("DOMContentLoaded", () => {
         container.style.transform = `rotateY(${rotation}deg)`;
 
         startX = e.clientX;
-    });
-
-    // mobile
-    container.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].clientX;
-    });
-
-    container.addEventListener("touchmove", (e) => {
-        let delta = e.touches[0].clientX - startX;
-        rotation += delta * 0.3;
-
-        container.style.transform = `rotateY(${rotation}deg)`;
-
-        startX = e.touches[0].clientX;
     });
 
 });
