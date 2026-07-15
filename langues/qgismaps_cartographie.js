@@ -96,6 +96,48 @@ const translations = {
 				sect17_title: "CARTOGRAMME DE LA POPULATION EN HAUTE-MARNE",
 				sect17_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN et de l'extension <em>Cartogram</em>.",
 				sect17_desc: "Très simpliste d'utilisation, j'ai juste eu à importer la couche des communes, lancer l'extension Cartogram et choisir le champ cible qui est la population.",
+
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				
 				v1: "Version 1",
 				v2: "Version 2",
@@ -202,6 +244,34 @@ const translations = {
 				sect17_title: "Population Map of Haute-Marne",
 				sect17_prod: "This map was produced using data from the IGN's BDTOPO database and the <em>Cartogram</em> extension.",
 				sect17_desc: "Very simple to use; I just had to import the municipalities layer, launch the Cartogram extension, and select the target field, which is population.",
+
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "Version 1",
 				v2: "Version 2",
@@ -297,6 +367,42 @@ const translations = {
 				sect15_title: "法國受保護原產地名稱 (PDO) 葡萄園",
 				sect15_prod: "本地圖使用了 INAO、維基百科和 IGN 的 BDTOPO 的數據製作而成。",
 				sect15_desc: "我嘗試了很多不同的風格和顏色（例如簡化的形狀、「軟木塞」色等等），但最終還是選擇了這個，因為我不想再為此煩惱了，而且我覺得它看起來還不錯。<br><br>這張地圖最難的部分是手動篩選INAO的CSV文件，那可是有120萬行資料呢。這意味著地圖上只有PDO數據，沒有PGI數據（例如，PGI數據會擴大洛林地區的面積），純粹是因為我懶。<br><br>我本來有一些裝飾地圖的想法，但因為時間不夠，只好放棄了，因為我必須在去澳洲之前把它印出來。",
+
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "版本 1",
 				v2: "版本 2",
@@ -392,6 +498,42 @@ const translations = {
 				sect15_title: "",
 				sect15_prod: "",
 				sect15_desc: "",
+
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "",
 				v2: "",
@@ -487,6 +629,42 @@ const translations = {
 				sect15_title: "",
 				sect15_prod: "",
 				sect15_desc: "",
+
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "",
 				v2: "",
@@ -583,6 +761,42 @@ const translations = {
 				sect15_prod: "",
 				sect15_desc: "",
 				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
+				
 				v1: "",
 				v2: "",
 				v3: "",
@@ -677,6 +891,42 @@ const translations = {
 				sect15_title: "",
 				sect15_prod: "",
 				sect15_desc: "",
+				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "",
 				v2: "",
@@ -773,6 +1023,42 @@ const translations = {
 				sect15_prod: "",
 				sect15_desc: "",
 				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
+				
 				v1: "",
 				v2: "",
 				v3: "",
@@ -867,6 +1153,42 @@ const translations = {
 				sect15_title: "",
 				sect15_prod: "",
 				sect15_desc: "",
+				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "",
 				v2: "",
@@ -963,6 +1285,42 @@ const translations = {
 				sect15_prod: "",
 				sect15_desc: "",
 				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
+				
 				v1: "",
 				v2: "",
 				v3: "",
@@ -1058,6 +1416,42 @@ const translations = {
 				sect15_prod: "",
 				sect15_desc: "",
 				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
+				
 				v1: "",
 				v2: "",
 				v3: "",
@@ -1152,6 +1546,42 @@ const translations = {
 				sect15_title: "",
 				sect15_prod: "",
 				sect15_desc: "",
+				
+				sect16_title: "",
+				sect16_prod: "",
+				sect16_desc: "",
+				
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "",
+				sect18_prod: "",
+				sect18_desc: "",
+
+				sect19_title: "",
+				sect19_prod: "",
+				sect19_desc: "",
+
+				sect20_title: "",
+				sect20_prod: "",
+				sect20_desc: "",
+
+				sect21_title: "",
+				sect21_prod: "",
+				sect21_desc: "",
+
+				sect22_title: "",
+				sect22_prod: "",
+				sect22_desc: "",
+
+				sect23_title: "",
+				sect23_prod: "",
+				sect23_desc: "",
+
+				sect24_title: "",
+				sect24_prod: "",
+				sect24_desc: "",
 				
 				v1: "",
 				v2: "",
