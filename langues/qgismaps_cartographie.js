@@ -97,47 +97,33 @@ const translations = {
 				sect17_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN et de l'extension <em>Cartogram</em>.",
 				sect17_desc: "Très simpliste d'utilisation, j'ai juste eu à importer la couche des communes, lancer l'extension Cartogram et choisir le champ cible qui est la population.",
 
-				sect18_title: "",
+				sect18_title: "AGAMOGRAPHE DE LA VILLE DE CHAUMONT",
 				sect18_prod: "",
 				sect18_desc: "",
 
-				sect19_title: "",
-				sect19_prod: "",
-				sect19_desc: "",
+				sect19_title: "CHAUMONT STYLE 'DESSIN'",
+				sect19_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN.",
+				sect19_desc: "Je voulais juste faire un test pour voir comment cela pouvait rendre et je ne trouve ça pas si moche.",
 
-				sect20_title: "",
-				sect20_prod: "",
-				sect20_desc: "",
+				sect20_title: "CENTRE-VILLE DE CHAUMONT EN VUE ISOMÉTRIQUE",
+				sect20_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN.",
+				sect20_desc: "Cette carte est la continuité de la carte style 'dessin' avec un zoom sur le centre-ville et un visuel en vue isométrique et des batiments en 2.5D .",
 
-				sect21_title: "",
-				sect21_prod: "",
-				sect21_desc: "",
+				sect21_title: "SICILE",
+				sect21_prod: "Cette carte a été produite via les données de viewfinderpanoramas.org et des données en opendata de l'Italy.",
+				sect21_desc: "J'ai produit cette carte pour une collègue qui m'a demandé une carte sur la Sicile.",
 
-				sect22_title: "",
-				sect22_prod: "",
-				sect22_desc: "",
+				sect22_title: "KAZAKHSTAN",
+				sect22_prod: "Cette carte a été produite via les données de The Humanitarian Data Exchange pour les lacs et cours d'eau, Imagico.de pour l'élévation et Wikipédia pour les noms des villes et leur population.",
+				sect22_desc: "J'ai produit cette carte par envie d'en apprendre plus sur le Kazakhstan. J'ai aussi découvert comment faire un profil hypsométrique, ce qui était plutôt complexe. J'ai ajouté un style différent pour chaque ville en fonction de la population actuelle les hiérarchiser.",
 
-				sect23_title: "",
-				sect23_prod: "",
-				sect23_desc: "",
+				sect23_title: "VILLE DANS MON OEIL",
+				sect23_prod: "Cette vidéo a été produite uniquement sur QGIS.",
+				sect23_desc: "J'ai développé un script python pour créer des bâtiments qui reprennent la couleur de la surface de mon oeil sous eux, et qui en fonction de la zone sont plus ou moins haut (orange/bronze = très haut; bleu foncé = dense; reste = périurbain). Ensuite j'ai testé le rendu vidéo dans QGIS même avec la vue 3D; et je ne trouve ça pas si nul.",
 
 				sect24_title: "",
 				sect24_prod: "",
 				sect24_desc: "",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				
 				v1: "Version 1",
 				v2: "Version 2",
