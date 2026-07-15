@@ -121,9 +121,9 @@ const translations = {
 				sect23_prod: "Cette vidéo a été produite uniquement sur QGIS.",
 				sect23_desc: "J'ai développé un script python pour créer des bâtiments qui reprennent la couleur de la surface de mon oeil sous eux, et qui en fonction de la zone sont plus ou moins haut (orange/bronze = très haut; bleu foncé = dense; reste = périurbain). Ensuite j'ai testé le rendu vidéo dans QGIS même avec la vue 3D; et je ne trouve ça pas si nul.",
 
-				sect24_title: "",
-				sect24_prod: "",
-				sect24_desc: "",
+				sect24_title: "LES CICATRICES DU FEU",
+				sect24_prod: "Cette carte a été produite via les données de Copernicus (EFFIS).",
+				sect24_desc: "J'ai produit cette carte suite aux news sur le feu à Fontainebleau en 2026.",
 				
 				v1: "Version 1",
 				v2: "Version 2",
