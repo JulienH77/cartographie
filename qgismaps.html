@@ -11,7 +11,7 @@
 <link href="style/style_mapssites.css" rel="stylesheet">
 
 <style>
-.controls {
+/*.controls {
     text-align: center;
     margin-bottom: 15px;
 }
@@ -48,10 +48,102 @@
     background-size: 14881px 100%;
     transform-origin: center;
 }
-
-/* zigzag réel */
 .band.left  { transform: rotateY(-60deg); }
-.band.right { transform: rotateY(60deg); }
+.band.right { transform: rotateY(60deg); }*/
+ /* ===========================
+     COMPOSANT AGAMOGRAPHE
+     ========================== */
+  .agamo-section{
+    --agamo-bg: #14181c;
+    --agamo-accent: #e8c26a;
+    --agamo-text: #eef1f4;
+    --agamo-muted: #93a0aa;
+    color: var(--agamo-text);
+  }
+  .agamo-section h2{ margin:0 0 .3rem; letter-spacing:.03em; }
+  .agamo-hint{ margin:0 0 1.1rem; font-size:.85rem; color:var(--agamo-muted); }
+
+  .agamo-controls{ display:flex; gap:.6rem; margin-bottom:1.4rem; flex-wrap:wrap; }
+  .agamo-btn{
+    padding:.55rem 1.15rem;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.05);
+    color:var(--agamo-text);
+    font-size:.88rem;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:background .25s ease, border-color .25s ease, transform .15s ease;
+  }
+  .agamo-btn:hover{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.34); }
+  .agamo-btn:active{ transform:scale(.95); }
+  .agamo-btn.is-active{ background:var(--agamo-accent); border-color:var(--agamo-accent); color:#20180a; }
+
+  .agamo-wrapper{
+    position:relative;
+    width:100%;
+    min-height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:2.5rem 1rem;
+    box-sizing:border-box;
+    perspective:1900px;
+    -webkit-perspective:1900px;
+    perspective-origin:50% 45%;
+    background:
+      radial-gradient(ellipse at 50% 62%, rgba(255,255,255,.06), transparent 68%),
+      var(--agamo-bg);
+    border-radius:18px;
+    overflow:hidden;
+    touch-action:pan-y;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .agamo-wrapper.is-dragging{ cursor:grabbing; }
+  .agamo-wrapper::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:10%;
+    width:50%; height:24px;
+    transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(0,0,0,.5), transparent 72%);
+    filter:blur(1px);
+    pointer-events:none;
+  }
+  .agamo-scene{
+    position:relative;
+    transform-style:preserve-3d;
+    -webkit-transform-style:preserve-3d;
+    will-change:transform;
+    opacity:0;
+    transition:opacity .6s ease;
+  }
+  .agamo-scene.is-ready{ opacity:1; }
+  .agamo-band{
+    position:absolute;
+    top:0; left:0;
+    background-repeat:no-repeat;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+  .agamo-band::after{
+    content:"";
+    position:absolute; inset:0;
+    pointer-events:none;
+  }
+  .agamo-band.theme-nature::after{ background:linear-gradient(90deg, rgba(255,255,255,.09), transparent 45%); }
+  .agamo-band.theme-anthro::after{ background:linear-gradient(90deg, transparent 55%, rgba(0,0,0,.20)); }
+  .agamo-loading{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--agamo-muted);
+    font-size:.85rem;
+    letter-spacing:.02em;
+    transition:opacity .4s ease;
+  }
+  .agamo-loading.is-hidden{ opacity:0; pointer-events:none; }
 </style>
 
 	
@@ -240,89 +332,105 @@
 	</div>
 	</section>
 
-<section>
+<!--<section>
 <h2>AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
-
 <div class="controls">
     <button id="left">← Nature</button>
     <button id="center">Face</button>
     <button id="right">Anthropique →</button>
 </div>
-
 <div class="ag3d-wrapper">
     <div id="ag3d"></div>
 </div>
 </section>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
     const container = document.getElementById("ag3d");
-
     const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg";
-
     const totalBands = 28;
     const bandWidth = 531;
-
     // 👉 on enlève les 2 bandes blanches
     const start = 1;
     const end = totalBands - 1;
-
     for (let i = start; i < end; i++) {
-
         let band = document.createElement("div");
         band.classList.add("band");
-
         // alternance zigzag
         band.classList.add(i % 2 === 0 ? "left" : "right");
-
         band.style.backgroundImage = `url(${imageUrl})`;
-
         // 🔥 POSITION PIXEL PARFAITE
         const x = i * bandWidth;
         band.style.backgroundPosition = `-${x}px 0px`;
-
         container.appendChild(band);
     }
-
     // --- BOUTONS ---
     document.getElementById("left").onclick = () => {
         container.style.transform = "rotateY(-60deg)";
     };
-
     document.getElementById("center").onclick = () => {
         container.style.transform = "rotateY(0deg)";
     };
-
     document.getElementById("right").onclick = () => {
         container.style.transform = "rotateY(60deg)";
     };
-
     // --- DRAG ---
     let isDragging = false;
     let startX = 0;
     let rotation = 0;
-
     container.addEventListener("mousedown", e => {
         isDragging = true;
         startX = e.clientX;
     });
-
     window.addEventListener("mouseup", () => isDragging = false);
-
     window.addEventListener("mousemove", e => {
         if (!isDragging) return;
-
         let delta = e.clientX - startX;
         rotation += delta * 0.3;
-
         container.style.transform = `rotateY(${rotation}deg)`;
-
         startX = e.clientX;
     });
-
 });
-</script>
+</script>-->
+<section class="agamo-section">
+    <h2>AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
+    <p class="agamo-hint">Fais glisser l'image, ou utilise les boutons</p>
+    <div class="agamo-controls">
+      <button id="agamo-left" class="agamo-btn" type="button">← Nature</button>
+      <button id="agamo-center" class="agamo-btn" type="button">Face</button>
+      <button id="agamo-right" class="agamo-btn" type="button">Anthropique →</button>
+    </div>
+    <div class="agamo-wrapper" id="agamo-wrapper">
+      <div id="ag3d" class="agamo-scene"></div>
+      <div class="agamo-loading" id="agamo-loading">Chargement de l'agamographe…</div>
+    </div>
+  </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 	<section>
@@ -673,5 +781,181 @@ document.querySelectorAll('#lang-list li').forEach(item => {
 <script src="langues/qgismaps_cartographie.js"></script>
 
 
+
+
+<!-- agamographe -->
+<script>
+(function () {
+  "use strict";
+
+  // ---- Structure du fichier source ----------------------------------
+  const TOTAL_BANDS   = 28;              // 1 marge blanche + 26 bandes utiles + 1 marge blanche
+  const CONTENT_START = 1;               // index de la 1ère bande utile dans l'image source
+  const CONTENT_END   = TOTAL_BANDS - 1; // exclusif
+  const N              = CONTENT_END - CONTENT_START; // 26
+
+  // Si la bande n°1 (juste après la marge blanche de gauche) est en fait
+  // le thème "Anthropique" et non "Nature" dans ton fichier, passe ceci à false.
+  const FIRST_BAND_IS_NATURE = true;
+
+  // ---- Réglages visuels du pli ---------------------------------------
+  const FOLD_ANGLE   = 38; // profondeur du pli de chaque bande (°) — le "V" de l'accordéon
+  const REVEAL_ANGLE = 52; // rotation d'ensemble pour révéler un thème à plat (doit être > FOLD_ANGLE)
+  const BW           = 42; // largeur de conception d'une bande à plat, en px, avant pliage
+
+  const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg";
+
+  const wrapper   = document.getElementById("agamo-wrapper");
+  const scene     = document.getElementById("ag3d");
+  const loadingEl = document.getElementById("agamo-loading");
+  const btnLeft   = document.getElementById("agamo-left");
+  const btnCenter = document.getElementById("agamo-center");
+  const btnRight  = document.getElementById("agamo-right");
+
+  let rotation   = 0;   // rotation Y courante de l'ensemble, en degrés
+  let fitScale   = 1;   // facteur d'échelle responsive
+  let sceneWidth = 0;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  function applyTransform(withTransition) {
+    scene.style.transition = withTransition
+      ? "transform .7s cubic-bezier(.22,.85,.34,1)"
+      : "none";
+    scene.style.transform = `scale(${fitScale}) rotateY(${rotation}deg)`;
+  }
+
+  function setActiveButton(btn) {
+    [btnLeft, btnCenter, btnRight].forEach(b => b.classList.toggle("is-active", b === btn));
+  }
+
+  function fitToContainer() {
+    if (!sceneWidth) return;
+    const available = wrapper.clientWidth - 32;
+    fitScale = Math.min(1, available / sceneWidth);
+    applyTransform(false);
+  }
+
+  // Construit les 26 bandes pliées en zigzag (accordéon), chacune avec
+  // sa propre rotation fixe (+FOLD_ANGLE ou -FOLD_ANGLE) et sa position
+  // cumulée pour que chaque bande commence exactement où la précédente finit.
+  function build(naturalWidth, naturalHeight) {
+    const bandWidthSource = naturalWidth / TOTAL_BANDS;
+    const s = BW / bandWidthSource;
+    const sceneHeight = naturalHeight * s;
+
+    const rad  = FOLD_ANGLE * Math.PI / 180;
+    const cosA = Math.cos(rad);
+    const sinA = Math.sin(rad);
+
+    let cumX = 0;
+    let cumZ = 0;
+    const frag = document.createDocumentFragment();
+
+    for (let k = 0; k < N; k++) {
+      const isNature = FIRST_BAND_IS_NATURE ? (k % 2 === 0) : (k % 2 === 1);
+      const sign  = isNature ? 1 : -1;
+      const angle = sign * FOLD_ANGLE;
+
+      const band = document.createElement("div");
+      band.className = "agamo-band " + (isNature ? "theme-nature" : "theme-anthro");
+      band.style.width  = BW + "px";
+      band.style.height = sceneHeight + "px";
+      band.style.transformOrigin = "left center";
+      band.style.transform = `translate3d(${cumX}px,0,${cumZ}px) rotateY(${angle}deg)`;
+      band.style.backgroundImage = `url("${imageUrl}")`;
+      band.style.backgroundSize  = `${TOTAL_BANDS * BW}px ${sceneHeight}px`;
+
+      const sourceIndex = CONTENT_START + k;
+      band.style.backgroundPosition = `-${sourceIndex * BW}px 0px`;
+
+      frag.appendChild(band);
+
+      // La bande suivante commence là où celle-ci finit (charnière commune)
+      cumX += BW * cosA;
+      cumZ += -sign * BW * sinA;
+    }
+
+    sceneWidth = cumX;
+    scene.style.width  = sceneWidth + "px";
+    scene.style.height = sceneHeight + "px";
+    scene.appendChild(frag);
+    scene.classList.add("is-ready");
+    loadingEl.classList.add("is-hidden");
+
+    fitToContainer();
+    applyTransform(true);
+  }
+
+  const preload = new Image();
+  preload.onload  = () => build(preload.naturalWidth, preload.naturalHeight);
+  preload.onerror = () => { loadingEl.textContent = "Impossible de charger l'image de l'agamographe."; };
+  preload.src = imageUrl;
+  if (preload.complete && preload.naturalWidth) build(preload.naturalWidth, preload.naturalHeight);
+
+  window.addEventListener("resize", fitToContainer);
+
+  // ---- Boutons ---------------------------------------------------------
+  btnLeft.addEventListener("click", () => {
+    rotation = -REVEAL_ANGLE;
+    applyTransform(true);
+    setActiveButton(btnLeft);
+  });
+  btnCenter.addEventListener("click", () => {
+    rotation = 0;
+    applyTransform(true);
+    setActiveButton(btnCenter);
+  });
+  btnRight.addEventListener("click", () => {
+    rotation = REVEAL_ANGLE;
+    applyTransform(true);
+    setActiveButton(btnRight);
+  });
+
+  // ---- Glisser (souris + tactile, via Pointer Events) -------------------
+  let dragging = false;
+  let startX = 0, startRotation = 0, lastX = 0, lastT = 0, velocity = 0;
+
+  wrapper.addEventListener("pointerdown", e => {
+    dragging = true;
+    startX = lastX = e.clientX;
+    startRotation = rotation;
+    lastT = performance.now();
+    velocity = 0;
+    wrapper.classList.add("is-dragging");
+    wrapper.setPointerCapture(e.pointerId);
+    scene.style.transition = "none";
+  });
+
+  wrapper.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const now = performance.now();
+    const dt  = Math.max(1, now - lastT);
+    velocity  = ((e.clientX - lastX) / dt) * 16;
+    rotation  = clamp(startRotation + (e.clientX - startX) * 0.35, -REVEAL_ANGLE - 25, REVEAL_ANGLE + 25);
+    applyTransform(false);
+    lastX = e.clientX;
+    lastT = now;
+    setActiveButton(null);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    wrapper.classList.remove("is-dragging");
+    let v = velocity * 0.35; // petite inertie au relâchement
+    (function step() {
+      if (Math.abs(v) < 0.05) return;
+      rotation = clamp(rotation + v, -REVEAL_ANGLE - 25, REVEAL_ANGLE + 25);
+      v *= 0.92;
+      applyTransform(false);
+      requestAnimationFrame(step);
+    })();
+  }
+  wrapper.addEventListener("pointerup", endDrag);
+  wrapper.addEventListener("pointercancel", endDrag);
+})();
+</script>
+	
 </body>
 </html>
