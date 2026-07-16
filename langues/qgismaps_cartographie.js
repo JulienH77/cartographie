@@ -8,7 +8,7 @@ const translations = {
 				nav_30dmc: "30 Day Map Challenge",
 
 				title: "Productions cartographiques sur QGIS",
-				title_desc: "Toutes les cartes présentées ci-dessous ont été réalisées sous QGIS (3.34 et 3.40), uniquement par curiosité et par envie d’expérimenter. Aucune retouche n’a été effectuée sur un logiciel externe.<br><br>Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.",
+				title_desc: "Toutes les cartes présentées ci-dessous ont été réalisées sous QGIS (3.XX), uniquement par curiosité et par envie d’expérimenter. Aucune retouche n’a été effectuée sur un logiciel externe.<br><br>Pour consulter les cartes en bonne qualité, il suffit de cliquer dessus.",
 				
 				sect1_title: "LA ZONE DE VISIBILITÉ<br>DE NOTRE-DAME DE PARIS",
 				sect1_prod: "Cette carte a été produite à partir d’un MNS (Modèle Numérique de Surface) et du plugin <em>Visibility Analysis</em>",
@@ -141,7 +141,7 @@ const translations = {
 				nav_30dmc: "30 Day Map Challenge",
 
 				title: "Map productions using QGIS",
-				title_desc: "All the maps shown below were created using QGIS (3.34), purely out of curiosity and a desire to experiment. No editing was done using external software.<br><br>To view the maps in high quality, simply click on them.",
+				title_desc: "All the maps shown below were created using QGIS (3.XX), purely out of curiosity and a desire to experiment. No editing was done using external software.<br><br>To view the maps in high quality, simply click on them.",
 				
 				sect1_title: "THE VISIBILITY ZONE OF<br>NOTRE-DAME DE PARIS",
 				sect1_prod: "This map was produced using a DSM (Digital Surface Model) and the <em>Visibility Analysis</em> plugin.",
@@ -275,7 +275,7 @@ const translations = {
 				nav_30dmc: "30 天地圖挑戰",
 
 				title: "使用QGIS製作地圖",
-				title_desc: "以下所有地圖均使用 QGIS (3.34) 創建，純粹出於好奇和實驗目的。未使用任何外部軟體進行編輯。 <br><br>要查看高清地圖，只需點擊即可。",
+				title_desc: "以下所有地圖均使用 QGIS (3.XX) 創建，純粹出於好奇和實驗目的。未使用任何外部軟體進行編輯。 <br><br>要查看高清地圖，只需點擊即可。",
 				
 				sect1_title: "巴黎聖母院的可視區域",
 				sect1_prod: "該地圖是使用 DSM（數位表面模型）和 <em>可見性分析</em> 外掛程式產生的。",
