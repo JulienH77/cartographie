@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Galerie Cartographique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="style/style_general.css" rel="stylesheet">
+<link href="style/style_mapssites.css" rel="stylesheet">
+
+<style>
+  /* ==========================================================
+     PORTFOLIO MASONRY (STYLE PINTEREST / DRIBBLE)
+     ========================================================== */
+  main.gallery-masonry {
+    column-count: 3;
+    column-gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* Responsive : 2 colonnes sur tablette, 1 sur téléphone */
+  @media (max-width: 1100px) {
+    main.gallery-masonry { column-count: 2; }
+  }
+  @media (max-width: 700px) {
+    main.gallery-masonry { 
+      column-count: 1; 
+      padding: 1rem;
+    }
+  }
+
+  .portfolio-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1a1e23;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+
+  .portfolio-item img, 
+  .portfolio-item video,
+  .portfolio-item iframe {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .portfolio-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 20, 25, 0.95) 0%, rgba(15, 20, 25, 0.6) 50%, transparent 100%);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.5rem;
+    color: #eef1f4;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .portfolio-overlay-content {
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+  }
+  .portfolio-item:hover .portfolio-overlay-content {
+    transform: translateY(0);
+  }
+
+  .portfolio-overlay h2 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.03em;
+    color: #e8c26a;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .portfolio-overlay p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    color: #cbd5e1;
+  }
+
+  .portfolio-item.interactive-card {
+    padding: 1.5rem;
+    background: #14181c;
+  }
+  .portfolio-item.interactive-card:hover img {
+    transform: none;
+  }
+  
+  /* ==========================================================
+     MODALE PLEIN ÉCRAN POUR L'AGAMOGRAPHE
+     ========================================================== */
+  #agamo-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 12, 16, 0.95);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #agamo-modal.is-visible {
+    display: flex;
+    opacity: 1;
+  }
+
+  .agamo-modal-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .close-agamo-btn {
+    position: absolute;
+    top: -2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: #eef1f4;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 2010;
+  }
+
+  .close-agamo-btn:hover {
+    color: #e8c26a;
+  }
+
+  /* ==========================================================
+     STYLES 3D SPECIFIQUES A L'AGAMOGRAPHE (AJOUTS IMPORTANTS)
+     ========================================================== */
+  .agamo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Ajuste la hauteur si besoin */
+    min-height: 400px;
+    margin: 2rem auto;
+    perspective: 1200px; /* INDISPENSABLE POUR LA 3D */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .agamo-wrapper.is-dragging {
+    cursor: grabbing;
+  }
+
+  .agamo-scene {
+    position: relative;
+    transform-style: preserve-3d; /* INDISPENSABLE POUR LA 3D */
+    transform-origin: center center;
+  }
+
+  .agamo-band {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    box-shadow: inset -5px 0 15px rgba(0,0,0,0.25); /* Ombre légère dans le pli */
+  }
+
+  .agamo-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .agamo-btn {
+    background: transparent;
+    color: #eef1f4;
+    border: 1px solid #e8c26a;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .agamo-btn:hover, .agamo-btn.is-active {
+    background: #e8c26a;
+    color: #1a1e23;
+  }
+
+  .agamo-loading {
+    position: absolute;
+    color: #e8c26a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .agamo-loading.is-hidden {
+    display: none;
+  }
+</style>
+</head>
+
+<body>
+  <header class="site-header">
+      <nav class="nav">
+          <div class="nav-left">
+              <span data-i18n="nav_qgis" class="site-title"></span>
+          </div>
+          <ul class="nav-links">
+              <li><a data-i18n="nav_accueil" href="index.html"></a></li>
+              <li><a data-i18n="nav_qgis" href="qgismaps.html" class="active"></a></li>
+              <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html"></a></li>
+        <li><a data-i18n="nav_30dmc" href="30daymapchallenge.html"></a></li>
+          </ul>
+    </nav>
+    <div class="lang-switch">
+      <button id="lang-btn">FR</button>
+      <ul id="lang-list">
+        <li data-lang="fr">FR</li>
+        <li data-lang="en">EN</li>
+        <li data-lang="zh">ZH</li>
+      </ul>
+    </div>
+  </header>
+
+<div id="intro">
+  <h1 data-i18n="title"></h1>
+  <p data-i18n="title_desc"></p>
+</div>
+
+<!-- LA GALERIE MASONRY -->
+<main class="gallery-masonry" id="map-container">
+    <!-- Les cartes seront injectées ici par Javascript -->
+</main>
+
+<!-- LA MODALE POUR L'AGAMOGRAPHE -->
+<div id="agamo-modal" aria-hidden="true">
+  <div class="agamo-modal-content">
+    <button class="close-agamo-btn" id="close-agamo">&times;</button>
+    <section class="agamo-section" style="padding:0; width: 100%;">
+      <h2 data-i18n="agamo_title" style="color:#e8c26a; text-align:center; font-family:'Poppins', sans-serif;">AGAMOGRAPHE DE LA VILLE DE CHAUMONT</h2>
+      <p class="agamo-hint" data-i18n="agamo_hint" style="text-align:center; color:#cbd5e1; margin-bottom: 1rem;">Fais glisser l'image, ou utilise les boutons ci-dessous</p>
+      
+      <div class="agamo-controls" style="justify-content:center;">
+        <button id="agamo-left" class="agamo-btn" type="button">← Nature</button>
+        <button id="agamo-center" class="agamo-btn is-active" type="button">Face</button>
+        <button id="agamo-right" class="agamo-btn" type="button">Anthropique →</button>
+      </div>
+
+      <div class="agamo-wrapper" id="agamo-wrapper">
+        <div id="ag3d" class="agamo-scene"></div>
+        <div class="agamo-loading" id="agamo-loading">Chargement de l'agamographe...</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer data-i18n="footer" class="site-footer"></footer>
+
+<!-- LIGHTBOX POUR LES IMAGES CLASSIQUES -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <img src="" alt="">
+</div>
+
+<!-- SCRIPT DE CONFIGURATION DES CARTES -->
+<script>
+const cartoData = [
+  {
+    titleKey: "sect1_title", titleDefault: "LA ZONE DE VISIBILITÉ DE NOTRE-DAME DE PARIS",
+    prodKey: "sect1_prod", descKey: "sect1_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__PARIS_Notre_dame_de_Paris_500m.png", full: "maps/QGIS/PARIS_Notre_dame_de_Paris_500m.png", alt: "Notre-Dame"
+  },
+  {
+    titleKey: "sect2_title", titleDefault: "LA ZONE DE VISIBILITÉ DE LA TOUR EIFFEL",
+    prodKey: "sect2_prod", descKey: "sect2_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__PARIS_Tour_Effeil_3000m.png", full: "maps/QGIS/PARIS_Tour_Effeil_3000m.png", alt: "Tour Eiffel"
+  },
+  {
+    titleKey: "sect3_title", titleDefault: "LA FRANCE ET SES RÉGIONS EN ORIGAMI",
+    prodKey: "sect3_prod", descKey: "sect3_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__FRANCE_origami.png", full: "maps/QGIS/FRANCE_origami.png", alt: "France origami"
+  },
+  {
+    titleKey: "sect4_title", titleDefault: "LES BANCS DE CHAUMONT",
+    prodKey: "sect4_prod", descKey: "sect4_desc",
+    versions: [
+      { vLabelKey: "v1", thumb: "maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V1.png", full: "maps/QGIS/CHAUMONT_bancs_V1.png", alt: "Bancs V1" },
+      { vLabelKey: "v2", thumb: "maps/QGIS/thumbs/THUMBS__CHAUMONT_bancs_V2.png", full: "maps/QGIS/CHAUMONT_bancs_V2.png", alt: "Bancs V2" }
+    ], type: "multiversion"
+  },
+  {
+    titleKey: "sect5_title", titleDefault: "LE TRAJET DE MON VOL VERS LA CHINE",
+    prodKey: "sect5_prod", descKeys: ["sect5_desc1", "sect5_desc2", "sect5_desc3"],
+    type: "video", src: "maps/QGIS/MONDE_vol_vers_Chine.webm"
+  },
+  {
+    titleKey: "sect6_title", titleDefault: "MON VOYAGE EN CHINE",
+    prodKey: "sect6_prod", descKey: "sect6_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__CHINE_mon_voyage_2025.png", full: "maps/QGIS/CHINE_mon_voyage_2025.png", alt: "Chine"
+  },
+  {
+    titleKey: "sect7_title", titleDefault: "LES ROUTES EN DIRECTION DE CHAUMONT",
+    prodKey: "sect7_prod", descKey: "sect7_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__FRANCE_panneaux_direction_Chaumont.jpeg", full: "maps/QGIS/FRANCE_panneaux_direction_Chaumont.jpeg", alt: "Chaumont routes"
+  },
+  {
+    titleKey: "sect8_title", titleDefault: "DATE DE CRÉATION DES BÂTIMENTS À CHAUMONT",
+    prodKey: "sect8_prod", descKeys: ["sect8_desc1", "sect8_desc2"],
+    type: "img", thumb: "maps/QGIS/CHAUMONT_date_batiments.gif", full: "maps/QGIS/CHAUMONT_date_batiments.gif", alt: "Animation bâtiments Chaumont"
+  },
+  {
+    titleKey: "sect9_title", titleDefault: "VISUALISATION 3D DE LA HAUTE-MARNE",
+    prodKey: "sect9_prod", descKey: "sect9_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__HAUTE-MARNE_topographie.jpg", full: "maps/QGIS/HAUTE-MARNE_topographie.jpg", alt: "Topographie Haute-Marne"
+  },
+  {
+    titleKey: "sect10_title", titleDefault: "TEST DE CARTE DE DÉPLACEMENT",
+    prodKey: "sect10_prod", descKeys: ["sect10_desc1", "sect10_desc2", "sect10_desc3"],
+    type: "iframe", embedUrl: "https://www.youtube.com/embed/M7x3jNXXkRw"
+  },
+  {
+    titleKey: "sect11_title", titleDefault: "CARTE DE LA ROUTE DE LA SOIE",
+    prodKey: "sect11_prod", descKeys: ["sect11_desc1", "sect11_desc2", "sect11_desc3"],
+    versions: [
+      { vLabelKey: "v1", thumb: "maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V1.jpeg", full: "maps/QGIS/MONDE_route_soie_V1.jpeg", alt: "Route soie V1" },
+      { vLabelKey: "v2", thumb: "maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V2.jpeg", full: "maps/QGIS/MONDE_route_soie_V2.jpeg", alt: "Route soie V2" },
+      { vLabelKey: "v3", thumb: "maps/QGIS/thumbs/THUMBS__MONDE_route_soie_V3.jpeg", full: "maps/QGIS/MONDE_route_soie_V3.jpeg", alt: "Route soie V3" }
+    ], type: "multiversion"
+  },
+  {
+    titleKey: "sect12_title", titleDefault: "CARTE DE BORDEAUX",
+    prodKey: "sect12_prod", descKey: "sect12_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__BORDEAUX.jpg", full: "maps/QGIS/BORDEAUX.jpg", alt: "Bordeaux"
+  },
+  {
+    titleKey: "sect13_title", titleDefault: "CARTES DE L'AUSTRALIE",
+    prodKey: "sect13_prod", descKeys: ["sect13_desc1", "sect13_desc2"],
+    versions: [
+      { vLabelKey: "sect13_carte1", thumb: "maps/QGIS/thumbs/THUMBS__AUSTRALIE_elevation.jpeg", full: "maps/QGIS/AUSTRALIE_elevation.jpeg", alt: "Elevation Australie" },
+      { vLabelKey: "sect13_carte2", thumb: "maps/QGIS/thumbs/THUMBS__AUSTRALIE_major_roads.jpeg", full: "maps/QGIS/AUSTRALIE_major_roads.jpeg", alt: "Routes Australie" },
+      { vLabelKey: "sect13_carte3", thumb: "maps/QGIS/thumbs/THUMBS__AUSTRALIE_train.jpeg", full: "maps/QGIS/AUSTRALIE_train.jpeg", alt: "Trains Australie" },
+      { vLabelKey: "sect13_carte4", thumb: "maps/QGIS/thumbs/THUMBS__AUSTRALIE_population_surface.jpeg", full: "maps/QGIS/AUSTRALIE_population_surface.jpeg", alt: "Densité Australie" }
+    ], type: "multiversion"
+  },
+  {
+    titleKey: "sect14_title", titleDefault: "ZONE DE VISIBILITÉ DU MONT-BLANC",
+    prodKey: "sect14_prod", descKey: "sect14_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__FRANCE_Mont_Blanc_300km.png", full: "maps/QGIS/FRANCE_Mont_Blanc_300km.png", alt: "Mont Blanc"
+  },
+  {
+    titleKey: "sect15_title", titleDefault: "LES VIGNOBLES AOP DE FRANCE",
+    prodKey: "sect15_prod", descKey: "sect15_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__FRANCE_vignobles_AOP.jpeg", full: "maps/QGIS/FRANCE_vignobles_AOP.jpeg", alt: "Vignobles AOP"
+  },
+  {
+    titleKey: "sect16_title", titleDefault: "LA HAUTE-MARNE ET SON ÉLÉVATION",
+    prodKey: "sect16_prod", descKey: "sect16_desc",
+    versions: [
+      { vLabelKey: "sect16_carte1", thumb: "maps/QGIS/thumbs/THUMBS_HAUTE-MARNE_joy_division.jpeg", full: "maps/QGIS/HAUTE-MARNE_joy_division.jpeg", alt: "Joy Division" },
+      { vLabelKey: "sect16_carte2", thumb: "maps/QGIS/thumbs/THUMBS_HAUTE-MARNE_violin_elevation.jpeg", full: "maps/QGIS/HAUTE-MARNE_violin_elevation.jpeg", alt: "Violin" }
+    ], type: "multiversion"
+  },
+  {
+    titleKey: "sect17_title", titleDefault: "CARTOGRAMME DE LA POPULATION EN HAUTE-MARNE",
+    prodKey: "sect17_prod", descKey: "sect17_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS_HAUTE-MARNE_cartogramme.jpeg", full: "maps/QGIS/HAUTE-MARNE_cartogramme.jpeg", alt: "Cartogramme"
+  },
+  // LA CARTE DÉCLENCHEUSE DE L'AGAMOGRAPHE
+  {
+    titleKey: "agamo_title", titleDefault: "AGAMOGRAPHE DE LA VILLE DE CHAUMONT",
+    descDefault: "Cliquez pour charger la version interactive 3D.",
+    type: "agamo-trigger", thumb: "maps/QGIS/CHAUMONT_agamographe.jpeg"
+  },
+  {
+    titleKey: "sect19_title", titleDefault: "CHAUMONT STYLE DESSIN",
+    prodKey: "sect19_prod", descKey: "sect19_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS_CHAUMONT_batiments_3D_dessin.jpeg", full: "maps/QGIS/CHAUMONT_batiments_3D_dessin.jpeg", alt: "Chaumont dessin"
+  },
+  {
+    titleKey: "sect20_title", titleDefault: "CENTRE-VILLE DE CHAUMONT EN VUE ISOMÉTRIQUE",
+    prodKey: "sect20_prod", descKey: "sect20_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS_CHAUMONT_isometrique.jpeg", full: "maps/QGIS/CHAUMONT_isometrique.jpeg", alt: "Chaumont iso"
+  },
+  {
+    titleKey: "sect21_title", titleDefault: "SICILE",
+    prodKey: "sect21_prod", descKey: "sect21_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__SICILE_relief.jpeg", full: "maps/QGIS/SICILE_relief.jpeg", alt: "Sicile"
+  },
+  {
+    titleKey: "sect22_title", titleDefault: "KAZAKHSTAN",
+    prodKey: "sect22_prod", descKey: "sect22_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__KAZAKHSTAN_relief.jpeg", full: "maps/QGIS/KAZAKHSTAN_relief.jpeg", alt: "Kazakhstan"
+  },
+  {
+    titleKey: "sect23_title", titleDefault: "VILLE DANS MON OEIL",
+    prodKey: "sect23_prod", descKey: "sect23_desc",
+    type: "iframe", embedUrl: "https://www.youtube.com/embed/bCPTDRvTbG4?si=rxReMoX698RbrVmG"
+  },
+  {
+    titleKey: "sect24_title", titleDefault: "LES CICATRICES DU FEU",
+    prodKey: "sect24_prod", descKey: "sect24_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__FRANCE_incendies.png", full: "maps/QGIS/FRANCE_incendies.png", alt: "Incendies France"
+  },
+  {
+    titleKey: "sect25_title", titleDefault: "BESANÇON",
+    prodKey: "sect25_prod", descKey: "sect25_desc",
+    type: "img", thumb: "maps/QGIS/thumbs/THUMBS__BESANCON_carte_tourisme.jpeg", full: "maps/QGIS/BESANCON_carte_tourisme.jpeg", alt: "Besançon"
+  },
+  {
+    titleKey: "sect26_title", titleDefault: "HAUTE MARNE LEGO",
+    prodKey: "sect26_prod", descKey: "sect26_desc",
+    versions: [
+      { vLabelKey: "v1", thumb: "maps/QGIS/thumbs/THUMBS__HAUTE-MARNE__LEGO.jpeg", full: "maps/QGIS/HAUTE-MARNE__LEGO.jpeg", alt: "Lego V1" },
+      { vLabelKey: "v2", thumb: "maps/QGIS/thumbs/THUMBS__HAUTE-MARNE__LEGO_V2.jpeg", full: "maps/QGIS/HAUTE-MARNE__LEGO_V2.jpeg", alt: "Lego V2" }
+    ], type: "multiversion"
+  }
+];
+
+const container = document.getElementById('map-container');
+
+cartoData.forEach(item => {
+  if (item.type === 'multiversion') {
+    item.versions.forEach((v, index) => {
+      const article = document.createElement('article');
+      article.className = 'portfolio-item';
+      let textHTML = `
+        <div class="portfolio-overlay">
+          <div class="portfolio-overlay-content">
+            <h2 data-i18n="${item.titleKey}">${item.titleDefault || ''}</h2>
+            <p style="color:#e8c26a; font-weight:bold; font-size:0.9rem; margin-bottom:0.5rem;" data-i18n="${v.vLabelKey}">Version ${index + 1}</p>
+            ${item.prodKey ? `<p data-i18n="${item.prodKey}"></p>` : ''}
+          </div>
+        </div>
+      `;
+      let mediaHTML = `<img src="${v.thumb}" data-full="${v.full}" alt="${v.alt}" loading="lazy" class="trigger-lightbox">`;
+      article.innerHTML = mediaHTML + textHTML;
+      container.appendChild(article);
+    });
+    return;
+  }
+
+  const article = document.createElement('article');
+  article.className = 'portfolio-item';
+
+  let mediaHTML = '';
+  if (item.type === 'img') {
+    mediaHTML = `<img src="${item.thumb}" data-full="${item.full}" alt="${item.alt}" loading="lazy" class="trigger-lightbox">`;
+  } else if (item.type === 'video') {
+    mediaHTML = `<video autoplay loop muted playsinline><source src="${item.src}" type="video/webm"/></video>`;
+  } else if (item.type === 'iframe') {
+    mediaHTML = `<iframe src="${item.embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="aspect-ratio:16/9; pointer-events: auto;"></iframe>`;
+  } else if (item.type === 'agamo-trigger') {
+    // La carte cliquable pour ouvrir la modale de l'agamographe
+    mediaHTML = `<img src="${item.thumb}" style="object-fit:cover; height:250px;" alt="Ouvrir l'agamographe" loading="lazy" id="open-agamo-btn">`;
+  }
+
+  let textHTML = `
+    <div class="portfolio-overlay" style="${item.type === 'iframe' || item.type === 'agamo-trigger' ? 'pointer-events: none;' : ''}">
+      <div class="portfolio-overlay-content">
+        ${item.titleKey ? `<h2 data-i18n="${item.titleKey}">${item.titleDefault || ''}</h2>` : ''}
+        ${item.descDefault ? `<p style="color:#e8c26a; font-weight:bold;">${item.descDefault}</p>` : ''}
+        ${item.prodKey ? `<p data-i18n="${item.prodKey}"></p>` : ''}
+      </div>
+    </div>
+  `;
+
+  article.innerHTML = mediaHTML + textHTML;
+  container.appendChild(article);
+});
+
+// GESTION DE LA LIGHTBOX CLASSIQUE
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('trigger-lightbox') && e.target.dataset.full) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    lightbox.style.display = 'flex';
+    lightboxImg.src = e.target.dataset.full;
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+lightbox.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+  lightboxImg.src = '';
+  lightbox.setAttribute('aria-hidden', 'true');
+});
+
+// OUVRIR / FERMER LE BOUTON DE LANGUE
+const langSwitch = document.querySelector('.lang-switch');
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.addEventListener('click', () => {
+  langSwitch.classList.toggle('open');
+});
+
+document.querySelectorAll('#lang-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const selectedLang = item.dataset.lang;
+    if(typeof setLang === 'function') setLang(selectedLang);
+    langSwitch.classList.remove('open');
+  });
+});
+
+// ==========================================================
+// GESTION DE L'AGAMOGRAPHE (INITIALISATION + EVENTS)
+// ==========================================================
+let agamoInitialized = false;
+
+document.getElementById('open-agamo-btn').addEventListener('click', () => {
+  const modal = document.getElementById('agamo-modal');
+  modal.classList.add('is-visible');
+  
+  if (!agamoInitialized) {
+    initAgamograph();
+    agamoInitialized = true;
+  }
+});
+
+document.getElementById('close-agamo').addEventListener('click', () => {
+  document.getElementById('agamo-modal').classList.remove('is-visible');
+});
+
+function initAgamograph() {
+  const TOTAL_BANDS = 28;
+  const CONTENT_START = 1;
+  const CONTENT_END = TOTAL_BANDS - 1;
+  const N = CONTENT_END - CONTENT_START;
+  const FIRST_BAND_IS_NATURE = true;
+
+  const FOLD_ANGLE = 38;
+  const REVEAL_ANGLE = 52;
+  const BW = 42;
+
+  // 👉 C'EST ICI QUE TU PEUX COLLER TA CHAINE BASE 64 SI TU LE SOUHAITES
+  const imageUrl = "maps/QGIS/CHAUMONT_agamographe.jpeg"; 
+
+  const wrapper = document.getElementById("agamo-wrapper");
+  const scene = document.getElementById("ag3d");
+  const loadingEl = document.getElementById("agamo-loading");
+  const btnLeft = document.getElementById("agamo-left");
+  const btnCenter = document.getElementById("agamo-center");
+  const btnRight = document.getElementById("agamo-right");
+
+  let rotation = 0, fitScale = 1, sceneWidth = 0;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  function applyTransform(withTransition) {
+    scene.style.transition = withTransition ? "transform .7s cubic-bezier(.22,.85,.34,1)" : "none";
+    scene.style.transform = `scale(${fitScale}) rotateY(${rotation}deg)`;
+  }
+  
+  function setActiveButton(btn) {
+    [btnLeft, btnCenter, btnRight].forEach(b => b.classList.toggle("is-active", b === btn));
+  }
+  
+  function fitToContainer() {
+    if (!sceneWidth) return;
+    const available = wrapper.clientWidth - 32;
+    fitScale = Math.min(1, available / sceneWidth);
+    applyTransform(false);
+  }
+
+  function build(naturalWidth, naturalHeight) {
+    const bandWidthSource = naturalWidth / TOTAL_BANDS;
+    const s = BW / bandWidthSource;
+    const sceneHeight = naturalHeight * s;
+    const rad = FOLD_ANGLE * Math.PI / 180;
+    const cosA = Math.cos(rad);
+    const sinA = Math.sin(rad);
+
+    let cumX = 0, cumZ = 0;
+    const frag = document.createDocumentFragment();
+
+    for (let k = 0; k < N; k++) {
+      const isNature = FIRST_BAND_IS_NATURE ? (k % 2 === 0) : (k % 2 === 1);
+      const sign = isNature ? 1 : -1;
+      const angle = sign * FOLD_ANGLE;
+
+      const band = document.createElement("div");
+      band.className = "agamo-band " + (isNature ? "theme-nature" : "theme-anthro");
+      band.style.width = BW + "px";
+      band.style.height = sceneHeight + "px";
+      band.style.transformOrigin = "left center";
+      band.style.transform = `translate3d(${cumX}px,0,${cumZ}px) rotateY(${angle}deg)`;
+      band.style.backgroundImage = `url("${imageUrl}")`;
+      band.style.backgroundSize = `${TOTAL_BANDS * BW}px ${sceneHeight}px`;
+
+      const sourceIndex = CONTENT_START + k;
+      band.style.backgroundPosition = `-${sourceIndex * BW}px 0px`;
+      frag.appendChild(band);
+
+      cumX += BW * cosA;
+      cumZ += -sign * BW * sinA;
+    }
+
+    sceneWidth = cumX;
+    scene.style.width = sceneWidth + "px";
+    scene.style.height = sceneHeight + "px";
+    scene.appendChild(frag);
+    scene.classList.add("is-ready");
+    loadingEl.classList.add("is-hidden");
+
+    fitToContainer();
+    applyTransform(true);
+  }
+
+  const preload = new Image();
+  preload.onload = () => build(preload.naturalWidth, preload.naturalHeight);
+  preload.src = imageUrl;
+
+  window.addEventListener("resize", fitToContainer);
+
+  btnLeft.addEventListener("click", () => { rotation = -REVEAL_ANGLE; applyTransform(true); setActiveButton(btnLeft); });
+  btnCenter.addEventListener("click", () => { rotation = 0; applyTransform(true); setActiveButton(btnCenter); });
+  btnRight.addEventListener("click", () => { rotation = REVEAL_ANGLE; applyTransform(true); setActiveButton(btnRight); });
+
+  let dragging = false, startX = 0, startRotation = 0, lastX = 0, lastT = 0, velocity = 0;
+  
+  wrapper.addEventListener("pointerdown", e => {
+    dragging = true; startX = lastX = e.clientX; startRotation = rotation;
+    lastT = performance.now(); velocity = 0;
+    wrapper.classList.add("is-dragging");
+    wrapper.setPointerCapture(e.pointerId);
+    scene.style.transition = "none";
+  });
+  
+  wrapper.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    const now = performance.now();
+    const dt = Math.max(1, now - lastT);
+    velocity = ((e.clientX - lastX) / dt) * 16;
+    rotation = clamp(startRotation + (e.clientX - startX) * 0.35, -REVEAL_ANGLE - 25, REVEAL_ANGLE + 25);
+    applyTransform(false);
+    lastX = e.clientX; lastT = now;
+    setActiveButton(null);
+  });
+  
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    wrapper.classList.remove("is-dragging");
+    let v = velocity * 0.35;
+    (function step() {
+      if (Math.abs(v) < 0.05) return;
+      rotation = clamp(rotation + v, -REVEAL_ANGLE - 25, REVEAL_ANGLE + 25);
+      v *= 0.92;
+      applyTransform(false);
+      requestAnimationFrame(step);
+    })();
+  }
+  
+  wrapper.addEventListener("pointerup", endDrag);
+  wrapper.addEventListener("pointercancel", endDrag);
+}
+</script>
+
+<!-- CHANGEMENT DE LANGUE (Fichier externe) -->
+<script src="langues/qgismaps_cartographie.js"></script>
+
+</body>
+</html>
