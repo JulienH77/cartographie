@@ -11,6 +11,13 @@
 <link href="style/style_mapssites.css" rel="stylesheet">
 
 <style>
+/* ==========================================================
+     LIGHTBOX 
+     ========================================================== */
+  #lightbox img {
+    cursor: pointer;
+  }
+  
   /* ==========================================================
      PORTFOLIO MASONRY (STYLE PINTEREST / DRIBBLE)
      ========================================================== */
@@ -500,6 +507,26 @@ document.addEventListener('click', (e) => {
     lightbox.style.display = 'flex';
     lightboxImg.src = e.target.dataset.full;
     lightbox.setAttribute('aria-hidden', 'false');
+  }
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+
+// Fermeture de la lightbox si on clique à côté de l'image
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+    lightbox.setAttribute('aria-hidden', 'true');
+  }
+});
+
+// OUVERTURE DANS UN AUTRE ONGLET AU CLIC SUR L'IMAGE EN GRAND
+lightboxImg.addEventListener('click', (e) => {
+  e.stopPropagation(); // Évite de déclencher la fermeture du conteneur parent
+  if (lightboxImg.src) {
+    window.open(lightboxImg.src, '_blank');
   }
 });
 
