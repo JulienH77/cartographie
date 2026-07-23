@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Galerie Cartographique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="style/style_general.css" rel="stylesheet">
+<link href="style/style_mapssites.css" rel="stylesheet">
+
+<style>
+/* ==========================================================
+     LIGHTBOX 
+     ========================================================== */
+  #lightbox img {
+    cursor: pointer;
+  }
+  
+  /* ==========================================================
+     PORTFOLIO MASONRY (STYLE PINTEREST / DRIBBLE)
+     ========================================================== */
+  main.gallery-masonry {
+    column-count: 3;
+    column-gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* Responsive : 2 colonnes sur tablette, 1 sur téléphone */
+  @media (max-width: 1100px) {
+    main.gallery-masonry { column-count: 2; }
+  }
+  @media (max-width: 700px) {
+    main.gallery-masonry { 
+      column-count: 1; 
+      padding: 1rem;
+    }
+  }
+
+  .portfolio-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1a1e23;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+
+  .portfolio-item img, 
+  .portfolio-item video,
+  .portfolio-item iframe {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .portfolio-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 20, 25, 0.95) 0%, rgba(15, 20, 25, 0.6) 50%, transparent 100%);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.5rem;
+    color: #eef1f4;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .portfolio-overlay-content {
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+  }
+  .portfolio-item:hover .portfolio-overlay-content {
+    transform: translateY(0);
+  }
+
+  .portfolio-overlay h2 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.03em;
+    color: #e8c26a;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .portfolio-overlay p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    color: #cbd5e1;
+  }
+
+  .portfolio-item.interactive-card {
+    padding: 1.5rem;
+    background: #14181c;
+  }
+  .portfolio-item.interactive-card:hover img {
+    transform: none;
+  }
+</style>
+</head>
+
+<body>
+  <header class="site-header">
+      <nav class="nav">
+          <div class="nav-left">
+              <span data-i18n="nav_qgis" class="site-title"></span>
+          </div>
+          <ul class="nav-links">
+              <li><a data-i18n="nav_accueil" href="index.html"></a></li>
+              <li><a data-i18n="nav_qgis" href="qgismaps.html"></a></li>
+              <li><a data-i18n="nav_wonderdraft" href="wonderdraftmaps.html" class="active"></a></li>
+			  <li><a data-i18n="nav_30dmc" href="30daymapchallenge.html"></a></li>
+          </ul>
+    </nav>
+    <div class="lang-switch">
+      <button id="lang-btn">FR</button>
+      <ul id="lang-list">
+        <li data-lang="fr">FR</li>
+        <li data-lang="en">EN</li>
+        <li data-lang="zh">ZH</li>
+      </ul>
+    </div>
+  </header>
+  
+<div id="intro">
+  <h1 data-i18n="title"></h1>
+  <p data-i18n="title_desc"></p>
+</div>
+
+
+
+
+
+
+
+<!-- LA GALERIE MASONRY -->
+<main class="gallery-masonry" id="map-container">
+    <!-- Les cartes seront injectées ici par Javascript -->
+</main>
+
+<footer data-i18n="footer" class="site-footer"></footer>
+
+<!-- LIGHTBOX POUR LES IMAGES CLASSIQUES -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <img src="" alt="">
+</div>
+
+<!-- SCRIPT DE CONFIGURATION DES CARTES -->
+<script>
+const cartoData = [
+  {
+    titleKey: "sect1_title", titleDefault: "Ma première carte sur Wonderdraft",
+    prodKey: "sect1_prod", descKey: "sect1_desc",
+    type: "img", thumb: "maps/wonderdraft/THUMBS__premiere_carte.png", full: "maps/wonderdraft/premiere_carte.png", alt: "Ma première carte"
+  },
+  {
+    titleKey: "sect2_title", titleDefault: "LA ZONE DE VISIBILITÉ DE LA TOUR EIFFEL",
+    prodKey: "sect2_prod", descKey: "sect2_desc",
+    type: "img", thumb: "maps/wonderdraft/THUMBS__Old_style_Haute-Marne.png", full: "maps/wonderdraft/Old_style_Haute-Marne.png", alt: "Haute-Marne avec un style ancien"
+  }
+];
+
+const container = document.getElementById('map-container');
+
+cartoData.forEach(item => {
+  if (item.type === 'multiversion') {
+    item.versions.forEach((v, index) => {
+      const article = document.createElement('article');
+      article.className = 'portfolio-item';
+      let textHTML = `
+        <div class="portfolio-overlay">
+          <div class="portfolio-overlay-content">
+            <h2 data-i18n="${item.titleKey}">${item.titleDefault || ''}</h2>
+            <p style="color:#e8c26a; font-weight:bold; font-size:0.9rem; margin-bottom:0.5rem;" data-i18n="${v.vLabelKey}">Version ${index + 1}</p>
+            ${item.prodKey ? `<p data-i18n="${item.prodKey}"></p>` : ''}
+          </div>
+        </div>
+      `;
+      let mediaHTML = `<img src="${v.thumb}" data-full="${v.full}" alt="${v.alt}" loading="lazy" class="trigger-lightbox">`;
+      article.innerHTML = mediaHTML + textHTML;
+      container.appendChild(article);
+    });
+    return;
+  }
+
+  const article = document.createElement('article');
+  article.className = 'portfolio-item';
+
+  let mediaHTML = '';
+  if (item.type === 'img') {
+    mediaHTML = `<img src="${item.thumb}" data-full="${item.full}" alt="${item.alt}" loading="lazy" class="trigger-lightbox">`;
+  } else if (item.type === 'video') {
+    mediaHTML = `<video autoplay loop muted playsinline><source src="${item.src}" type="video/webm"/></video>`;
+  } else if (item.type === 'iframe') {
+    mediaHTML = `<iframe src="${item.embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="aspect-ratio:16/9; pointer-events: auto;"></iframe>`;
+  } else if (item.type === 'agamo-trigger') {
+    // La carte cliquable pour ouvrir la modale de l'agamographe
+    mediaHTML = `<img src="${item.thumb}" style="object-fit:cover; height:250px;" alt="Ouvrir l'agamographe" loading="lazy" id="open-agamo-btn">`;
+  }
+
+  let textHTML = `
+    <div class="portfolio-overlay" style="${item.type === 'iframe' || item.type === 'agamo-trigger' ? 'pointer-events: none;' : ''}">
+      <div class="portfolio-overlay-content">
+        ${item.titleKey ? `<h2 data-i18n="${item.titleKey}">${item.titleDefault || ''}</h2>` : ''}
+        ${item.descDefault ? `<p style="color:#e8c26a; font-weight:bold;">${item.descDefault}</p>` : ''}
+        ${item.prodKey ? `<p data-i18n="${item.prodKey}"></p>` : ''}
+      </div>
+    </div>
+  `;
+
+  article.innerHTML = mediaHTML + textHTML;
+  container.appendChild(article);
+});
+
+
+// GESTION DE LA LIGHTBOX CLASSIQUE
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('trigger-lightbox') && e.target.dataset.full) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    lightbox.style.display = 'flex';
+    lightboxImg.src = e.target.dataset.full;
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+
+// Fermeture de la lightbox si on clique à côté de l'image
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+    lightbox.setAttribute('aria-hidden', 'true');
+  }
+});
+
+// OUVERTURE DANS UN AUTRE ONGLET AU CLIC SUR L'IMAGE EN GRAND
+lightboxImg.addEventListener('click', (e) => {
+  e.stopPropagation(); // Évite de déclencher la fermeture du conteneur parent
+  if (lightboxImg.src) {
+    window.open(lightboxImg.src, '_blank');
+  }
+});
+
+
+
+     
+
+// OUVRIR / FERMER LE BOUTON DE LANGUE
+const langSwitch = document.querySelector('.lang-switch');
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.addEventListener('click', () => {
+  langSwitch.classList.toggle('open');
+});
+
+document.querySelectorAll('#lang-list li').forEach(item => {
+  item.addEventListener('click', () => {
+    const selectedLang = item.dataset.lang;
+    if(typeof setLang === 'function') setLang(selectedLang);
+    langSwitch.classList.remove('open');
+  });
+});
+</script>
+
+<!-- CHANGEMENT DE LANGUE (Fichier externe) -->
+<script src="langues/wonderdraft_cartographie.js"></script>
+
+</body>
+</html>
