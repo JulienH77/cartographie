@@ -499,6 +499,7 @@ cartoData.forEach(item => {
   container.appendChild(article);
 });
 
+
 // GESTION DE LA LIGHTBOX CLASSIQUE
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('trigger-lightbox') && e.target.dataset.full) {
@@ -530,13 +531,9 @@ lightboxImg.addEventListener('click', (e) => {
   }
 });
 
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = lightbox.querySelector('img');
-lightbox.addEventListener('click', () => {
-  lightbox.style.display = 'none';
-  lightboxImg.src = '';
-  lightbox.setAttribute('aria-hidden', 'true');
-});
+
+
+     
 
 // OUVRIR / FERMER LE BOUTON DE LANGUE
 const langSwitch = document.querySelector('.lang-switch');
