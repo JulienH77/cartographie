@@ -124,6 +124,14 @@ const translations = {
 				sect24_title: "LES CICATRICES DU FEU",
 				sect24_prod: "Cette carte a été produite via les données de Copernicus (EFFIS).",
 				sect24_desc: "J'ai produit cette carte suite aux news sur le feu à Fontainebleau en 2026.",
+
+				sect25_title: "CARTE TOURISTIQUE DE BESANÇON",
+				sect25_prod: "Cette carte a été produite via les données de LA BDTOPO de l'IGN et des données de la ville elle-même.",
+				sect25_desc: "J'ai produit cette carte pour une visite prochaine de la ville.",
+
+				sect26_title: "LA HAUTE-MARNE EN LEGO",
+				sect26_prod: "Cette carte a été produite avec les outils de base de QGIS.",
+				sect26_desc: "J'ai produit cette carte par amusement d'une idée qui m'est passée par la tête.",
 				
 				v1: "Version 1",
 				v2: "Version 2",
