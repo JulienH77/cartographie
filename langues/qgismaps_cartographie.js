@@ -91,51 +91,55 @@ const translations = {
 				sect16_prod: "Cette carte a été produite via les données de l'INAO, de Wikipédia et de la BDTOPO de l'IGN.",
 				sect16_desc: "Je suis passé par énormément de styles et de couleurs différentes (formes simplifiées, couleurs \"liège\" etc) mais j'ai retenu celle-ci car je ne souhaitais plus me casser la tête sur le sujet et que je la trouve plutôt correct.<br><br>Le plus contraignant de cette carte était le filtrage manuel du fichier CSV de l'INAO avec ses 1,2 millions de lignes. Ce qui veut dire que je n'ai en surface QUE les données AOP et non les IGP (ce qui augmenterait par exemple la surface de la Lorraine) par pure flemme.<br><br>J'avais des idées de décoration de la carte mais j'ai abandonné par manque de temps car je devais l'imprimer avant mon départ en Australie.",
 
-				sect17_title: "LA HAUTE-MARNE ET SON ÉLÉVATION",
-				sect17_prod: "Cette carte a été produite via les données de la BDALTI et de la BDTOPO de l'IGN.",
-				sect17_desc: "Je me suis rappelé que j'adore ces styles et que je souhaitais essayer de les faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ces styles sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
-				sect17_carte1: "Style Joy-Division",
-				sect17_carte2: "Style Violin-Elevation ",
+				sect17_title: "LES COMPOSITEURS EUROPÉENS DU SIECLE DERNIER",
+				sect17_prod: "",
+				sect17_desc: "",
+
+				sect18_title: "LA HAUTE-MARNE ET SON ÉLÉVATION",
+				sect18_prod: "Cette carte a été produite via les données de la BDALTI et de la BDTOPO de l'IGN.",
+				sect18_desc: "Je me suis rappelé que j'adore ces styles et que je souhaitais essayer de les faire. Je n'ai malheureusement rien 'codé' moi-même, j'ai trouvé ces styles sur le site de QGIS où une personne a posté un code dans le générateur de géométrie déjà prédéfini.",
+				sect18_carte1: "Style Joy-Division",
+				sect18_carte2: "Style Violin-Elevation ",
 				
-				sect18_title: "CARTOGRAMME DE LA POPULATION EN HAUTE-MARNE",
-				sect18_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN et de l'extension <em>Cartogram</em>.",
-				sect18_desc: "Très simpliste d'utilisation, j'ai juste eu à importer la couche des communes, lancer l'extension Cartogram et choisir le champ cible qui est la population.",
+				sect19_title: "CARTOGRAMME DE LA POPULATION EN HAUTE-MARNE",
+				sect19_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN et de l'extension <em>Cartogram</em>.",
+				sect19_desc: "Très simpliste d'utilisation, j'ai juste eu à importer la couche des communes, lancer l'extension Cartogram et choisir le champ cible qui est la population.",
 
-				sect19_title: "AGAMOGRAPHE DE LA VILLE DE CHAUMONT",
-				sect19_prod: "",
-				sect19_desc: "",
+				sect20_title: "AGAMOGRAPHE DE LA VILLE DE CHAUMONT",
+				sect20_prod: "",
+				sect20_desc: "",
 
-				sect20_title: "CHAUMONT STYLE 'DESSIN'",
-				sect20_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN.",
-				sect20_desc: "Je voulais juste faire un test pour voir comment cela pouvait rendre et je ne trouve ça pas si moche.",
-
-				sect21_title: "CENTRE-VILLE DE CHAUMONT EN VUE ISOMÉTRIQUE",
+				sect21_title: "CHAUMONT STYLE 'DESSIN'",
 				sect21_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN.",
-				sect21_desc: "Cette carte est la continuité de la carte style 'dessin' avec un zoom sur le centre-ville et un visuel en vue isométrique et des batiments en 2.5D .",
+				sect21_desc: "Je voulais juste faire un test pour voir comment cela pouvait rendre et je ne trouve ça pas si moche.",
+				
+				sect22_title: "CENTRE-VILLE DE CHAUMONT EN VUE ISOMÉTRIQUE",
+				sect22_prod: "Cette carte a été produite via les données de la BDTOPO de l'IGN.",
+				sect22_desc: "Cette carte est la continuité de la carte style 'dessin' avec un zoom sur le centre-ville et un visuel en vue isométrique et des batiments en 2.5D .",
 
-				sect22_title: "SICILE",
-				sect22_prod: "Cette carte a été produite via les données de viewfinderpanoramas.org et des données en opendata de l'Italy.",
-				sect22_desc: "J'ai produit cette carte pour une collègue qui m'a demandé une carte sur la Sicile.",
+				sect23_title: "SICILE",
+				sect23_prod: "Cette carte a été produite via les données de viewfinderpanoramas.org et des données en opendata de l'Italy.",
+				sect23_desc: "J'ai produit cette carte pour une collègue qui m'a demandé une carte sur la Sicile.",
 
-				sect23_title: "KAZAKHSTAN",
-				sect23_prod: "Cette carte a été produite via les données de The Humanitarian Data Exchange pour les lacs et cours d'eau, Imagico.de pour l'élévation et Wikipédia pour les noms des villes et leur population.",
-				sect23_desc: "J'ai produit cette carte par envie d'en apprendre plus sur le Kazakhstan. J'ai aussi découvert comment faire un profil hypsométrique, ce qui était plutôt complexe. J'ai ajouté un style différent pour chaque ville en fonction de la population actuelle les hiérarchiser.",
+				sect24_title: "KAZAKHSTAN",
+				sect24_prod: "Cette carte a été produite via les données de The Humanitarian Data Exchange pour les lacs et cours d'eau, Imagico.de pour l'élévation et Wikipédia pour les noms des villes et leur population.",
+				sect24_desc: "J'ai produit cette carte par envie d'en apprendre plus sur le Kazakhstan. J'ai aussi découvert comment faire un profil hypsométrique, ce qui était plutôt complexe. J'ai ajouté un style différent pour chaque ville en fonction de la population actuelle les hiérarchiser.",
 
-				sect24_title: "VILLE DANS MON OEIL",
-				sect24_prod: "Cette vidéo a été produite uniquement sur QGIS.",
-				sect24_desc: "J'ai développé un script python pour créer des bâtiments qui reprennent la couleur de la surface de mon oeil sous eux, et qui en fonction de la zone sont plus ou moins haut (orange/bronze = très haut; bleu foncé = dense; reste = périurbain). Ensuite j'ai testé le rendu vidéo dans QGIS même avec la vue 3D; et je ne trouve ça pas si nul.",
+				sect25_title: "VILLE DANS MON OEIL",
+				sect25_prod: "Cette vidéo a été produite uniquement sur QGIS.",
+				sect25_desc: "J'ai développé un script python pour créer des bâtiments qui reprennent la couleur de la surface de mon oeil sous eux, et qui en fonction de la zone sont plus ou moins haut (orange/bronze = très haut; bleu foncé = dense; reste = périurbain). Ensuite j'ai testé le rendu vidéo dans QGIS même avec la vue 3D; et je ne trouve ça pas si nul.",
 
-				sect25_title: "LES CICATRICES DU FEU",
-				sect25_prod: "Cette carte a été produite via les données de Copernicus (EFFIS).",
-				sect25_desc: "J'ai produit cette carte suite aux news sur le feu à Fontainebleau en 2026.",
+				sect26_title: "LES CICATRICES DU FEU",
+				sect26_prod: "Cette carte a été produite via les données de Copernicus (EFFIS).",
+				sect26_desc: "J'ai produit cette carte suite aux news sur le feu à Fontainebleau en 2026.",
 
-				sect26_title: "CARTE TOURISTIQUE DE BESANÇON",
-				sect26_prod: "Cette carte a été produite via les données de LA BDTOPO de l'IGN et des données de la ville elle-même.",
-				sect26_desc: "J'ai produit cette carte pour une visite prochaine de la ville.",
+				sect27_title: "CARTE TOURISTIQUE DE BESANÇON",
+				sect27_prod: "Cette carte a été produite via les données de LA BDTOPO de l'IGN et des données de la ville elle-même.",
+				sect27_desc: "J'ai produit cette carte pour une visite prochaine de la ville.",
 
-				sect27_title: "LA HAUTE-MARNE EN LEGO",
-				sect27_prod: "Cette carte a été produite avec les outils de base de QGIS.",
-				sect27_desc: "J'ai produit cette carte par amusement d'une idée qui m'est passée par la tête.",
+				sect28_title: "LA HAUTE-MARNE EN LEGO",
+				sect28_prod: "Cette carte a été produite avec les outils de base de QGIS.",
+				sect28_desc: "J'ai produit cette carte par amusement d'une idée qui m'est passée par la tête.",
 				
 				v1: "Version 1",
 				v2: "Version 2",
@@ -236,21 +240,21 @@ const translations = {
 				sect16_prod: "This map was produced using data from INAO, Wikipedia and IGN's BDTOPO.",
 				sect16_desc: "I went through a lot of different styles and colors (simplified shapes, \"cork\" colors, etc.), but I settled on this one because I didn't want to stress about it anymore and I think it looks pretty good.<br><br>The most challenging part of this map was manually filtering the INAO CSV file with its 1.2 million lines. This means that I only have the PDO data on the map, not the PGI data (which would, for example, increase the size of Lorraine), purely out of laziness.<br><br>I had some ideas for decorating the map, but I abandoned them due to lack of time, as I had to print it before leaving for Australia.",
 
-				sect17_title: "THE HAUTE-MARNE AND ITS ELEVATION",
-				sect17_prod: "This map was produced using data from the BDALTI and BDTOPO databases of the IGN (French National Geographic Institute).",
-				sect17_desc: "I remembered that I love these styles and wanted to try creating them. Unfortunately, I didn't code anything myself; I found these styles on the QGIS website where someone had posted some code for the pre-defined geometry generator.",
-				sect17_carte1: "Joy-Division style",
-				sect17_carte2: "Violin-Elevation style ",
+				sect17_title: "",
+				sect17_prod: "",
+				sect17_desc: "",
+				
+				sect18_title: "THE HAUTE-MARNE AND ITS ELEVATION",
+				sect18_prod: "This map was produced using data from the BDALTI and BDTOPO databases of the IGN (French National Geographic Institute).",
+				sect18_desc: "I remembered that I love these styles and wanted to try creating them. Unfortunately, I didn't code anything myself; I found these styles on the QGIS website where someone had posted some code for the pre-defined geometry generator.",
+				sect18_carte1: "Joy-Division style",
+				sect18_carte2: "Violin-Elevation style ",
 
 				
-				sect18_title: "Population Map of Haute-Marne",
-				sect18_prod: "This map was produced using data from the IGN's BDTOPO database and the <em>Cartogram</em> extension.",
-				sect18_desc: "Very simple to use; I just had to import the municipalities layer, launch the Cartogram extension, and select the target field, which is population.",
-
-				sect19_title: "",
-				sect19_prod: "",
-				sect19_desc: "",
-
+				sect19_title: "Population Map of Haute-Marne",
+				sect19_prod: "This map was produced using data from the IGN's BDTOPO database and the <em>Cartogram</em> extension.",
+				sect19_desc: "Very simple to use; I just had to import the municipalities layer, launch the Cartogram extension, and select the target field, which is population.",
+				
 				sect20_title: "",
 				sect20_prod: "",
 				sect20_desc: "",
@@ -258,15 +262,15 @@ const translations = {
 				sect21_title: "",
 				sect21_prod: "",
 				sect21_desc: "",
-
+				
 				sect22_title: "",
 				sect22_prod: "",
 				sect22_desc: "",
-				
+
 				sect23_title: "",
 				sect23_prod: "",
 				sect23_desc: "",
-
+				
 				sect24_title: "",
 				sect24_prod: "",
 				sect24_desc: "",
@@ -274,14 +278,18 @@ const translations = {
 				sect25_title: "",
 				sect25_prod: "",
 				sect25_desc: "",
-				
+
 				sect26_title: "",
 				sect26_prod: "",
 				sect26_desc: "",
-								
+				
 				sect27_title: "",
 				sect27_prod: "",
 				sect27_desc: "",
+								
+				sect28_title: "",
+				sect28_prod: "",
+				sect28_desc: "",
 				
 				v1: "Version 1",
 				v2: "Version 2",
@@ -393,7 +401,7 @@ const translations = {
 				sect19_title: "",
 				sect19_prod: "",
 				sect19_desc: "",
-
+				
 				sect20_title: "",
 				sect20_prod: "",
 				sect20_desc: "",
@@ -417,7 +425,7 @@ const translations = {
 				sect25_title: "",
 				sect25_prod: "",
 				sect25_desc: "",
-								
+
 				sect26_title: "",
 				sect26_prod: "",
 				sect26_desc: "",
@@ -425,6 +433,10 @@ const translations = {
 				sect27_title: "",
 				sect27_prod: "",
 				sect27_desc: "",
+								
+				sect28_title: "",
+				sect28_prod: "",
+				sect28_desc: "",
 				
 				v1: "版本 1",
 				v2: "版本 2",
