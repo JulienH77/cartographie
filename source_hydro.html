@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sources — Observatoire Hydrologique (La Marne & Haute-Marne)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380;9..144,480;9..144,560&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root {
+    --bg: #0e1417;
+    --bg-elevated: #151c20;
+    --bg-elevated-2: #1a2226;
+    --line: rgba(232, 227, 216, 0.10);
+    --line-strong: rgba(232, 227, 216, 0.20);
+    --stone: #e8e3d8;
+    --stone-dim: #8d9598;
+    --stone-faint: #5c6467;
+    --spring: #72e4d3;
+    --spring-dim: rgba(114, 228, 211, 0.16);
+    --amber: #dba75a;
+    --amber-dim: rgba(219, 167, 90, 0.16);
+    --coral: #e2735a;
+    --coral-dim: rgba(226, 115, 90, 0.16);
+    --font-display: 'Fraunces', ui-serif, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --font-body: 'Public Sans', system-ui, sans-serif;
+    --wrap: 1040px;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--stone);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+  a { color: var(--spring); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  ::selection { background: var(--spring-dim); color: var(--stone); }
+
+  button, input { font-family: inherit; }
+  button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--spring);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Header / Hero ---------- */
+  .hero { padding: 56px 0 28px; opacity: 0; transform: translateY(10px); animation: rise .7s ease-out .05s forwards; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--stone-dim);
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before { content: ""; width: 16px; height: 1px; background: var(--stone-faint); display: inline-block; }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 480;
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: .98;
+    letter-spacing: -.01em;
+    margin: 0 0 20px;
+    color: var(--stone);
+  }
+  .title em { font-style: italic; font-weight: 380; color: var(--spring); }
+  .lede {
+    max-width: 640px;
+    font-size: 16.5px;
+    color: var(--stone-dim);
+    margin: 0 0 24px;
+  }
+  .lede b { color: var(--stone); font-weight: 500; }
+  .sync {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--stone-faint);
+    margin: 0;
+  }
+  .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--spring);
+    position: relative; flex: none;
+  }
+  .pulse-dot::after {
+    content: "";
+    position: absolute; inset: -5px;
+    border-radius: 50%;
+    border: 1px solid var(--spring);
+    animation: ring 2.4s ease-out infinite;
+  }
+
+  /* ---------- Filter / View Controls ---------- */
+  .controls {
+    margin: 24px 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mode-switch {
+    display: flex;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .mode-btn {
+    background: transparent;
+    border: none;
+    color: var(--stone-dim);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .mode-btn:hover { color: var(--stone); background: var(--bg-elevated-2); }
+  .mode-btn.is-active { background: var(--spring-dim); color: var(--spring); font-weight: 600; }
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    min-width: 240px;
+    max-width: 360px;
+  }
+  .search-box input {
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 8px 12px 8px 34px;
+    color: var(--stone);
+    font-size: 13.5px;
+    transition: border-color .15s ease;
+  }
+  .search-box input:focus { border-color: var(--spring); }
+  .search-box::before {
+    content: "🔍";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  /* ---------- Map Container ---------- */
+  .map-section {
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-elevated);
+  }
+  #map {
+    height: 320px;
+    width: 100%;
+    background: #090d0f;
+  }
+
+  /* Leaflet Custom Overrides */
+  .leaflet-container { background: #090d0f !important; font-family: var(--font-body) !important; }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: var(--bg-elevated) !important;
+    color: var(--stone) !important;
+    border: 1px solid var(--line-strong) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+    border-radius: 4px !important;
+  }
+  .leaflet-popup-content { margin: 12px 14px !important; font-size: 13px !important; }
+
+  /* ---------- Station List / Grid ---------- */
+  .station-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--stone-dim);
+  }
+  .stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 2px;
+    margin-bottom: 24px;
+  }
+  /* Custom Scrollbar */
+  .stations-grid::-webkit-scrollbar { width: 6px; }
+  .stations-grid::-webkit-scrollbar-track { background: var(--bg-elevated); border-radius: 3px; }
+  .stations-grid::-webkit-scrollbar-thumb { background: var(--stone-faint); border-radius: 3px; }
+
+  .station-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all .15s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .station-card:hover { background: var(--bg-elevated-2); border-color: var(--line-strong); }
+  .station-card.is-active { background: var(--bg-elevated-2); border-color: var(--spring); }
+  
+  .card-river {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--stone);
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .station-card.is-active .card-river { color: var(--spring); }
+  .card-place {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--stone-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-tags {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    color: var(--stone-dim);
+  }
+  .card-tag.is-source { border-color: var(--spring-dim); color: var(--spring); background: rgba(114,228,211,0.06); }
+
+  /* ---------- Detail Panel ---------- */
+  .detail {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 28px 24px;
+    background: var(--bg-elevated);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .detail-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; margin-bottom: 24px;
+  }
+  .detail-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--stone-faint);
+    margin: 0 0 4px;
+  }
+  .detail-name {
+    font-family: var(--font-display);
+    font-weight: 480;
+    font-size: 26px;
+    margin: 0;
+    color: var(--stone);
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    padding: 5px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .badge[data-state="etiage"] { background: var(--amber-dim); color: var(--amber); }
+  .badge[data-state="normal"] { background: var(--spring-dim); color: var(--spring); }
+  .badge[data-state="hautes-eaux"] { background: var(--coral-dim); color: var(--coral); }
+  .badge[data-state="inconnu"] { background: rgba(255,255,255,0.05); color: var(--stone-dim); }
+
+  .detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .metric {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.15);
+  }
+  .metric-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--stone-faint);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 6px;
+  }
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--stone);
+  }
+  .metric-value small {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--stone-dim);
+    margin-left: 2px;
+  }
+
+  .spark-wrap { position: relative; margin-top: 8px; }
+  .spark-label {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--stone-faint);
+    margin-bottom: 8px;
+  }
+  .sparkline { width: 100%; height: 80px; display: block; }
+  .spark-path { fill: none; stroke: var(--spring); stroke-width: 1.5; }
+  .spark-fill { fill: url(#sparkFill); stroke: none; }
+  .spark-dot { fill: var(--spring); }
+
+  .loading-overlay {
+    position: absolute; inset: 0; background: rgba(14, 20, 23, 0.7);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 13px; color: var(--spring);
+    border-radius: 4px; backdrop-filter: blur(2px);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin: 40px 0 60px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--stone-faint);
+  }
+  footer a { color: var(--stone-dim); }
+
+  /* ---------- Animations ---------- */
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  @keyframes ring {
+    0% { transform: scale(.6); opacity: .9; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 16px; }
+    .hero { padding: 36px 0 20px; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .search-box { max-width: 100%; }
+    .detail-metrics { grid-template-columns: 1fr; }
+    .detail-head { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">hydrométrie en direct · hub'eau api · bassin seine-normandie & meuse</p>
+    <h1 class="title">S<em>ources</em> & Rivières</h1>
+    <p class="lede">
+      Observatoire des cours d'eau de <b>Haute-Marne (52)</b> et du fil complet de <b>la Marne</b>, de sa source sur le plateau de Langres jusqu'à sa confluence avec la Seine.
+    </p>
+    <p class="sync" id="sync-status">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span id="sync-text">Connexion à Hub'Eau API...</span>
+    </p>
+  </header>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="mode-switch" role="tablist" aria-label="Mode d'affichage">
+      <button class="mode-btn is-active" id="btn-mode-marne" onclick="setMode('marne')">
+        📍 La Marne (Source → Mer)
+      </button>
+      <button class="mode-btn" id="btn-mode-dept" onclick="setMode('dept52')">
+        🏛️ Haute-Marne (Dép. 52)
+      </button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Rechercher une commune, station..." oninput="onSearchChange(this.value)">
+    </div>
+  </div>
+
+  <!-- Interactive Map -->
+  <section class="map-section">
+    <div id="map"></div>
+  </section>
+
+  <!-- Stations List -->
+  <div class="station-list-header">
+    <span id="stations-count">Chargement des stations...</span>
+    <span>Ordre amont ➔ aval</span>
+  </div>
+
+  <div class="stations-grid" id="stations-container">
+    <!-- Station cards generated dynamically -->
+  </div>
+
+  <!-- Detail Panel -->
+  <section class="detail" id="detail-panel" aria-live="polite">
+    <div class="loading-overlay" id="detail-loader" style="display:none;">
+      <span>Chargement des télémesures TR...</span>
+    </div>
+
+    <div class="detail-head">
+      <div>
+        <p class="detail-eyebrow">station <span id="detail-code">--</span> · <span id="detail-commune">--</span></p>
+        <h2 class="detail-name" id="detail-name">Sélectionnez une station</h2>
+      </div>
+      <span class="badge" id="detail-badge" data-state="inconnu">--</span>
+    </div>
+
+    <div class="detail-metrics">
+      <div class="metric">
+        <span class="metric-label">hauteur d'eau</span>
+        <span class="metric-value" id="detail-height">-- <small>cm</small></span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">débit instantané</span>
+        <span class="metric-value" id="detail-flow">-- <small>m³/s</small></span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">dernière mesure</span>
+        <span class="metric-value" id="detail-date" style="font-size: 18px; margin-top: 4px;">--</span>
+      </div>
+    </div>
+
+    <div class="spark-wrap">
+      <div class="spark-label">
+        <span>Chronique de hauteur (dernières observations)</span>
+        <span id="spark-range">--</span>
+      </div>
+      <svg class="sparkline" id="sparkline" viewBox="0 0 600 80" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--spring)" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="var(--spring)" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="spark-fill" id="spark-fill-path" d=""/>
+        <path class="spark-path" id="spark-line-path" d=""/>
+        <circle class="spark-dot" id="spark-dot" r="4" cx="0" cy="0"/>
+      </svg>
+    </div>
+  </section>
+
+  <footer>
+    <p>données temps réel — API Hydrométrie, <a href="https://hubeau.eaufrance.fr/page/api-hydrometrie" target="_blank" rel="noopener">Hub'Eau</a> / Service Central Vigicrues</p>
+    <p><a href="https://github.com" target="_blank" rel="noopener">Code source sur GitHub</a> · Licence Ouverte</p>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const API_STATIONS = "https://hubeau.eaufrance.fr/api/v1/hydrometrie/referentiel/stations";
+  const API_OBS = "https://hubeau.eaufrance.fr/api/v1/hydrometrie/observations_tr";
+
+  let currentMode = 'marne'; // 'marne' or 'dept52'
+  let rawStations = [];
+  let filteredStations = [];
+  let selectedCode = null;
+  let map = null;
+  let mapMarkers = {};
+
+  // Initialize Map
+  function initMap() {
+    map = L.map('map', {
+      zoomControl: true,
+      attributionControl: false
+    }).setView([48.5, 3.8], 8);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 18,
+      subdomains: 'abcd'
+    }).addTo(map);
+  }
+
+  // Load Station Referentiel
+  async function loadStations(mode) {
+    currentMode = mode;
+    const syncText = document.getElementById("sync-text");
+    syncText.textContent = "Chargement des stations depuis Hub'Eau...";
+
+    let endpoint = "";
+    if (mode === 'marne') {
+      endpoint = `${API_STATIONS}?libelle_cours_eau=Marne&en_service=true&size=1000`;
+    } else {
+      endpoint = `${API_STATIONS}?code_departement=52&en_service=true&size=1000`;
+    }
+
+    try {
+      const resp = await fetch(endpoint);
+      const data = await resp.json();
+      
+      // Filter out stations without coordinates
+      rawStations = (data.data || []).filter(s => s.latitude && s.longitude);
+
+      // Sort south -> north (approx upstream to downstream for Marne & Dept 52)
+      rawStations.sort((a, b) => a.latitude - b.latitude);
+
+      syncText.textContent = `Synchronisé — ${rawStations.length} stations actives`;
+      
+      filterAndRenderStations();
+
+      if (filteredStations.length > 0) {
+        selectStation(filteredStations[0].code_station);
+      }
+    } catch (err) {
+      console.error("Error loading stations:", err);
+      syncText.textContent = "Erreur de connexion Hub'Eau API";
+    }
+  }
+
+  function setMode(mode) {
+    if (mode === currentMode) return;
+    document.getElementById("btn-mode-marne").classList.toggle("is-active", mode === 'marne');
+    document.getElementById("btn-mode-dept").classList.toggle("is-active", mode === 'dept52');
+    document.getElementById("search-input").value = "";
+    loadStations(mode);
+  }
+
+  function onSearchChange(term) {
+    filterAndRenderStations(term);
+  }
+
+  function filterAndRenderStations(searchTerm = "") {
+    const query = searchTerm.toLowerCase().trim();
+    
+    if (!query) {
+      filteredStations = [...rawStations];
+    } else {
+      filteredStations = rawStations.filter(s => 
+        (s.libelle_station && s.libelle_station.toLowerCase().includes(query)) ||
+        (s.libelle_commune && s.libelle_commune.toLowerCase().includes(query)) ||
+        (s.libelle_cours_eau && s.libelle_cours_eau.toLowerCase().includes(query)) ||
+        (s.code_station && s.code_station.toLowerCase().includes(query))
+      );
+    }
+
+    document.getElementById("stations-count").textContent = `${filteredStations.length} station${filteredStations.length > 1 ? 's' : ''}`;
+
+    renderStationCards();
+    updateMapMarkers();
+  }
+
+  function renderStationCards() {
+    const container = document.getElementById("stations-container");
+    container.innerHTML = "";
+
+    if (filteredStations.length === 0) {
+      container.innerHTML = `<p style="padding:20px; color:var(--stone-dim); grid-column:1/-1;">Aucune station ne correspond à votre recherche.</p>`;
+      return;
+    }
+
+    filteredStations.forEach((s, idx) => {
+      const isSource = s.libelle_commune === "Balesmes-sur-Marne" || idx === 0;
+      const card = document.createElement("button");
+      card.className = `station-card ${s.code_station === selectedCode ? 'is-active' : ''}`;
+      card.dataset.code = s.code_station;
+      card.onclick = () => selectStation(s.code_station);
+
+      card.innerHTML = `
+        <div>
+          <div class="card-river">
+            <span>${s.libelle_cours_eau || 'Cours d'eau'}</span>
+          </div>
+          <div class="card-place">${s.libelle_commune || s.libelle_station}</div>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">${s.code_station}</span>
+          ${isSource && currentMode === 'marne' ? '<span class="card-tag is-source">Source</span>' : ''}
+          ${s.code_departement ? `<span class="card-tag">Dép. ${s.code_departement}</span>` : ''}
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function updateMapMarkers() {
+    // Clear old markers
+    Object.values(mapMarkers).forEach(m => map.removeLayer(m));
+    mapMarkers = {};
+
+    const bounds = L.latLngBounds();
+
+    filteredStations.forEach(s => {
+      const lat = s.latitude;
+      const lng = s.longitude;
+      bounds.extend([lat, lng]);
+
+      const isSelected = s.code_station === selectedCode;
+
+      const marker = L.circleMarker([lat, lng], {
+        radius: isSelected ? 8 : 5,
+        fillColor: isSelected ? "#72e4d3" : "#dba75a",
+        color: "#0e1417",
+        weight: 1.5,
+        opacity: 0.9,
+        fillOpacity: 0.85
+      }).addTo(map);
+
+      marker.bindTooltip(`<b>${s.libelle_cours_eau || ''}</b><br>${s.libelle_commune || s.libelle_station}`, {
+        direction: 'top',
+        offset: [0, -6]
+      });
+
+      marker.on('click', () => selectStation(s.code_station));
+
+      mapMarkers[s.code_station] = marker;
+    });
+
+    if (filteredStations.length > 0) {
+      map.fitBounds(bounds, { padding: [30, 30], maxZoom: 11 });
+    }
+  }
+
+  async function selectStation(code) {
+    selectedCode = code;
+
+    // Update UI selection state
+    document.querySelectorAll(".station-card").forEach(c => {
+      c.classList.toggle("is-active", c.dataset.code === code);
+    });
+
+    // Update map marker highlights
+    Object.entries(mapMarkers).forEach(([mCode, marker]) => {
+      const isSelected = mCode === code;
+      marker.setStyle({
+        radius: isSelected ? 9 : 5,
+        fillColor: isSelected ? "#72e4d3" : "#dba75a"
+      });
+      if (isSelected) marker.bringToFront();
+    });
+
+    const station = rawStations.find(s => s.code_station === code);
+    if (!station) return;
+
+    // Pan map smoothly to station
+    map.panTo([station.latitude, station.longitude], { animate: true });
+
+    // Update Detail Panel Header
+    document.getElementById("detail-code").textContent = station.code_station;
+    document.getElementById("detail-commune").textContent = station.libelle_commune || station.libelle_departement || "";
+    document.getElementById("detail-name").textContent = `${station.libelle_cours_eau || 'Rivière'} — ${station.libelle_station}`;
+
+    // Fetch Real-time Telemetry Observations
+    fetchObservations(code);
+  }
+
+  async function fetchObservations(code) {
+    const loader = document.getElementById("detail-loader");
+    loader.style.display = "flex";
+
+    try {
+      // Fetch recent 60 observations
+      const url = `${API_OBS}?code_entite=${code}&size=80&fields=grandeur_hydro,resultat_obs,date_obs`;
+      const resp = await fetch(url);
+      const res = await resp.json();
+
+      const observations = res.data || [];
+
+      const heightObs = observations.filter(o => o.grandeur_hydro === 'H');
+      const flowObs = observations.filter(o => o.grandeur_hydro === 'Q');
+
+      // Latest Height (H is in mm in Hub'Eau, convert to cm)
+      if (heightObs.length > 0) {
+        const latestH = (heightObs[0].resultat_obs / 10).toFixed(0);
+        document.getElementById("detail-height").innerHTML = `${latestH} <small>cm</small>`;
+        
+        const obsDate = new Date(heightObs[0].date_obs);
+        document.getElementById("detail-date").textContent = obsDate.toLocaleTimeString("fr-FR", { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' });
+      } else {
+        document.getElementById("detail-height").innerHTML = `-- <small>cm</small>`;
+      }
+
+      // Latest Flow (Q is in l/s in Hub'Eau, convert to m³/s if large or keep l/s)
+      if (flowObs.length > 0) {
+        const flowVal = flowObs[0].resultat_obs; // in l/s
+        if (flowVal >= 1000) {
+          const m3s = (flowVal / 1000).toFixed(2);
+          document.getElementById("detail-flow").innerHTML = `${m3s} <small>m³/s</small>`;
+        } else {
+          document.getElementById("detail-flow").innerHTML = `${Math.round(flowVal)} <small>l/s</small>`;
+        }
+      } else {
+        document.getElementById("detail-flow").innerHTML = `-- <small>l/s</small>`;
+      }
+
+      // Badge status estimation
+      const badge = document.getElementById("detail-badge");
+      if (heightObs.length > 0) {
+        badge.textContent = "En service";
+        badge.dataset.state = "normal";
+      } else {
+        badge.textContent = "Sans donnée TR";
+        badge.dataset.state = "inconnu";
+      }
+
+      // Sparkline rendering
+      if (heightObs.length > 1) {
+        // Reverse so chronological order (old -> new)
+        const heights = heightObs.map(o => o.resultat_obs / 10).reverse();
+        renderSparkline(heights);
+      } else {
+        clearSparkline();
+      }
+
+    } catch (err) {
+      console.error("Error fetching observations:", err);
+    } finally {
+      loader.style.display = "none";
+    }
+  }
+
+  function renderSparkline(values) {
+    const w = 600, h = 80, pad = 8;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = Math.max(max - min, 1);
+    const stepX = (w - pad * 2) / (values.length - 1);
+
+    const pts = values.map((v, i) => [
+      pad + i * stepX,
+      h - pad - ((v - min) / range) * (h - pad * 2)
+    ]);
+
+    const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+    const fill = `${line} L${pts[pts.length - 1][0].toFixed(1)},${h} L${pts[0][0].toFixed(1)},${h} Z`;
+
+    document.getElementById("spark-line-path").setAttribute("d", line);
+    document.getElementById("spark-fill-path").setAttribute("d", fill);
+    document.getElementById("spark-dot").setAttribute("cx", pts[pts.length - 1][0].toFixed(1));
+    document.getElementById("spark-dot").setAttribute("cy", pts[pts.length - 1][1].toFixed(1));
+    document.getElementById("spark-range").textContent = `Min ${Math.round(min)} cm — Max ${Math.round(max)} cm`;
+  }
+
+  function clearSparkline() {
+    document.getElementById("spark-line-path").setAttribute("d", "");
+    document.getElementById("spark-fill-path").setAttribute("d", "");
+    document.getElementById("spark-range").textContent = "Chronique non disponible";
+  }
+
+  // App Init
+  document.addEventListener("DOMContentLoaded", () => {
+    initMap();
+    loadStations('marne');
+  });
+</script>
+
+</body>
+</html>
