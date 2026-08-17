@@ -486,7 +486,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  const API_STATIONS = "https://hubeau.eaufrance.fr/api/v1/hydrometrie/referentiel/stations";
+const API_STATIONS = "https://hubeau.eaufrance.fr/api/v1/hydrometrie/referentiel/stations";
   const API_OBS = "https://hubeau.eaufrance.fr/api/v1/hydrometrie/observations_tr";
 
   let currentMode = 'marne'; // 'marne' or 'dept52'
@@ -517,19 +517,32 @@
 
     let endpoint = "";
     if (mode === 'marne') {
-      endpoint = `${API_STATIONS}?libelle_cours_eau=Marne&en_service=true&size=1000`;
+      // Dans Hub'Eau, la Marne est enregistrée sous "la Marne" ou "Marne"
+      endpoint = `${API_STATIONS}?libelle_cours_eau=la Marne&en_service=1&size=1000`;
     } else {
-      endpoint = `${API_STATIONS}?code_departement=52&en_service=true&size=1000`;
+      endpoint = `${API_STATIONS}?code_departement=52&en_service=1&size=1000`;
     }
 
     try {
       const resp = await fetch(endpoint);
+      if (!resp.ok) {
+        throw new Error(`Erreur HTTP ${resp.status}`);
+      }
       const data = await resp.json();
       
-      // Filter out stations without coordinates
-      rawStations = (data.data || []).filter(s => s.latitude && s.longitude);
+      let stations = data.data || [];
 
-      // Sort south -> north (approx upstream to downstream for Marne & Dept 52)
+      // Fallback si "la Marne" ne renvoie rien : essayer avec juste "Marne"
+      if (mode === 'marne' && stations.length === 0) {
+        const fallbackResp = await fetch(`${API_STATIONS}?libelle_cours_eau=Marne&en_service=1&size=1000`);
+        const fallbackData = await fallbackResp.json();
+        stations = fallbackData.data || [];
+      }
+
+      // Filtrer les stations ayant des coordonnées valides
+      rawStations = stations.filter(s => s.latitude && s.longitude);
+
+      // Tri Sud -> Nord (Amont vers Aval)
       rawStations.sort((a, b) => a.latitude - b.latitude);
 
       syncText.textContent = `Synchronisé — ${rawStations.length} stations actives`;
@@ -541,7 +554,11 @@
       }
     } catch (err) {
       console.error("Error loading stations:", err);
-      syncText.textContent = "Erreur de connexion Hub'Eau API";
+      if (window.location.protocol === 'file:') {
+        syncText.textContent = "⚠️ Erreur 403 : Veuillez ouvrir ce fichier via un serveur local (ex: http://localhost:8000)";
+      } else {
+        syncText.textContent = "Erreur de connexion à l'API Hub'Eau";
+      }
     }
   }
 
@@ -596,7 +613,7 @@
       card.innerHTML = `
         <div>
           <div class="card-river">
-            <span>${s.libelle_cours_eau || 'Cours d'eau'}</span>
+            <span>${s.libelle_cours_eau || "Cours d'eau"}</span>
           </div>
           <div class="card-place">${s.libelle_commune || s.libelle_station}</div>
         </div>
@@ -611,7 +628,6 @@
   }
 
   function updateMapMarkers() {
-    // Clear old markers
     Object.values(mapMarkers).forEach(m => map.removeLayer(m));
     mapMarkers = {};
 
@@ -651,12 +667,10 @@
   async function selectStation(code) {
     selectedCode = code;
 
-    // Update UI selection state
     document.querySelectorAll(".station-card").forEach(c => {
       c.classList.toggle("is-active", c.dataset.code === code);
     });
 
-    // Update map marker highlights
     Object.entries(mapMarkers).forEach(([mCode, marker]) => {
       const isSelected = mCode === code;
       marker.setStyle({
@@ -669,15 +683,12 @@
     const station = rawStations.find(s => s.code_station === code);
     if (!station) return;
 
-    // Pan map smoothly to station
     map.panTo([station.latitude, station.longitude], { animate: true });
 
-    // Update Detail Panel Header
     document.getElementById("detail-code").textContent = station.code_station;
     document.getElementById("detail-commune").textContent = station.libelle_commune || station.libelle_departement || "";
     document.getElementById("detail-name").textContent = `${station.libelle_cours_eau || 'Rivière'} — ${station.libelle_station}`;
 
-    // Fetch Real-time Telemetry Observations
     fetchObservations(code);
   }
 
@@ -686,7 +697,6 @@
     loader.style.display = "flex";
 
     try {
-      // Fetch recent 60 observations
       const url = `${API_OBS}?code_entite=${code}&size=80&fields=grandeur_hydro,resultat_obs,date_obs`;
       const resp = await fetch(url);
       const res = await resp.json();
@@ -696,7 +706,6 @@
       const heightObs = observations.filter(o => o.grandeur_hydro === 'H');
       const flowObs = observations.filter(o => o.grandeur_hydro === 'Q');
 
-      // Latest Height (H is in mm in Hub'Eau, convert to cm)
       if (heightObs.length > 0) {
         const latestH = (heightObs[0].resultat_obs / 10).toFixed(0);
         document.getElementById("detail-height").innerHTML = `${latestH} <small>cm</small>`;
@@ -707,9 +716,8 @@
         document.getElementById("detail-height").innerHTML = `-- <small>cm</small>`;
       }
 
-      // Latest Flow (Q is in l/s in Hub'Eau, convert to m³/s if large or keep l/s)
       if (flowObs.length > 0) {
-        const flowVal = flowObs[0].resultat_obs; // in l/s
+        const flowVal = flowObs[0].resultat_obs;
         if (flowVal >= 1000) {
           const m3s = (flowVal / 1000).toFixed(2);
           document.getElementById("detail-flow").innerHTML = `${m3s} <small>m³/s</small>`;
@@ -720,7 +728,6 @@
         document.getElementById("detail-flow").innerHTML = `-- <small>l/s</small>`;
       }
 
-      // Badge status estimation
       const badge = document.getElementById("detail-badge");
       if (heightObs.length > 0) {
         badge.textContent = "En service";
@@ -730,9 +737,7 @@
         badge.dataset.state = "inconnu";
       }
 
-      // Sparkline rendering
       if (heightObs.length > 1) {
-        // Reverse so chronological order (old -> new)
         const heights = heightObs.map(o => o.resultat_obs / 10).reverse();
         renderSparkline(heights);
       } else {
